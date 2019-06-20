@@ -1787,6 +1787,11 @@ table.dataTable thead .sorting_desc_disabled:after,
 .content.content-full-width . {
 	margin: 0 20px 0 0;
 }
+.container evaluacion{
+	display: grid;  
+    grid-template-columns: 100px 100px 100px;  
+    grid-template-rows: 50px 50px; 
+}
 .content.content-inverse-mode h1,
 .content.content-inverse-mode h2,
 .content.content-inverse-mode h3,
@@ -10008,14 +10013,15 @@ a.inverse-mode.widget-card {
 
 /* 7.9 Page - Login V2 (Added in V1.2)  */
 
+
 .login.login-v2 {
-	color: #ccc;
-	width: 400px;
-	margin: 168px 0 0 -200px;
-	position: absolute;
-	top: 0;
-	left: 50%;
-	border-radius: 4px;
+	color:#ccc;
+	width:400px;
+	margin:120px 0 0 -200px;
+	position:absolute;
+	top:0;
+	left:50%;
+	border-radius:4px
 }
 .login.login-v2 a {
 	color: #fff;
@@ -10029,7 +10035,7 @@ a.inverse-mode.widget-card {
 }
 .login.login-v2 .login-header {
 	width: 400px;
-	padding: 0 20px;
+	padding: 20 20px;
 	margin: 0;
 	top: 0;
 	left: 0;

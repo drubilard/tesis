@@ -30,13 +30,18 @@ class datos_model extends CI_Model
     	$this->db->insert('patologias_habitos',$data);
     }
     public function insertar_alimento($data=array()){
-    	$this->db->insert('alimentos',$data);
+    	$this->db->insert('alimento',$data);
     }
     public function insertar_preparacion($data=array()){
-    	$this->db->insert('preparaciones',$data);
+    	$this->db->insert('preparacion',$data);
     }
     public function insertar_paciente($data=array()){
-    	$this->db->insert('pacientes',$data);
+    	$this->db->insert('paciente',$data);
+    	return $this->db->insert_id();
+    
+	}
+	public function insertar_nutricionista($data=array()){
+    	$this->db->insert('nutricionista',$data);
     	return $this->db->insert_id();
     
 	}
@@ -44,31 +49,25 @@ class datos_model extends CI_Model
 		$clave=sha1($clave);
 		$query=$this->db
 				->select("*")
-				->from("usuarios")
+				->from("nutricionista")
 				->where(array("usuario"=>$user,"clave"=>$clave))
 				->get();
-
+				//echo $this->db->last_query();die;
 		return $query->row();
 	}
-	public function consulta_correo($correo){
-		$query=$this->db->select('*')
-			->from("pacientes")
-			->where("email",$correo)
-			->get();
-		return $query->result();
-	}
 	public function consulta_usuario($usuario){
+		$usuario_sha1=sha1($usuaio);
 		$query=$this->db->select('*')
-			->from("usuarios")
-			->where("usuario",$usuario)
+			->from("nutricionista")
+			->where("usuario",$usuario_sha1)
 			->get();
 		return $query->result();
 	}
-	public function get_all_pacientes(){
-		$query=$this->db
-				->select("*")
-				->from("pacientes")
-				->get();
+	public function consultar_rut_paciente($rut){
+		$query=$this->db->select('*')
+			->from("paciente")
+			->where("rut",$rut)
+			->get();
 		return $query->result();
 	}
 
@@ -79,32 +78,21 @@ class datos_model extends CI_Model
 		return $this->db->last_query();
 	}
 
-	public function get_administrativos($mes){
-		$query=$this->db->select("u.nombre, u.apellido, a.fecha_admin")
-			->from("usuarios as u, administrativos as a")
-			->where("date_format(a.fecha_admin,'%m')=$mes and u.id=a.id_usuario")
-			->get();
-		return $query->result();
-	}
-
-	public function get_cont_administrativos($mes){
-		$query=$this->db->select('count(*) as contador')
-			->from('administrativos as a, usuarios as u')
-			->where("date_format(a.fecha_admin,'%m')=$mes and u.id=a.id_usuario")
-			->get();
-		return $query->row();
+	public function delete_paciente($id){
+		$this->db->where('rut',$id);
+        $this->db->delete('paciente');
 	}
 	public function delete_pat_hab($id){
 		$this->db->where('id',$id);
         $this->db->delete('patologias_habitos');
 	}
 	public function delete_alimento($id){
-		$this->db->where('id',$id);
-        $this->db->delete('alimentos');
+		$this->db->where('idAlimento',$id);
+        $this->db->delete('alimento');
 	}
 	public function delete_preparacion($id){
-		$this->db->where('id',$id);
-        $this->db->delete('preparaciones');
+		$this->db->where('idpreparacion',$id);
+        $this->db->delete('preparacion');
 	}
 	public function get_pat_hab_id($id){
 		$query=$this->db
@@ -118,8 +106,8 @@ class datos_model extends CI_Model
 	public function get_alimento_id($id){
 		$query=$this->db
                 ->select("*")
-                ->from("alimentos")
-                ->where(array("id"=>$id))
+                ->from("alimento")
+                ->where(array("idAlimento"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
         return $query->row();
@@ -127,8 +115,8 @@ class datos_model extends CI_Model
 	public function get_preparacion_id($id){
 		$query=$this->db
                 ->select("*")
-                ->from("preparaciones")
-                ->where(array("id"=>$id))
+                ->from("preparacion")
+                ->where(array("idpreparacion"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
         return $query->row();
@@ -138,33 +126,12 @@ class datos_model extends CI_Model
 				->update('patologias_habitos',$data);
 	}
 	public function update_alimento($data=array(),$id){
-		$this->db->where('id',$id)
-				->update('alimentos',$data);
+		$this->db->where('idAlimento',$id)
+				->update('alimento',$data);
 	}
 	public function update_preparacion($data=array(),$id){
-		$this->db->where('id',$id)
-				->update('preparaciones',$data);
-	}
-	public function get_patologias(){
-		$query=$this->db->select('*')
-				->from('patologias_habitos')
-				->where('tipo',1)
-				->get();
-			return $query->result();
-	}
-	public function get_habitos(){
-		$query=$this->db->select('*')
-				->from('patologias_habitos')
-				->where('tipo',2)
-				->get();
-			return $query->result();
-	}
-	public function get_paciente_por_rut($rut){
-		$query=$this->db->select("*")
-				->from('pacientes')
-				->where('rut_paciente',$rut)
-				->get();
-		return $query->row();
+		$this->db->where('idpreparacion',$id)
+				->update('preparacion',$data);
 	}
 	public function get_last_paciente(){
 		$query=$this->db->select("*")
@@ -196,48 +163,111 @@ class datos_model extends CI_Model
 		$this->db->insert('ficha_clinica',$data);
 	}
 
-	public function getTodosPaginacion_alimentos($pagina,$porpagina,$quehago){
+	public function getTodosPaginacion_pacientes($buscar="",$pagina,$porpagina,$quehago,$rut){
         switch($quehago)
         {
             case 'limit':
                 $query=$this->db
                         ->select("*")
-                        ->from("alimentos")
-                        ->limit($porpagina,$pagina)
-                        ->order_by("opcion","desc")
+						->from("paciente")
+						->where('Nutricionista_rut',$rut)
+						->limit($porpagina,$pagina)
+						->like('nombre',$buscar,'after')
+                        ->order_by("nombre","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("paciente")
+						->like('nombre',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function get_paciente_por_rut($rut){
+		$query=$this->db->select("*")
+				->from('paciente')
+				->where('rut',$rut)
+				->get();
+		return $query->row();
+	}
+	public function update_paciente($data=array(),$id){
+		$this->db->where('rut',$id)
+				->update('paciente',$data);
+	}	
+	public function getTodosPaginacion_patologias($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("patologia")
+						->limit($porpagina,$pagina)
+						->like('nombre',$buscar,'after')
+                        ->order_by("nombre","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("paciente")
+						->like('nombre',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+    }
+
+	public function getTodosPaginacion_alimentos($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+                        ->from("alimento")
+						->limit($porpagina,$pagina)
+						->like('nombre',$buscar,'after')
+                        ->order_by("nombre","asc")
                         ->get();
                 return $query->result();        
             break;
             case 'cuantos':
                 $query=$this->db
                         ->select("*")
-                        ->from("alimentos")
+						->from("alimento")
+						->like('nombre',$buscar,'after')
                         ->count_all_results();
                 return $query;
             break;
         }
     }
-    public function getTodosPaginacion_preparaciones($pagina,$porpagina,$quehago){
+    public function getTodosPaginacion_preparaciones($buscar="",$pagina,$porpagina,$quehago){
         switch($quehago)
         {
             case 'limit':
                 $query=$this->db
                         ->select("*")
-                        ->from("preparaciones")
-                        ->limit($porpagina,$pagina)
-                        ->order_by("tipo","asc")
+                        ->from("preparacion")
+						->limit($porpagina,$pagina)
+						->like('nombre',$buscar,'after')
+                        ->order_by("nombre","asc")
                         ->get();
                 return $query->result();        
             break;
             case 'cuantos':
                 $query=$this->db
                         ->select("*")
-                        ->from("preparaciones")
+						->from("preparacion")
+						->like('nombre',$buscar,'after')
                         ->count_all_results();
                 return $query;
             break;
         }
-    }
+	}
     public function get_all_alimentos(){
     	$query=$this->db->select('*')
     			->from('alimentos')
@@ -247,7 +277,7 @@ class datos_model extends CI_Model
     }
      public function get_all_preparaciones(){
      	$query=$this->db->select('*')
-     		->from('preparaciones')
+     		->from('preparacion')
      		->order_by("tipo","desc")
      		->get();
      		return $query->result();

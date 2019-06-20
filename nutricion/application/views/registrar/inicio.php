@@ -38,89 +38,39 @@
 	<!-- end login-cover -->
 	
 	<!-- begin #page-container -->
-	
-	<div id="header" class="header navbar-default">
-			<!-- begin navbar-header -->
-			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Editar alimento</a>
-			</div>
-		</div>
-		<div id="header" class="header navbar-default">
-			<nav aria-label="breadcrumb">
-  				<ol class="breadcrumb">
-				  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar	"><strong>Administrar</strong></a></li>
-					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
-					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_alimentos"><strong>Gestión de alimentos</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Editar alimento</li>
-  				</ol>
-			</nav>  			
-			
-		</div>
+    
 
-	<div class="container-fluid" class="">
+	<div id="page-container" class="fade">
 		<!-- begin login -->
 		<div class="login login-v2 " data-pageload-addclass="animated fadeIn ">
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Alimento
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Inicio
 				</div>
 
 			</div>
 			<br>
+				<?php 
+					$errors=validation_errors('<li>','</li>');
+					if ($errors !="") {?>
+						<div class="alert alert-danger">
+							<ul>
+								<?php echo $errors;?>
+							</ul>
+						</div>
 
+							<?php }?>
+				<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
+					echo $this->session->flashdata('mensaje');?>		
+				</div>
 			
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
-				<div class="login-buttons row animated bounceIn">
-						
-				<div class="container">
-					<?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
-						<?php 
-							$errors=validation_errors('<li>','</li>');
-							if ($errors !="") {?>
-								<div class="alert alert-danger">
-									<ul>
-										<?php echo $errors;?>
-									</ul>
-								</div>
-
-							<?php }
-							if ($this->session->flashdata('mensaje')!='') {?>
-								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje');?></div>
-
-                            <?php }?>
-                        <label for="nombre" class="control-label">Nombre alimento:<span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-								<input type="text" class="form-control" name="nombre_alimento" value="<?php echo $alimento->nombre?>" />
-						</div>
-						<label for="tipo" class="control-label">Tipo <span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-								<input type="text" class="form-control" name="tipo" placeholder="" value="<?php echo $alimento->tipo?>" />
-						</div>
-						<label for="aporte" class="control-label">Aporte:<span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-								<input type="text" class="form-control" name="aporte" value="<?php echo $alimento->aporte?>" />
-						</div>
-						<label for="propiedades" class="control-label">Propiedades:<span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-								<input type="text" class="form-control" name="propiedades" value="<?php echo $alimento->propiedades?>" />
-						</div>
-
-						<br>
-						<br>
-						<div class="register-buttons">
-							<button type="submit" class="btn btn-warning btn-block btn-lg"> Enviar </button>
-						</div>
-						<hr />
-						<p class="text-center">
-							&copy; Drubilar All Rights Reserved 2018
-						</p>
-					<?php echo form_close();?>
-				</div>
-				<!-- end register-content -->
+					<div class="login-buttons row animated bounceIn">
+						<a href="<?php echo base_url();?>registrar/add_nutricionista" class="btn btn-success btn-block btn-lg">Registrar<span></span></a>
+						<a href="<?php echo base_url();?>registrar/login" class="btn btn-warning btn-block btn-lg">Iniciar sesión</a>
 					</div>
 
 

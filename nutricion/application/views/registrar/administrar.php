@@ -23,7 +23,6 @@
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -39,31 +38,26 @@
 	<!-- end login-cover -->
 	
 	<!-- begin #page-container -->
-
-		<div id="header" class="header navbar-default">
+	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
-			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
-			</div>
-
-		</div>
-		<div id="header" class="header navbar-default">
-			<nav aria-label="breadcrumb">
-  				<ol class="breadcrumb">
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong> Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page"></li>
-  				</ol>
-			</nav>
-			
-		</div>
+				<div class="navbar-header col-xs-8 col-md-8 col-lg-5">
+					<a href="" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b></a>
+				</div>
+				<div class="navbar-header col-xs-4 col-md-4 col-lg-5">
+					<span class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/usuario_2.png" >  Bienvenido(a) <?php echo $nutri?></span>
+				</div>
+				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
+					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
+				</div>
+	</div>
 
 	<div id="page-container" class="fade">
 		<!-- begin login -->
-		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
+		<div class="login login-v2 " data-pageload-addclass="animated fadeIn ">
 			<!-- begin brand -->
-			<div class="login-header">
-				<div class="brand">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Evaluación Nutricional
+			<div class="login-header row animated bounceInLeft">
+				<div class="brand ">
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Administración
 				</div>
 
 			</div>
@@ -85,8 +79,8 @@
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
-					<div class="login-buttons">
-						<!--<button  data-toggle="modal" data-target="#modal_pacientes" type="button" class="btn btn-warning btn-block btn-lg" disabled="">Consultar Ficha</button>-->
+					<div class="login-buttons row animated bounceIn">
+						<a href="<?php echo base_url();?>registrar/listado_pacientes" class="btn btn-warning btn-block btn-lg">Pacientes</a>
 						<a href="<?php echo base_url();?>registrar/add" class="btn btn-warning btn-block btn-lg">Nueva Ficha</a>
 						<a href="<?php echo base_url();?>registrar/gestion" class="btn btn-warning btn-block btn-lg">Gestión</a>
 					</div>
@@ -100,45 +94,6 @@
 		
 	</div>
 		<!-- Modal -->
-	<div class="modal fade" id="modal_pacientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  		<div class="modal-dialog" role="document">
-    		<div class="modal-content">
-      			<div class="modal-header">
-        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        			<h4 class="modal-title" id="myModalLabel">Consulta de Paciente</h4>
-      			</div>
-      			<div class="modal-body">
-        			<?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
-          				<div class="form-group">
-            				<label for="recipient-name" class="control-label">Nombre:</label>
-            				<select name="usuario_vacacion" id="paciente_id" required="true">
-            						<option value="-1">--selección de persona--</option>
-            					<?php foreach($pacientes as $user){?>
-  									<option value="<?php echo $user->rut_paciente;?>"><?php echo $user->nombres, " ", $user->apellidos?></option>
-  								<?php }?>
-							</select>
-							<hr>
-							<div id="tipo_consulta">
-							<label for="recipient-name" class="control-label">Consultar por:</label>
-							<select name="tipo_consulta" required="true">
-            						<option value="-1">--selección de persona--</option>
-  									<option value="1">Patologías y Hábitos</option>
-  									<option value="2">Ficha Clínica</option>
-  									<option value="3">Evaluación</option>
-  									<option value="1">Dieta</option>
-							</select>
-							</div>
-          				</div>
-          				<div class="modal-footer">
-        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        					<button type="submit" class="btn btn-primary">Save changes</button>
-      					</div>
-      					<?php echo form_close();?>
-      			</div>
-      		</div>
-
-    	</div>
-  	</div>
 
 
 	<!-- end page container -->
@@ -152,7 +107,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -162,7 +116,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

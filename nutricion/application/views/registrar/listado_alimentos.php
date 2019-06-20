@@ -6,7 +6,9 @@
 <head>
 	<meta charset="utf-8" />
 	<title>NUTRICIÓN</title>
-
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
 	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -15,10 +17,14 @@
 	<link href="<?php echo base_url();?>assets/plugins/animate/animate.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet" />
 	<link rel="icon" type="image/png" href="<?php echo base_url();?>assets/img/logo/logo.png" />
+
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?php echo base_url();?>assets/js/demo/ajustes_planilla.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -35,17 +41,24 @@
 	
 	<!-- begin #page-container -->
 
-		<div id="header" class="header navbar-default">
+	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
-			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
-			</div>
+				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
+					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+				</div>
+				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
+					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
+				</div>
+	</div>
+		<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
     				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Listado de alimentos</li>
+					<li class="breadcrumb-item" aria-current="page">Gestión de alimentos</li>
   				</ol>
-			</nav>
+			</nav>  			
+			
 		</div>
 
 	<div id="page-container" class="fade">
@@ -54,20 +67,10 @@
 			<!-- begin brand -->
 
 			<br>
-				<?php 
-					$errors=validation_errors('<li>','</li>');
-					if ($errors !="") {?>
-						<div class="alert alert-danger">
-							<ul>
-								<?php echo $errors;?>
-							</ul>
-						</div>
-
-							<?php }?>
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
-	<div class="container">
+			<div class="container-fluid">
     <div class="panel panel-success">
 
         <div class="panel-heading">Listado de alimentos</div>
@@ -81,10 +84,24 @@
             }
             ?>
         
-            <p>
-                <a href="<?php echo base_url()?>registrar/add_alimento" class="btn btn-warning"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
-            </p>
-            <table class="table table-bordered table-sprited table-hover">
+		<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-9 col-xs-12">
+                		<a href="<?php echo base_url()?>registrar/add_alimento" class="btn btn-warning"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
+						<br>
+						<br>	
+					</div>
+					<div class="col-md-3 col-xs-5">
+    						<div class="input-group">
+								<span class="input-group-addon "><span class=" glyphicon glyphicon-search" aria-hidden="true"></span></span>
+      							<input type="text" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar alimento..">
+							</div>
+					</div>
+				</div>
+			</div>
+            <div class="panel-body">
+				<div class="table-responsive">
+  					<table class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>Nº</th>
@@ -93,31 +110,12 @@
                         <th>Editar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    	$i=1;
-                        foreach($alimentos as $alimento)
-                        {
-                            ?>
-                            <tr>
-                                <td><?php echo $i?></td>
-                                <td><?php echo $alimento->alimento_info;?></td>
-                                <td><?php echo $alimento->opcion;?></td>
-                                <td>
-                                    <a href="<?php echo base_url()?>registrar/editar_alimento/<?php echo $alimento->id?>/<?php echo $pagina?>"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                                    <a href="javascript:void(0);" onclick="eliminar('<?php echo base_url()?>registrar/eliminar_alimento/<?php echo $alimento->id?>/<?php echo $pagina?>')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                                </td>
-                            </tr>
-                            <?php
-                           	$i++;
-                        }
-                    ?>
+                <tbody id="body_alimentos">
                 
                 </tbody>
                 
             </table>
-            
-            <p class="pull-right"><?php echo $this->pagination->create_links()?></p>
+			<div class="text-center paginacion">
         </div>
     </div>
 </div>
@@ -142,7 +140,7 @@
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	<script src="<?php echo base_url();?>assets/js/demo/busqueda_alimento.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -152,7 +150,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

@@ -41,7 +41,7 @@
 	
 	<!-- begin #page-container -->
 
-	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
+    <div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
 				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
 					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
@@ -54,8 +54,7 @@
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
     				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
-					<li class="breadcrumb-item" aria-current="page">Gestión de preparaciones</li>
+    				<li class="breadcrumb-item" aria-current="page">Gestión de pacientes</li>
   				</ol>
 			</nav>  			
 			
@@ -73,7 +72,7 @@
 			<div class="container-fluid">
     <div class="panel panel-success">
 
-        <div class="panel-heading">Listado de preparaciones</div>
+        <div class="panel-heading">Listado de pacientes</div>
         <div class="panel-body">
             <?php
             if($this->session->flashdata('mensaje')!='')
@@ -83,40 +82,39 @@
                <?php 
             }
             ?>
-			<div class="container-fluid">
+        
+		<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-9 col-xs-12">
-                		<a href="<?php echo base_url()?>registrar/add_preparacion" class="btn btn-warning"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
-						<br>
-						<br>
+	
 					</div>
 					<div class="col-md-3 col-xs-5">
     						<div class="input-group">
-								<span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-      							<input type="text" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar preparación..">
-    						</div>
+								<span class="input-group-addon "><span class=" glyphicon glyphicon-search" aria-hidden="true"></span></span>
+      							<input type="text" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar paciente..">
+							</div>
 					</div>
 				</div>
 			</div>
-
-			<div class="panel-body">
+            <div class="panel-body">
 				<div class="table-responsive">
-  					<table class="table table-hover table-striped table-bordered">
+  					<table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Nº</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Editar</th>
+                        <th><center>Rut</center></th>
+                        <th><center>Paciente</center></th>
+						<th><center>Evaluaciones</center></th>
+						<th><center>Informe</centerZ</th>
+						<th><center>Recomendación</center></th>
+                        <th><center>Opciones</center></th>
                     </tr>
                 </thead>
-                <tbody id=body_paginacion>
+                <tbody id="body_pacientes">
                 
                 </tbody>
                 
             </table>
-            
-            <div class="text-center paginacion">
+			<div class="text-center paginacion">
         </div>
     </div>
 </div>
@@ -141,9 +139,7 @@
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/busqueda_preparacion.js"></script>
-	
-
+	<script src="<?php echo base_url();?>assets/js/demo/busqueda_paciente.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

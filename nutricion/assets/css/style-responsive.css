@@ -281,7 +281,7 @@ Website: http://www.seantheme.com/color-admin-v4.2/admin/
 	.header .navbar-user .image.image-icon {
 		margin-right: 3px;
 	}
-	.header .navbar-user>a .caret.
+	.header .navbar-user>a .caret,
 	.header .navbar-user .dropown-toggle .caret {
 		margin-right: -5px;
 	}

@@ -80,13 +80,13 @@
 
               <?php }?>Datos Generales</div>
       <br>
-        <div class="container">
+        <div class="container-fluid">
         	<div class="row">
           		<div class="col-md-6">
               		<div class="form-group row">
     					<label for="peso" class="col-sm-2 col-form-label"><strong>Nombre:</strong></label>
     						<div class="col-md-8">
-      							<label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente->nombres)." ".strtoupper($datos_paciente->apellidos);?></label>
+      							<label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente->nombre)." ".strtoupper($datos_paciente->apellido);?></label>
     						</div>
   					</div>
     			</div>
@@ -94,7 +94,7 @@
   					<div class="form-group row">
     					<label for="talla" class="col-sm-2 col-form-label"><strong>Email:</strong></label>
     						<div class="col-md-3">
-      								<label for="talla" class="col-sm-2 col-form-label"><?php echo strtoupper($datos_paciente->email);?></label>
+      								<label for="talla" class="col-sm-2 col-form-label"></label>
     						</div>
   					</div>
   				</div>

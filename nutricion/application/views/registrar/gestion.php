@@ -40,11 +40,14 @@
 	
 	<!-- begin #page-container -->
 
-		<div id="header" class="header navbar-default">
+		<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
-			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
-			</div>
+				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
+					<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+				</div>
+				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
+					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
+				</div>
 		</div>
 		<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
@@ -61,7 +64,7 @@
 		<!-- begin login -->
 		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
 			<!-- begin brand -->
-			<div class="login-header">
+			<div class="login-header animated bounceInLeft">
 				<div class="brand">
 					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Evaluación Nutricional
 				</div>
@@ -84,7 +87,7 @@
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
-					<div class="login-buttons">
+					<div class="login-buttons animated bounceIn ">
 						<a href="<?php echo base_url();?>registrar/listado_alimentos" class="btn btn-warning btn-block btn-lg">Gestión de alimentos</a>
 						<a href="<?php echo base_url();?>registrar/listado_pat_hab" class="btn btn-warning btn-block btn-lg">Gestión de patologías y/o hábitos</a>
 						<a href="<?php echo base_url();?>registrar/listado_preparaciones" class="btn btn-warning btn-block btn-lg">Gestión de preparaciones</a>
@@ -112,7 +115,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -122,7 +124,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

@@ -42,14 +42,14 @@
 	<div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Ingreso pacientes</a>
+				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Editar paciente</a>
 			</div>
 		</div>
 		<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
 				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Ingreso de paciente</li>
+    				<li class="breadcrumb-item" aria-current="page">Editar paciente</li>
   				</ol>
 			</nav>  			
 			
@@ -61,7 +61,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Ingreso de paciente
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Editar paciente
 				</div>
 
 			</div>
@@ -73,7 +73,7 @@
 			
 				<div class="login-buttons row animated bounceIn">
 						
-				<div class="container">
+				<div class="container-fluid">
 					<?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
 						<?php 
 							$errors=validation_errors('<li>','</li>');
@@ -93,33 +93,33 @@
                         <label for="nombre" class="control-label">Rut:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="rut_paciente" placeholder="ej:12345678-9" value="<?php echo set_value_input(array(),'rut_paciente','rut_paciente')?>" />
+								<input type="text" class="form-control" name="rut_paciente" placeholder="ej:12345678-9" value="<?php echo $datos->rut?>" />
 							</div>
 						</div>
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="nombre_paciente" placeholder="Nombre" value="<?php echo set_value_input(array(),'nombre','nombre')?>" />
+								<input type="text" class="form-control" name="nombre_paciente" placeholder="Nombre" value="<?php echo $datos->nombre?>" />
 							</div>
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="apellido_paciente" placeholder="Apellido" value="<?php echo set_value_input(array(),'apellido','apellido')?>"/>
+								<input type="text" class="form-control" name="apellido_paciente" placeholder="Apellidos" value="<?php echo $datos->apellido?>"/>
 							</div>
 						</div>
 						<label for="fecha_nacimiento" class="control-label">Fecha de Nacimiento:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="date" class="form-control" name="fecha_nacimiento_p" value="<?php echo set_value_input(array(),'fecha_nacimiento_p','fecha_nacimiento_p')?>" />
+								<input type="date" class="form-control" name="fecha_nacimiento_p" value="<?php echo $datos->fecha_nacimiento?>" />
 							</div>
 						</div>
 						<label class="control-label" for="sexo" >Sexo: <span class="text-danger">*</span></label>
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-  									<input type="radio" name="sexo" value="1">
+                            <input type="radio" name="sexo" <?if($datos->sexo=="1"){?>checked="checked"<?php }?> value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino
-  									<input type="radio" name="sexo" value="2">
+  									<input type="radio" name="sexo"<?if($datos->sexo=="2"){?>checked="checked"<?php }?> value="2">
   									<span class="checkmark"></span>
 								</label>
 							</div>

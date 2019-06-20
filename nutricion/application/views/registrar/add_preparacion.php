@@ -50,8 +50,10 @@
 	<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Listado Preparaciones</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Editar Preparación</li>
+				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
+				 	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
+					<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Listado preparaciones</strong></a></li>
+    				<li class="breadcrumb-item" aria-current="page">Agregar preparación</li>
   				</ol>
 			</nav>  			
 			

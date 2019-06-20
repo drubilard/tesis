@@ -42,17 +42,8 @@
 	<div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Ingreso pacientes</a>
+				<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
 			</div>
-		</div>
-		<div id="header" class="header navbar-default">
-			<nav aria-label="breadcrumb">
-  				<ol class="breadcrumb">
-				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Ingreso de paciente</li>
-  				</ol>
-			</nav>  			
-			
 		</div>
 
 	<div class="container-fluid" class="">
@@ -61,7 +52,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Ingreso de paciente
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Registro de nutricionista
 				</div>
 
 			</div>
@@ -99,19 +90,13 @@
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="nombre_paciente" placeholder="Nombre" value="<?php echo set_value_input(array(),'nombre','nombre')?>" />
+								<input type="text" class="form-control" name="nombre" placeholder="Nombre" value="<?php echo set_value_input(array(),'nombre','nombre')?>" />
 							</div>
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="apellido_paciente" placeholder="Apellido" value="<?php echo set_value_input(array(),'apellido','apellido')?>"/>
+								<input type="text" class="form-control" name="apellido" placeholder="Apellido" value="<?php echo set_value_input(array(),'apellido','apellido')?>"/>
 							</div>
 						</div>
-						<label for="fecha_nacimiento" class="control-label">Fecha de Nacimiento:<span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-							<div class="col-md-6 m-b-15">
-								<input type="date" class="form-control" name="fecha_nacimiento_p" value="<?php echo set_value_input(array(),'fecha_nacimiento_p','fecha_nacimiento_p')?>" />
-							</div>
-						</div>
-						<label class="control-label" for="sexo" >Sexo: <span class="text-danger">*</span></label>
+						<label class="control-label" for="clave" >Sexo: <span class="text-danger">*</span></label>
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
@@ -124,7 +109,24 @@
 								</label>
 							</div>
                         </div>
-                        
+                        <label for="usuario" class="control-label">Usuario:<span class="text-danger">*</span></label>
+						<div class="row row-space-10">
+							<div class="col-md-6 m-b-15">
+								<input type="text" class="form-control" name="usuario" placeholder="Usuario" value="<?php echo set_value_input(array(),'usuario','usuario')?>" />
+							</div>
+                        </div>
+                        <label for="contraseña" class="control-label">Contraseña:<span class="text-danger">*</span></label>
+						<div class="row row-space-10">
+							<div class="col-md-6 m-b-15">
+								<input type="text" class="form-control" name="contrasena" placeholder="Contraseña" >
+							</div>
+                        </div>
+                        <label for="contraseña" class="control-label">Repetir contraseña:<span class="text-danger">*</span></label>
+						<div class="row row-space-10">
+							<div class="col-md-6 m-b-15">
+								<input type="text" class="form-control" name="contrasena_2" placeholder="Repetir contraseña" />
+							</div>
+                        </div>
 						<div class="register-buttons">
 							<button type="submit" class="btn btn-warning btn-block btn-lg"> Enviar </button>
 						</div>

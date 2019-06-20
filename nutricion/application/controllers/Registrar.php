@@ -1,64 +1,95 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 class Registrar extends CI_Controller 
 {
     public function __construct()
     {
         parent::__construct();
     }
+    public function inicio(){
+        $this->load->view('registrar/inicio');
+    }
+    public function add_nutricionista(){
+        $rut_paciente="";
+        if($this->input->post()){
+            if ($this->form_validation->run('add_nutricionista')) {
+                if ($this->input->post('contrasena')==$this->input->post('contrasena_2')) {
+                    if (valida_rut(trim($this->input->post('rut_paciente')))) {
+                        $consultar_usuario=$this->datos_model->consulta_usuario($this->input->post('usuario'));   
+                            if (sizeof($consultar_usuario)==0) {
+                                $data=array(
+                                'rut'=>trim($this->input->post('rut_paciente',true)),
+                                'Nombres'=>trim($this->input->post('nombre',true)),
+                                'Apellidos'=>trim($this->input->post('apellido',true)),
+                                'sexo'=>$this->input->post('sexo',true),
+                                'usuario'=>$this->input->post('usuario',true),
+                                'clave'=>sha1($this->input->post('contrasena',true)),
+                                );
+                                $this->datos_model->insertar_nutricionista($data);
+                                $this->session->set_flashdata('css','success');
+                                $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
+                                $rut_paciente=trim($this->input->post('rut_paciente',true));
+                                redirect(base_url()."registrar/inicio/$rut_paciente");
+                            }
+                            else{
+                                $this->session->set_flashdata('css','danger');
+                                $this->session->set_flashdata('mensaje','Ya existe un registro con este nombre de usuario');
+                                redirect(base_url()."registrar/add_nutricionista");
+                            }
+                    }else{
+                        $this->session->set_flashdata('css','danger');
+                        $this->session->set_flashdata('mensaje','Rut no válido');
+                    }
+                    }else{
+                        $this->session->set_flashdata('css','danger');
+                        $this->session->set_flashdata('mensaje','las contraseñas no coinciden');
+                    }
+
+                }  
+            }
+            $this->load->view('registrar/add_nutricionista');
+        }
+        
+
     
-	public function add()
-	{
+	public function add(){
     if($this->session->userdata("id")){
             $rut_paciente="";
         if($this->input->post()){
             if ($this->form_validation->run('add_formulario')) {
-                if ($this->input->post('email')==$this->input->post('email2')) {
-                    if (valida_rut(trim($this->input->post('rut_paciente')))) {
-                    if (valida_fecha($this->input->post('fecha_nacimiento_pac'))) {
-                    $consultar_correo=$this->datos_model->consulta_correo($this->input->post('email'));   
-                    if (sizeof($consultar_correo)==0) {
-                        $usuario=strtolower(substr(trim($this->input->post('nombre',true)), 0, 1).trim($this->input->post('apellido',true)));
-                        $consultar_usuario=$this->datos_model->consulta_usuario($usuario);
-                        if (sizeof($consultar_usuario)!=0) {
-                               $usuario=$usuario."_";
-                        }   
-                        $data=array(
-                        'rut_paciente'=>trim($this->input->post('rut_paciente',true)),
-                        'nombres'=>trim($this->input->post('nombre',true)),
-                        'apellidos'=>trim($this->input->post('apellido',true)),
-                        'email'=>$this->input->post('email',true),
-                        'sexo'=>$this->input->post('sexo',true),
-                        'usuario'=>$usuario,
-                        'fecha_nacimiento'=>$this->input->post('fecha_nacimiento_pac',true)
-                    );
-                    $this->datos_model->insertar_paciente($data);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
-                    $rut_paciente=trim($this->input->post('rut_paciente'));
-                    $rut_paciente=trim($this->input->post('rut_paciente',true));
-                    //$this->load->view("registrar/planilla_evaluacion",compact('ultimo'));
-                    redirect(base_url()."registrar/asignar_pat_hab/$rut_paciente");
-                    }
-                    else{
+                if (valida_rut(trim($this->input->post('rut_paciente')))) {
+                    $consulta_rut=$this->datos_model->consultar_rut_paciente($this->input->post('rut_paciente'));
+                    if(sizeof($consulta_rut)==0){
+                        if (valida_fecha($this->input->post('fecha_nacimiento_p'))) {  
+                            $data=array(
+                            'rut'=>trim($this->input->post('rut_paciente',true)),
+                            'nombre'=>trim($this->input->post('nombre_paciente',true)),
+                            'apellido'=>trim($this->input->post('apellido_paciente',true)),
+                            'sexo'=>$this->input->post('sexo',true),
+                            'fecha_nacimiento'=>$this->input->post('fecha_nacimiento_p',true),
+                            'Nutricionista_rut'=>$this->session->userdata("id")
+                        );
+                        $this->datos_model->insertar_paciente($data);
+                        $this->session->set_flashdata('css','success');
+                        $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
+                        $rut_paciente=trim($this->input->post('rut_paciente',true));
+                        //$this->load->view("registrar/planilla_evaluacion",compact('ultimo'));
+                        redirect(base_url()."registrar/asignar_pat_hab/$rut_paciente");
+                        }else{
+                            $this->session->set_flashdata('css','danger');
+                            $this->session->set_flashdata('mensaje','fecha no válida');
+                        }
+                    
+                    }else{
                         $this->session->set_flashdata('css','danger');
-                        $this->session->set_flashdata('mensaje','Ya existe un registro con esta dirección de correo');
-                        redirect(base_url()."registrar/add");
+                        $this->session->set_flashdata('mensaje','Rut ya registrado');
                     }
-                }else{
-                    $this->session->set_flashdata('css','danger');
-                    $this->session->set_flashdata('mensaje','fecha no válida');
-                }
-                
                 }else{
                     $this->session->set_flashdata('css','danger');
                     $this->session->set_flashdata('mensaje','Rut no válido');
                 }
-                }else{
-                    $this->session->set_flashdata('css','danger');
-                    $this->session->set_flashdata('mensaje','los correos ingresados no coinsiden');
-                }
-
             }
         }
         $this->load->view('registrar/add');
@@ -67,70 +98,54 @@ class Registrar extends CI_Controller
     }
         
 }   
-    public function listado_pat_hab()
-    {
-        if($this->session->userdata("id")){
-        //zona de configuración inicial
-        if($this->uri->segment(3))
-        {
-            $pagina=$this->uri->segment(3);
-        }else
-        {
-            $pagina=0;
+public function editar_paciente($id){
+    if($this->session->userdata("id")&&$this->uri->segment(3)){
+        $datos=$this->datos_model->get_paciente_por_rut($id);
+        if($this->input->post()){
+        if(!$id){show_404();}
+        if(sizeof($datos)==0){show_404();}
+        $data=array(
+            "nombre"=>$this->input->post("nombre_paciente",true),
+            "apellido"=>$this->input->post("apellido_paciente",true),
+            "fecha_nacimiento"=>$this->input->post("fecha_nacimiento_p",true),
+            "sexo"=>$this->input->post("sexo",true),
+        );
+        $this->datos_model->update_paciente($data,$id);
+        $this->session->set_flashdata('css','success');
+        $this->session->set_flashdata('mensaje','El registro ha sido modificado exitosamente');
+        redirect(base_url()."registrar/listado_pacientes");
+         }else{
+            $this->load->view("registrar/editar_paciente",compact('datos'));
         }
-        $porpagina=4;
-        //zona de carga de los datos
-        $datos=$this->datos_model->getTodosPaginacion_pat_hab($pagina,$porpagina,"limit");
-        $cuantos=$this->datos_model->getTodosPaginacion_pat_hab($pagina,$porpagina,"cuantos");           //zona de configuración de la librería pagination
-        $config['base_url']=base_url()."registrar/listado_pat_hab";
-        $config['total_rows']=$cuantos;
-        $config['per_page']=$porpagina;
-        $config['uri_segment']='3';
-        $config['num_links']='4';
-        $config['first_link']='Primero';
-        $config['next_link']='Siguiente';
-        $config['prev_link']='Anterior';
-        $config['last_link']='Última';
-        
-        $config['full_tag_open']='<ul class="pagination">';
-        
-       
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li><a><b>';
-        $config['cur_tag_close'] = '</b></a></li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';    
-        $config['full_tag_close']='</ul>';
-        $this->pagination->initialize($config);
-        $this->load->view("registrar/listado_pat_hab",compact('datos','cuantos','pagina'));
     }else{
-    redirect(base_url()."registrar/salir");
+        redirect(base_url().'registrar/salir');
     }
-    }
-    public function login(){
+
+}
+public function eliminar_paciente($id=null){
+    if(!$id){show_404();}
+        $datos=$this->datos_model->get_paciente_por_rut($id);
+        if(sizeof($datos)==0){show_404();}
+        $result=$this->datos_model->delete_paciente($id);
+        $this->session->set_flashdata('css','success');
+        $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
+        redirect(base_url()."registrar/listado_pacientes");
+}
+public function login(){
 
         if($this->input->post()){
             if ($this->form_validation->run('login_formulario')) {
                 $data=$this->datos_model->get_user($this->input->post('user',true),$this->input->post('clave',true)); 
-                //print_r($data); die("bandmera");
+                //print_r($data); die("bandera");
                 if (sizeof($data)==0) {
                     $this->session->set_flashdata('css','danger');
-                    $this->session->set_flashdata('mensaje_login','los datos no coinsiden');
+                    $this->session->set_flashdata('mensaje_login','los datos no coinciden');
                     redirect(base_url()."registrar/login");                   
                 }else{   
                     $this->session->set_userdata("datos_usuario");
-                    $this->session->set_userdata("id",$data->id);
-                    $this->session->set_userdata("nombre",$data->nombre);
-                    $this->session->set_userdata("apellido",$data->apellido);
-                    $this->session->set_userdata("correo",$data->email);
-                    $this->session->set_userdata("admin",$data->admin); 
+                    $this->session->set_userdata("id",$data->rut);
+                    $this->session->set_userdata("nombre",$data->Nombres);
+                    $this->session->set_userdata("usuario",$data->usuario); 
                     redirect(base_url()."registrar/administrar");
                 } 
         }
@@ -163,8 +178,10 @@ class Registrar extends CI_Controller
             if($this->input->post()){
                 if ($this->form_validation->run('add_alimento')) {
                     $data=array(
-                    'alimento_info'=>$this->input->post('alimento_info',true),
-                    'opcion'=>$this->input->post('opcion',true)
+                    'nombre'=>$this->input->post('nombre_alimento',true),
+                    'tipo'=>$this->input->post('tipo',true),
+                    'aporte'=>$this->input->post('aporte',true),
+                    'propiedades'=>$this->input->post('propiedades',true)
                     );
                     $this->datos_model->insertar_alimento($data);
                     $this->session->set_flashdata('css','success');
@@ -183,8 +200,7 @@ class Registrar extends CI_Controller
             if($this->input->post()){
                 if ($this->form_validation->run('add_preparacion')) {
                     $data=array(
-                    'nombre'=>$this->input->post('nombre',true),
-                    'tipo'=>$this->input->post('tipo',true)
+                    'nombre'=>$this->input->post('nombre',true)
                     );
                     $this->datos_model->insertar_preparacion($data);
                     $this->session->set_flashdata('css','success');
@@ -203,11 +219,10 @@ class Registrar extends CI_Controller
         redirect(base_url()."registrar/login");
     }
 
-
     public function administrar(){
-        if ($this->session->userdata('admin')==1) {
-                $pacientes=$this->datos_model->get_all_pacientes();
-                $this->load->view('registrar/administrar',compact("pacientes"));
+        if ($this->session->userdata("id")) {
+            $nutri=$this->session->userdata("nombre");
+            $this->load->view('registrar/administrar',compact('nutri'));
         }else{
             redirect(base_url()."registrar/salir");
         }
@@ -266,12 +281,15 @@ class Registrar extends CI_Controller
     public function editar_alimento($id){
         if($this->session->userdata("id")&&$this->uri->segment(3)){
             $alimento=$this->datos_model->get_alimento_id($id);
+            //print_r($alimento);die;
             if($this->input->post()){
             if(!$id){show_404();}
             if(sizeof($alimento)==0){show_404();}
             $data=array(
-                "alimento_info"=>$this->input->post("nombre_alimento",true),
-                "opcion"=>$this->input->post("opcion",true)
+                "nombre"=>$this->input->post("nombre_alimento",true),
+                "tipo"=>$this->input->post("tipo",true),
+                "propiedades"=>$this->input->post("propiedades",true),
+                "aporte"=>$this->input->post("aporte",true)
             );
             $this->datos_model->update_alimento($data,$id);
             $this->session->set_flashdata('css','success');
@@ -292,7 +310,6 @@ class Registrar extends CI_Controller
             if(sizeof($preparacion)==0){show_404();}
             $data=array(
                 "nombre"=>$this->input->post("nombre_preparacion",true),
-                "tipo"=>$this->input->post("tipo",true)
             );
             $this->datos_model->update_preparacion($data,$id);
             $this->session->set_flashdata('css','success');
@@ -308,34 +325,7 @@ class Registrar extends CI_Controller
     public function asignar_pat_hab(){
         if($this->session->userdata("id")){
             if($rut_paciente=$this->uri->segment(3)){
-                $lista_patologias=$this->datos_model->get_patologias();
-                $lista_habitos=$this->datos_model->get_habitos();
-                if($this->input->post('nombre_habito') || $this->input->post('nombre_patologia') || $this->input->post('ficha_clinica')){
-                    if($this->input->post('nombre_habito')){
-                        foreach($this->input->post('nombre_habito') as $hab){
-                            $data=array('id_paciente'=>$rut_paciente,
-                                'id_pat_hab'=>$hab);
-                            $this->datos_model->asociat_pat_hab_paciente($data);
-                        }
-                    }
-                    if($this->input->post('nombre_patologia')){
-                        foreach($this->input->post('nombre_patologia') as $pat){
-                            $data=array('id_paciente'=>$rut_paciente,
-                                'id_pat_hab'=>$pat);
-                            $this->datos_model->asociat_pat_hab_paciente($data);
-                        }
-                    }
-                    if($this->input->post('ficha_clinica')){
-                        $data_ficha=array('ficha'=>$this->input->post('ficha_clinica',true),
-                            'rut_paciente'=>$rut_paciente);
-                        $this->datos_model->add_ficha_clinica($data_ficha);
-                    }
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Asignación exitosa, proceda a realizar evaluación');
-                    redirect(base_url()."registrar/planilla_evaluacion/$rut_paciente");
-                }else{
-                    $this->load->view("registrar/asignar_pat_hab",compact('lista_habitos','lista_patologias'));
-                }
+                $this->load->view("registrar/asignar_pat_hab",compact('lista_habitos','lista_patologias'));
             }else{
                 redirect(base_url()."registrar/salir");
             }
@@ -440,97 +430,74 @@ class Registrar extends CI_Controller
             redirect(base_url()."registrar/salir");
         }
     }
+    public function listado_pacientes(){
+        if($this->session->userdata("id")){
+            $this->load->view("registrar/listado_pacientes");
+        }else{
+        redirect(base_url()."registrar/salir");
+        }
+    }
     public function listado_alimentos(){
         if($this->session->userdata("id")){
-        //zona de configuración inicial
-            if($this->uri->segment(3))
-            {
-                $pagina=$this->uri->segment(3);
-            }else
-            {
-                $pagina=0;
-            }
-            $porpagina=4;
-            //zona de carga de los datos
-            $alimentos=$this->datos_model->getTodosPaginacion_alimentos($pagina,$porpagina,"limit");
-            $cuantos=$this->datos_model->getTodosPaginacion_alimentos($pagina,$porpagina,"cuantos");           //zona de configuración de la librería pagination
-            $config['base_url']=base_url()."registrar/listado_alimentos";
-            $config['total_rows']=$cuantos;
-            $config['per_page']=$porpagina;
-            $config['uri_segment']='3';
-            $config['num_links']='4';
-            $config['first_link']='Primero';
-            $config['next_link']='Siguiente';
-            $config['prev_link']='Anterior';
-            $config['last_link']='Última';
-        
-            $config['full_tag_open']='<ul class="pagination">';
-        
-       
-            $config['first_tag_open'] = '<li>';
-            $config['first_tag_close'] = '</li>';
-            $config['last_tag_open'] = '<li>';
-            $config['last_tag_close'] = '</li>';
-            $config['next_tag_open'] = '<li>';
-            $config['next_tag_close'] = '</li>';
-            $config['prev_tag_open'] = '<li>';
-            $config['prev_tag_close'] = '</li>';
-            $config['cur_tag_open'] = '<li><a><b>';
-            $config['cur_tag_close'] = '</b></a></li>';
-            $config['num_tag_open'] = '<li>';
-            $config['num_tag_close'] = '</li>';    
-            $config['full_tag_close']='</ul>';
-            $this->pagination->initialize($config);
-            $this->load->view("registrar/listado_alimentos",compact('alimentos','cuantos','pagina'));
+            $this->load->view("registrar/listado_alimentos");
         }else{
         redirect(base_url()."registrar/salir");
         }
     }
     public function listado_preparaciones(){
         if($this->session->userdata("id")){
-        //zona de configuración inicial
-            if($this->uri->segment(3))
-            {
-                $pagina=$this->uri->segment(3);
-            }else
-            {
-                $pagina=0;
-            }
-            $porpagina=4;
-            //zona de carga de los datos
-            $preparaciones=$this->datos_model->getTodosPaginacion_preparaciones($pagina,$porpagina,"limit");
-            $cuantos=$this->datos_model->getTodosPaginacion_preparaciones($pagina,$porpagina,"cuantos");           //zona de configuración de la librería pagination
-            $config['base_url']=base_url()."registrar/listado_preparaciones";
-            $config['total_rows']=$cuantos;
-            $config['per_page']=$porpagina;
-            $config['uri_segment']='3';
-            $config['num_links']='4';
-            $config['first_link']='Primero';
-            $config['next_link']='Siguiente';
-            $config['prev_link']='Anterior';
-            $config['last_link']='Última';
-        
-            $config['full_tag_open']='<ul class="pagination">';
-        
-       
-            $config['first_tag_open'] = '<li>';
-            $config['first_tag_close'] = '</li>';
-            $config['last_tag_open'] = '<li>';
-            $config['last_tag_close'] = '</li>';
-            $config['next_tag_open'] = '<li>';
-            $config['next_tag_close'] = '</li>';
-            $config['prev_tag_open'] = '<li>';
-            $config['prev_tag_close'] = '</li>';
-            $config['cur_tag_open'] = '<li><a><b>';
-            $config['cur_tag_close'] = '</b></a></li>';
-            $config['num_tag_open'] = '<li>';
-            $config['num_tag_close'] = '</li>';    
-            $config['full_tag_close']='</ul>';
-            $this->pagination->initialize($config);
             $this->load->view("registrar/listado_preparaciones",compact('preparaciones','cuantos','pagina'));
         }else{
         redirect(base_url()."registrar/salir");
         }
+    }
+    public function mostrar_pacientes(){
+        $buscar = $this->input->post("buscar");
+		$numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "paciente" => $this->datos_model->getTodosPaginacion_pacientes($buscar,$inicio,$cantidad,"limit",$this->session->userdata("id")),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_pacientes($buscar,$inicio,$cantidad,"cuantos",$this->session->userdata("id")),
+            "cantidad" =>$cantidad              
+        );
+		echo json_encode($data);
+    }
+    public function mostrar_patologias(){
+        $buscar = $this->input->post("buscar");
+		$numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "paciente" => $this->datos_model->getTodosPaginacion_patologias($buscar,$inicio,$cantidad,"limit"),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_patologias($buscar,$inicio,$cantidad,"cuantos"),
+            "cantidad" =>$cantidad              
+        );
+		echo json_encode($data);
+    }
+    public function mostrar_preparaciones(){
+        $buscar = $this->input->post("buscar");
+		$numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "preparacion" => $this->datos_model->getTodosPaginacion_preparaciones($buscar,$inicio,$cantidad,"limit"),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_preparaciones($buscar,$inicio,$cantidad,"cuantos"),
+            "cantidad" =>$cantidad              
+        );
+		echo json_encode($data);
+    }
+    public function mostrar_alimentos(){
+        $buscar = $this->input->post("buscar");
+		$numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "alimento" => $this->datos_model->getTodosPaginacion_alimentos($buscar,$inicio,$cantidad,"limit"),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_alimentos($buscar,$inicio,$cantidad,"cuantos"),
+            "cantidad" =>$cantidad              
+        );
+		echo json_encode($data);
     }
     public function gestion(){
         if($this->session->userdata("id")){

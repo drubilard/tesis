@@ -2,12 +2,11 @@
 $config=array(
 	'add_formulario'
 	=> array(
-			array('field'=>'rut_paciente', 'label'=>'Rut','rules'=>'required|max_length[10]|min_length[8]'),
-			array('field' => 'nombre', 'label' => 'Nombre','rules' => 'required|is_string|max_length[20]|min_length[3]'),
-			array('field' => 'apellido', 'label' => 'Apellido','rules' => 'required|is_string|max_length[20]|min_length[3]'),
-			array('field'=>'email', 'label'=>'email', 'rules'=>'required'),
-			array('field'=>'email2', 'label'=>'email', 'rules'=>'required'),
-			array('field' => 'sexo', 'label' => 'sexo','rules' => 'required')
+			array('field'=>'rut_paciente', 'label'=>'Rut','rules'=>'required|max_length[10]|min_length[9]'),
+			array('field' => 'nombre_paciente', 'label' => 'Nombre','rules' => 'required|is_string|max_length[20]|min_length[3]'),
+			array('field' => 'apellido_paciente', 'label' => 'Apellido','rules' => 'required|is_string|max_length[20]|min_length[3]'),
+			array('field' => 'sexo', 'label' => 'sexo','rules' => 'required'),
+			array('field' => 'fecha_nacimiento_p', 'label' => 'Fecha de nacimiento','rules' => 'required')
 
 		),
 	'login_formulario'
@@ -16,6 +15,16 @@ $config=array(
 			array('field' => 'clave', 'label' => 'clave','rules' => 'required|min_length[6]|max_length[20]')
 
 		),
+		'add_nutricionista'
+		=> array(
+				array('field' => 'rut_paciente', 'label' => 'Rut','rules' => 'required|max_length[10]|min_length[9]'),
+				array('field' => 'nombre', 'label' => 'Nombre','rules' => 'required'),
+				array('field' => 'apellido', 'label' => 'Apellido','rules' => 'required'),
+				array('field' => 'sexo', 'label' => 'Sexo','rules' => 'required'),
+				array('field' => 'usuario', 'label' => 'Usuario','rules' => 'required|max_length[20]'),
+				array('field' => 'contrasena', 'label' => 'Contraseña','rules' => 'required|min_length[6]')
+	
+			),
 	'add_vacaciones'
 	=> array(
 			array('field' => 'usuario_vacacion','label' =>'Persona','rules' => 'required'),
@@ -34,8 +43,10 @@ $config=array(
 		),
 	'add_alimento'
 	=> array(
-			array('field' => 'alimento_info','label' => 'Nombre', 'rules' =>'required'),
-			array('field' =>'opcion','label' => 'Tipo','rules' =>'required')
+			array('field' => 'nombre_alimento','label' => 'Nombre', 'rules' =>'required'),
+			array('field' =>'tipo','label' => 'Tipo','rules' =>'required'),
+			array('field' =>'propiedades','label' => 'Propiedades','rules' =>'required'),
+			array('field' =>'aporte','label' => 'Aporte','rules' =>'required')
 		),
 	'add_preparacion'
 	=> array(

@@ -23,7 +23,6 @@
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -39,9 +38,15 @@
 	<!-- end login-cover -->
 	
 	<!-- begin #page-container -->
-	<div id="page-container" class="fade">
+	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
+			<!-- begin navbar-header -->
+				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
+					<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+				</div>
+	</div>
+	<div id="page-container" class=" animated bounceInUp">
 		<!-- begin login -->
-		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
+		<div class="login login-v2" data-pageload-addclass="">
 			<!-- begin brand -->
 			<div class="login-header">
 				<div class="brand">
@@ -70,7 +75,7 @@
 							<?php }
 							?>
 					<div  class="form-group m-b-20">
-						<input name="user" type="text" class="form-control form-control-lg" placeholder="Usuario" value="<?php echo set_value_input(array(),'email','email')?>" />
+						<input name="user" type="text" class="form-control form-control-lg" placeholder="Usuario" value="<?php echo set_value_input(array(),'user','user')?>" />
 					</div>
 					<div class="form-group m-b-20">
 						<input name="clave" type="password" class="form-control form-control-lg" placeholder="Clave" />
@@ -116,7 +121,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>
