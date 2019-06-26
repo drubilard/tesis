@@ -781,8 +781,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -792,7 +790,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

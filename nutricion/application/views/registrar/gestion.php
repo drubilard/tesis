@@ -43,7 +43,7 @@
 		<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
 				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
-					<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
 				</div>
 				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
 					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
@@ -59,7 +59,6 @@
 			
 		</div>
 
-
 	<div id="page-container" class="fade">
 		<!-- begin login -->
 		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
@@ -70,26 +69,13 @@
 				</div>
 			</div>
 			<br>
-				<?php 
-					$errors=validation_errors('<li>','</li>');
-					if ($errors !="") {?>
-						<div class="alert alert-danger">
-							<ul>
-								<?php echo $errors;?>
-							</ul>
-						</div>
-
-							<?php }?>
-				<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-					echo $this->session->flashdata('mensaje');?>		
-				</div>
 			
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
 					<div class="login-buttons animated bounceIn ">
 						<a href="<?php echo base_url();?>registrar/listado_alimentos" class="btn btn-warning btn-block btn-lg">Gestión de alimentos</a>
-						<a href="<?php echo base_url();?>registrar/listado_pat_hab" class="btn btn-warning btn-block btn-lg">Gestión de patologías y/o hábitos</a>
+						<a href="<?php echo base_url();?>registrar/listado_patologias" class="btn btn-warning btn-block btn-lg">Gestión de patologías</a>
 						<a href="<?php echo base_url();?>registrar/listado_preparaciones" class="btn btn-warning btn-block btn-lg">Gestión de preparaciones</a>
 					</div>
 
@@ -114,7 +100,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

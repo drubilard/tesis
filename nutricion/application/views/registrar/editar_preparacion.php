@@ -44,9 +44,11 @@
 		<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Listado Preparaciones</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Editar preparación</li>
-  				</ol>
+				  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestion</strong></a></li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Gestión de preparaciones</strong></a></li>
+					  <li class="breadcrumb-item" aria-current="page">Editar preparación</li>	  
+				</ol>
 			</nav>  			
 			
 		</div>
@@ -88,11 +90,15 @@
           <?php }
                 if ($this->session->flashdata('mensaje')!='') {?>
 					<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-					echo $this->session->flashdata('mensaje');?></div>
+					echo $this->session->flashdata('mensaje');?>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   		<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 				<?php }?>
             <p>
                 <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre_preparacion" value="<?php echo $preparacion->nombre;?>" class="form-control" autofocus="true" />
+                <input type="text" name="nombre_preparacion"  value="<?php echo $preparacion->nombre;?>" class="form-control" autofocus="true" />
             </p>
             
              <p>
@@ -100,35 +106,35 @@
 			<div class="col-md-12">
             	<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
 				<label class="container">Bebestible
-  					<input type="radio" value="bebestible" name="tipo" <?php if($preparacion->tipo=="bebestible"){?> checked=""<?php }?>>
+  					<input type="radio" value="bebestible" name="tipo" <?php if($preparacion->nombre=="bebestible"){?> checked=""<?php }?>>
  					<span class="checkmark"></span>
 				</label>
 				<label class="container">Desayuno
-  					<input type="radio" value="desayuno" name="tipo" <?php if($preparacion->tipo=="desayuno"){?> checked=""<?php }?>> 
+  					<input type="radio" value="desayuno" name="tipo" <?php if($preparacion->nombre=="desayuno"){?> checked=""<?php }?>> 
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Colación
-  					<input type="radio" value="colacion" name="tipo" <?php if($preparacion->tipo=="colacion"){?> checked=""<?php }?>>
+  					<input type="radio" value="colacion" name="tipo" <?php if($preparacion->nombre=="colacion"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Entrada
-  					<input type="radio" value="entrada" name="tipo" <?php if($preparacion->tipo=="entrada"){?> checked=""<?php }?>>
+  					<input type="radio" value="entrada" name="tipo" <?php if($preparacion->nombre=="entrada"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Almuerzo
-  					<input type="radio" value="almuerzo" name="tipo" <?php if($preparacion->tipo=="almuerzo"){?> checked=""<?php }?>>
+  					<input type="radio" value="almuerzo" name="tipo" <?php if($preparacion->nombre=="almuerzo"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Colación Media Tarde
-  					<input type="radio" value="colacion media tarde" name="tipo" <?php if($preparacion->tipo=="colacion media tarde"){?> checked=""<?php }?>>
+  					<input type="radio" value="colacion media tarde" name="tipo" <?php if($preparacion->nombre=="colacion media tarde"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Once
-  					<input type="radio" value="once" name="tipo" <?php if($preparacion->tipo=="once"){?> checked=""<?php }?>>
+  					<input type="radio" value="once" name="tipo" <?php if($preparacion->nombre=="once"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 				<label class="container">Cena
-  					<input type="radio" value="cena" name="tipo" <?php if($preparacion->tipo=="cena"){?> checked=""<?php }?>>
+  					<input type="radio" value="cena" name="tipo" <?php if($preparacion->nombre=="cena"){?> checked=""<?php }?>>
   					<span class="checkmark"></span>
 				</label>
 			</div>
@@ -161,8 +167,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -172,7 +176,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

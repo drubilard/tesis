@@ -41,22 +41,22 @@
 	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
 				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
-					<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+					<a href="<?php echo base_url();?>registrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b></a>
 				</div>
 	</div>
-	<div id="page-container" class=" animated bounceInUp">
+	<div id="page-container" class=" fade">
 		<!-- begin login -->
-		<div class="login login-v2" data-pageload-addclass="">
+		<div class="login login-v2" data-pageload-addclass="animated fadeIn">
 			<!-- begin brand -->
-			<div class="login-header">
+			<div class="login-header row animated bounceInLeft">
 				<div class="brand">
 					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>Nutrición</b> Login
-					<small><br>Esforzarte para llevar una nutrición adecuada, es la mejor inversión para tu cuerpo y mente que puedes hacer</small>
+					<small class="frase"><br>Esforzarte para llevar una nutrición adecuada, es la mejor inversión para tu cuerpo y mente que puedes hacer</small>
 				</div>
 			</div>
 			<!-- end brand -->
 			<!-- begin login-content -->
-			<div class="login-content">
+			<div class="login-content animated bounceIn">
 				<?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
 				<?php 
 							$errors=validation_errors('<li>','</li>');
@@ -69,13 +69,16 @@
 
 							<?php }
 							if ($this->session->flashdata('mensaje_login')!='') {?>
-								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje_login');?></div>
-
-							<?php }
-							?>
+								<div class="alert alert-<?php echo $this->session->flashdata('css');?> "><?php
+									echo $this->session->flashdata('mensaje_login');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   					<span aria-hidden="true">&times;</span>
+									</button>
+								<?php }?>
+								</div>
+							
 					<div  class="form-group m-b-20">
-						<input name="user" type="text" class="form-control form-control-lg" placeholder="Usuario" value="<?php echo set_value_input(array(),'user','user')?>" />
+						<input name="user" type="text" autofocus="true" class="form-control form-control-lg" placeholder="Usuario" value="<?php echo set_value_input(array(),'user','user')?>" />
 					</div>
 					<div class="form-group m-b-20">
 						<input name="clave" type="password" class="form-control form-control-lg" placeholder="Clave" />

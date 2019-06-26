@@ -22,7 +22,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/demo/ajustes_planilla.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -42,43 +41,38 @@
 		<div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
+				<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Evaluación</a>
 			</div>
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administración</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Planilla Evaluación</li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administración</strong></a></li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_pacientes"><strong>Pacientes</strong></a></li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/evaluaciones/<?php echo $datos_paciente->rut?>"><strong>Evaluaciones</strong></a></li>
+						<li class="breadcrumb-item" aria-current="page">Planilla Evaluación</li>
   				</ol>
 			</nav>
 		</div>
-
-	<div id="page-container" class="fade">
+	<br>
+	<!<div id="page-container" class="fade">
 		<!-- begin login -->
 		<div class="" data-pageload-addclass="animated fadeIn">
 			<!-- begin brand -->
-
-			<br>
-				<?php 
-					$errors=validation_errors('<li>','</li>');
-					if ($errors !="") {?>
-						<div class="alert alert-danger">
-							<ul>
-								<?php echo $errors;?>
-							</ul>
-						</div>
-
-							<?php }?>
-			<!-- end brand -->
-			<!-- begin login-content -->
-			
 	<div class="container">
 	<?php echo form_open(null,array("name"=>"form_palnilla_evaluacion","class"=>"margin-bottom-0"));?>
 	<div class="panel panel-warning">
-      <div class="panel-heading"><?php if ($this->session->flashdata('mensaje')!='') {?>
-                <div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-                  echo $this->session->flashdata('mensaje');?></div>
+      <div class="panel-heading">
+				<?php if ($this->session->flashdata('mensaje')!='') {?>
+                <div class="alert alert-<?php echo $this->session->flashdata('css');?> "><?php
+									echo $this->session->flashdata('mensaje');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   				<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
 
-              <?php }?>Datos Generales</div>
+					<?php }?>
+					
+							Datos Generales
+				</div>
       <br>
         <div class="container-fluid">
         	<div class="row">
@@ -105,8 +99,8 @@
         		<div class="col-md-6">
         			<div class="form-group row">
     					<label for="peso" class="col-sm-2 col-form-label"><strong>Fecha Evaluación:</strong></label>
-    						<div class="col-md-3">
-      							<label for="peso" class="col-sm-12 col-form-label"><?php echo date('Y-m-d');?></label>
+    						<div class="col-md-4">
+      							<input type="date" name="fecha_control" class="col-sm-12 col-form-label" value="<?php echo date('Y-m-d');?>">
     						</div>
   					</div>
         		</div>
@@ -494,8 +488,7 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	<script type="text/javascript" src="<?php echo base_url();?>assets/js/demo/ajustes_planillas.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -504,7 +497,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

@@ -89,12 +89,16 @@
 							<?php }
 							if ($this->session->flashdata('mensaje')!='') {?>
 								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje');?></div>
+									echo $this->session->flashdata('mensaje');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   					<span aria-hidden="true">&times;</span>
+									</button>	
+								</div>
 
                             <?php }?>
                         <label for="nombre" class="control-label">Nombre alimento:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="nombre_alimento" value="<?php echo $alimento->nombre?>" />
+								<input type="text" class="form-control" autofocus="true" name="nombre_alimento" value="<?php echo $alimento->nombre?>" />
 						</div>
 						<label for="tipo" class="control-label">Tipo <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
@@ -143,9 +147,7 @@
 
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
-	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
-	<!-- ================== END BASE JS ================== -->
+	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 

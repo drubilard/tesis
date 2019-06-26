@@ -24,7 +24,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/demo/ajustes_planilla.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -79,7 +78,11 @@
             if($this->session->flashdata('mensaje')!='')
             {
                ?>
-               <div class="alert alert-<?php echo $this->session->flashdata('css')?>"><?php echo $this->session->flashdata('mensaje')?></div>
+			   	<div class="alert alert-<?php echo $this->session->flashdata('css')?>"><?php echo $this->session->flashdata('mensaje')?>
+				   	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   <span aria-hidden="true">&times;</span>
+					</button>
+				</div>
                <?php 
             }
             ?>
@@ -93,7 +96,7 @@
 					<div class="col-md-3 col-xs-5">
     						<div class="input-group">
 								<span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-      							<input type="text" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar preparación..">
+      							<input type="text" autofocus="true" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar preparación..">
     						</div>
 					</div>
 				</div>
@@ -104,10 +107,10 @@
   					<table class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Nº</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Editar</th>
+                        <th><center>Nº</center></th>
+                        <th><center>Nombre</center></th>
+                        <th><center>Tipo</center></th>
+                        <th><center>Editar</center></th>
                     </tr>
                 </thead>
                 <tbody id=body_paginacion>
@@ -136,12 +139,10 @@
 	<script src="<?php echo base_url();?>assets/plugins/jquery/jquery-3.3.1.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/busqueda_preparacion.js"></script>
+	<script src="<?php echo base_url();?>assets/js/demo/busqueda_preparaciones.js"></script>
 	
 
 	<!-- ================== END BASE JS ================== -->

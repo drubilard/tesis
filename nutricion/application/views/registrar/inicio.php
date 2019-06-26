@@ -14,6 +14,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/css/glyphicons.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/plugins/font-awesome/5.3/css/all.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/plugins/animate/animate.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet" />
@@ -51,26 +52,11 @@
 
 			</div>
 			<br>
-				<?php 
-					$errors=validation_errors('<li>','</li>');
-					if ($errors !="") {?>
-						<div class="alert alert-danger">
-							<ul>
-								<?php echo $errors;?>
-							</ul>
-						</div>
-
-							<?php }?>
-				<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-					echo $this->session->flashdata('mensaje');?>		
-				</div>
-			
-			<!-- end brand -->
 			<!-- begin login-content -->
 			
 					<div class="login-buttons row animated bounceIn">
-						<a href="<?php echo base_url();?>registrar/add_nutricionista" class="btn btn-success btn-block btn-lg">Registrar<span></span></a>
-						<a href="<?php echo base_url();?>registrar/login" class="btn btn-warning btn-block btn-lg">Iniciar sesión</a>
+						<a href="<?php echo base_url();?>registrar/add_nutricionista" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Registrar</a>
+						<a href="<?php echo base_url();?>registrar/login" class="btn btn-warning btn-block btn-lg"><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Iniciar sesión</a>
 					</div>
 
 
@@ -94,7 +80,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

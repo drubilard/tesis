@@ -1,12 +1,18 @@
 <?php
 $config=array(
-	'add_formulario'
+	'add_paciente'
 	=> array(
-			array('field'=>'rut_paciente', 'label'=>'Rut','rules'=>'required|max_length[10]|min_length[9]'),
+			array('field'=>'rut', 'label'=>'Rut','rules'=>'required|max_length[10]|min_length[9]'),
 			array('field' => 'nombre_paciente', 'label' => 'Nombre','rules' => 'required|is_string|max_length[20]|min_length[3]'),
 			array('field' => 'apellido_paciente', 'label' => 'Apellido','rules' => 'required|is_string|max_length[20]|min_length[3]'),
 			array('field' => 'sexo', 'label' => 'sexo','rules' => 'required'),
 			array('field' => 'fecha_nacimiento_p', 'label' => 'Fecha de nacimiento','rules' => 'required')
+
+		),
+	'nueva_ficha'
+	=> array(
+			array('field'=>'fecha','label'=>'Fecha','rules'=>'required'),
+			array('field'=>'info', 'label'=>'Información','rules'=>'required')
 
 		),
 	'login_formulario'
@@ -17,25 +23,15 @@ $config=array(
 		),
 		'add_nutricionista'
 		=> array(
-				array('field' => 'rut_paciente', 'label' => 'Rut','rules' => 'required|max_length[10]|min_length[9]'),
+				array('field' => 'rut', 'label' => 'Rut','rules' => 'required|max_length[10]|min_length[9]'),
 				array('field' => 'nombre', 'label' => 'Nombre','rules' => 'required'),
 				array('field' => 'apellido', 'label' => 'Apellido','rules' => 'required'),
 				array('field' => 'sexo', 'label' => 'Sexo','rules' => 'required'),
 				array('field' => 'usuario', 'label' => 'Usuario','rules' => 'required|max_length[20]'),
-				array('field' => 'contrasena', 'label' => 'Contraseña','rules' => 'required|min_length[6]')
+				array('field' => 'contrasena', 'label' => 'Contraseña','rules' => 'required|min_length[6]'),
+				array('field' => 'contrasena_2', 'label' => 'Repetir contraseña','rules' => 'required|min_length[6]')
 	
 			),
-	'add_vacaciones'
-	=> array(
-			array('field' => 'usuario_vacacion','label' =>'Persona','rules' => 'required'),
-			array('field' => 'fecha_vacaciones_inicio','label' => 'Fecha Desde','rules' => 'required'),
-			array('field' => 'fecha_vacaciones_hasta', 'label' => 'Fecha Hasta','rules' =>'required')
-		),
-	'add_administrativos'
-	=> array(
-			array('field' => 'usuario_administrativos','label' => 'Persona', 'rules' =>'required'),
-			array('field' =>'fecha_administrativo','label' => 'Fecha para día administrativo','rules' =>'required')
-		),
 	'add_pat_hab'
 	=> array(
 			array('field' => 'nombre_pat_hab','label' => 'Nombre', 'rules' =>'required'),

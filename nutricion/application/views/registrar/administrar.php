@@ -36,17 +36,16 @@
 		<div class="login-cover-bg"></div>
 	</div>
 	<!-- end login-cover -->
-	
 	<!-- begin #page-container -->
 	<div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
-				<div class="navbar-header col-xs-8 col-md-8 col-lg-5">
+				<div class="navbar-header col-xs-7 col-sm-3  col-md-4 col-lg-4 col-xl-5">
 					<a href="" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b></a>
 				</div>
-				<div class="navbar-header col-xs-4 col-md-4 col-lg-5">
-					<span class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/usuario_2.png" >  Bienvenido(a) <?php echo $nutri?></span>
+				<div class="navbar-header col-xs-3 col-sm-5  col-md-4 col-lg-5 col-xl-4 ">
+					<a href="<?php echo base_url();?>registrar/editar_nutricionista/<?php echo $this->session->userdata("id");?>"><span class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/usuario_2.png" >  Bienvenid<?php if($nutri_sexo=="1"){echo "o ".$nutri_nombre;}else{ echo "a ".$nutri_nombre;}?></span></a>
 				</div>
-				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
+				<div class="navbar-header col-xs-2 col-sm-4  col-md-4 col-lg-3 col-xl-3">
 					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
 				</div>
 	</div>
@@ -62,26 +61,13 @@
 
 			</div>
 			<br>
-				<?php 
-					$errors=validation_errors('<li>','</li>');
-					if ($errors !="") {?>
-						<div class="alert alert-danger">
-							<ul>
-								<?php echo $errors;?>
-							</ul>
-						</div>
-
-							<?php }?>
-				<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-					echo $this->session->flashdata('mensaje');?>		
-				</div>
 			
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
 					<div class="login-buttons row animated bounceIn">
 						<a href="<?php echo base_url();?>registrar/listado_pacientes" class="btn btn-warning btn-block btn-lg">Pacientes</a>
-						<a href="<?php echo base_url();?>registrar/add" class="btn btn-warning btn-block btn-lg">Nueva Ficha</a>
+						<a href="<?php echo base_url();?>registrar/add_paciente" class="btn btn-warning btn-block btn-lg">Nuevo ingreso</a>
 						<a href="<?php echo base_url();?>registrar/gestion" class="btn btn-warning btn-block btn-lg">Gestión</a>
 					</div>
 
@@ -106,7 +92,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

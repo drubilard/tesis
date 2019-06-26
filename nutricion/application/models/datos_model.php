@@ -4,7 +4,16 @@ class datos_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-    }
+	}
+	public function get_datos_informe($rut){
+		$query=$this->db
+			->select("fecha,peso_paciente,cintura_min_paciente,grasa_durnin_paciente")
+			->from("Evaluacion_nutricional")
+			->where("Paciente_rut",$rut)
+			->order_by("fecha","asc")
+			->get();
+			return $query->result(); 
+	}
     public function getTodosPaginacion_pat_hab($pagina,$porpagina,$quehago){
         switch($quehago)
         {
@@ -31,6 +40,9 @@ class datos_model extends CI_Model
     }
     public function insertar_alimento($data=array()){
     	$this->db->insert('alimento',$data);
+	}
+	public function insertar_ficha($data=array()){
+    	$this->db->insert('ficha_clinica',$data);
     }
     public function insertar_preparacion($data=array()){
     	$this->db->insert('preparacion',$data);
@@ -56,10 +68,9 @@ class datos_model extends CI_Model
 		return $query->row();
 	}
 	public function consulta_usuario($usuario){
-		$usuario_sha1=sha1($usuaio);
 		$query=$this->db->select('*')
 			->from("nutricionista")
-			->where("usuario",$usuario_sha1)
+			->where("usuario",$usuario)
 			->get();
 		return $query->result();
 	}
@@ -82,6 +93,14 @@ class datos_model extends CI_Model
 		$this->db->where('rut',$id);
         $this->db->delete('paciente');
 	}
+	public function delete_asignacion_patologia($rut){
+		$this->db->where('Paciente_rut',$rut);
+		$this->db->delete('Paciente_patologia');
+	}
+	public function delete_evaluacion($id){
+		$this->db->where('idevaluacion_nutricional',$id);
+        $this->db->delete('Evaluacion_nutricional');
+	}
 	public function delete_pat_hab($id){
 		$this->db->where('id',$id);
         $this->db->delete('patologias_habitos');
@@ -90,15 +109,19 @@ class datos_model extends CI_Model
 		$this->db->where('idAlimento',$id);
         $this->db->delete('alimento');
 	}
+	public function delete_ficha($id){
+		$this->db->where('id',$id);
+        $this->db->delete('ficha_clinica');
+	}
 	public function delete_preparacion($id){
 		$this->db->where('idpreparacion',$id);
         $this->db->delete('preparacion');
 	}
-	public function get_pat_hab_id($id){
+	public function get_patologia_id($id){
 		$query=$this->db
                 ->select("*")
-                ->from("patologias_habitos")
-                ->where(array("id"=>$id))
+                ->from("patologia")
+                ->where(array("idPatologia"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
         return $query->row();
@@ -112,6 +135,15 @@ class datos_model extends CI_Model
         //echo $this->db->last_query();exit;        
         return $query->row();
 	}
+	public function get_ficha_id($id){
+		$query=$this->db
+                ->select("*")
+                ->from("ficha_clinica")
+                ->where(array("id"=>$id))
+                ->get();
+        //echo $this->db->last_query();exit;        
+        return $query->row();
+	}
 	public function get_preparacion_id($id){
 		$query=$this->db
                 ->select("*")
@@ -121,13 +153,17 @@ class datos_model extends CI_Model
         //echo $this->db->last_query();exit;        
         return $query->row();
 	}
-	public function update_pat_hab($data=array(),$id){
-		$this->db->where('id',$id)
-				->update('patologias_habitos',$data);
+	public function update_patologia($data=array(),$id){
+		$this->db->where('idPatologia',$id)
+				->update('Patologia',$data);
 	}
 	public function update_alimento($data=array(),$id){
 		$this->db->where('idAlimento',$id)
 				->update('alimento',$data);
+	}
+	public function update_ficha($data=array(),$id){
+		$this->db->where('id',$id)
+				->update('ficha_clinica',$data);
 	}
 	public function update_preparacion($data=array(),$id){
 		$this->db->where('idpreparacion',$id)
@@ -141,8 +177,8 @@ class datos_model extends CI_Model
 				->get();
 		return $query->row();
 	}
-	public function asociat_pat_hab_paciente($data=array()){
-		$this->db->insert('paciente_pat_hab',$data);
+	public function agregar_asociar_patologia($data=array(),$rut){
+		$this->db->insert('Paciente_patologia',$data);
 	}
 	public function asociar_paciente_alimentos($data=array()){
 		$this->db->insert('paciente_alimentos',$data);
@@ -151,13 +187,14 @@ class datos_model extends CI_Model
 		$this->db->insert('paciente_preparaciones',$data);
 	}
 	public function add_evaluacion($data=array()){
-		$this->db->insert('evaluacion_paciente',$data);
+		$this->db->insert('Evaluacion_nutricional',$data);
 	}
-	public function get_evaluacion(){
+	public function get_evaluacion($id){
 		$query=$this->db->select('*')
-			->from('evaluacion_paciente')
+			->from('Evaluacion_nutricional')
+			->where('idevaluacion_nutricional',$id)
 			->get();
-			return $query->result();
+			return $query->row();
 	}
 	public function add_ficha_clinica($data=array()){
 		$this->db->insert('ficha_clinica',$data);
@@ -181,7 +218,58 @@ class datos_model extends CI_Model
                 $query=$this->db
                         ->select("*")
 						->from("paciente")
+						->where('Nutricionista_rut',$rut)
 						->like('nombre',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_evaluaciones($buscar="",$pagina,$porpagina,$quehago,$rut){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("Evaluacion_nutricional")
+						->where('Paciente_rut',$rut)
+						->limit($porpagina,$pagina)
+						->like('fecha',$buscar,'after')
+						->order_by('fecha','desc')
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("Evaluacion_nutricional")
+						->where('Paciente_rut',$rut)
+						->like('fecha',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_fichas($buscar="",$pagina,$porpagina,$quehago,$rut){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("ficha_clinica")
+						->where('rut',$rut)
+						->limit($porpagina,$pagina)
+						->like('fecha',$buscar,'after')
+						->order_by('fecha','desc')
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("ficha_clinica")
+						->where('rut',$rut)
+						->like('fecha',$buscar,'after')
                         ->count_all_results();
                 return $query;
             break;
@@ -194,9 +282,24 @@ class datos_model extends CI_Model
 				->get();
 		return $query->row();
 	}
+	public function get_nutricionista_por_rut($rut){
+		$query=$this->db->select("*")
+				->from('Nutricionista')
+				->where('rut',$rut)
+				->get();
+		return $query->row();
+	}
 	public function update_paciente($data=array(),$id){
 		$this->db->where('rut',$id)
 				->update('paciente',$data);
+	}	
+	public function update_nutricionista($data=array(),$id){
+		$this->db->where('rut',$id)
+				->update('Nutricionista',$data);
+	}
+	public function update_evaluacion($data=array(),$id){
+		$this->db->where('idevaluacion_nutricional',$id)
+				->update('Evaluacion_nutricional',$data);
 	}	
 	public function getTodosPaginacion_patologias($buscar="",$pagina,$porpagina,$quehago){
         switch($quehago)
@@ -214,14 +317,32 @@ class datos_model extends CI_Model
             case 'cuantos':
                 $query=$this->db
                         ->select("*")
-						->from("paciente")
+						->from("patologia")
 						->like('nombre',$buscar,'after')
                         ->count_all_results();
                 return $query;
             break;
         }
     }
+	public function all_patologias(){
+        $query=$this->db
+                ->select("*")
+				->from("patologia")
+                ->order_by("nombre","asc")
+				->get();
+                return $query->result();        
 
+	}
+	public function patologias_asociadas($rut){
+        $query=$this->db
+                ->select("Patologia_idPatologia")
+				->from("Paciente_patologia")
+				->where('Paciente_rut',$rut)
+                ->order_by("Patologia_idPatologia","asc")
+				->get();
+                return $query->result();        
+
+    }
 	public function getTodosPaginacion_alimentos($buscar="",$pagina,$porpagina,$quehago){
         switch($quehago)
         {
@@ -254,7 +375,7 @@ class datos_model extends CI_Model
                         ->from("preparacion")
 						->limit($porpagina,$pagina)
 						->like('nombre',$buscar,'after')
-                        ->order_by("nombre","asc")
+                        ->order_by("idpreparacion","asc")
                         ->get();
                 return $query->result();        
             break;

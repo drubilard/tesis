@@ -16,30 +16,24 @@ $(document).ready(function(){
 		valorBuscar = $("input[name=busqueda]").val();
 		mostrarDatos(valorBuscar,valorhref,"5");
     });
-    $("#body_paginacion").on("click",".eliminar_patologia",function(e){
-        e.preventDefault();
-        if(confirm('Realmente desea eliminar este registro?'))
-    {
-        window.location=$(this).attr("href");
-    }
-    });
 
 });
 
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-    path="http://localhost/nutricion/registrar/"
-	$.ajax({
-		url : "http://192.168.0.12/nutricion/registrar/mostrar_patologias",
+	path="http://192.168.0.12/nutricion/registrar/";
+	//path="http://10.145.243.133/nutricion/registrar/";
+		$.ajax({
+		url : path+"mostrar_patologias",
 		type: "POST",
 		data: {buscar:valorBuscar,nropagina:pagina,cantidad:cantidad},
 		dataType:"json",
 		success:function(response){
 			filas = "";
-			$.each(response.paciente,function(key,item){
-				//console.log(response.paciente);
-				filas+="<tr><td>"+item.idPatologia+"</td><td>"+item.nombre+"</td><td>"+item.Grupo_patologico+"</td><td><a href='/nutricion/registrar/editar_patologia/"+item.idPatologia+"/"+pagina+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>"+"<a class='eliminar_patologia' href='/nutricion/registrar/eliminar_patologia/"+item.rut_paciente+"/"+pagina+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>";
+			$.each(response.patologia,function(key,item){
+				console.log(response.paciente);
+				filas+="<tr><td><center>"+item.idPatologia+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.Grupo_patologico+"</center></td><td><center><a class='btn btn-primary brn-xs' href='/nutricion/registrar/editar_patologia/"+item.idPatologia+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></center></td></tr>";
 			});
 
 			$("#body_patologias").html(filas);

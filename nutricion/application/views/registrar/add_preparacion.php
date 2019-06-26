@@ -52,7 +52,7 @@
   				<ol class="breadcrumb">
 				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
 				 	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
-					<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Listado preparaciones</strong></a></li>
+					<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_preparaciones"><strong>Gestión preparaciones</strong></a></li>
     				<li class="breadcrumb-item" aria-current="page">Agregar preparación</li>
   				</ol>
 			</nav>  			
@@ -87,12 +87,16 @@
                     </div>
           <?php }
                 if ($this->session->flashdata('mensaje')!='') {?>
-					<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-					echo $this->session->flashdata('mensaje');?></div>
+					<div class="alert alert-<?php echo $this->session->flashdata('css');?> "><?php
+					echo $this->session->flashdata('mensaje');?>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   		<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 				<?php }?>
             <p>
                 <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" value="<?php echo set_value_input(array(),'nombre','nombre')?>" class="form-control" autofocus="true" />
+                <input type="text" name="nombre" placeholder="Nombre preparación" autofocus="true" value="<?php echo set_value_input(array(),'nombre','nombre')?>" class="form-control" autofocus="true" />
             </p>
             
              <p>

@@ -77,14 +77,18 @@
 
 							<?php }
 							if ($this->session->flashdata('mensaje')!='') {?>
-								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje');?></div>
+								<div class="alert alert-<?php echo $this->session->flashdata('css');?> "><?php
+									echo $this->session->flashdata('mensaje');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   					<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
 
                             <?php }?>
                         <label for="nombre" class="control-label">Rut:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="rut_paciente" placeholder="ej:12345678-9" value="<?php echo set_value_input(array(),'rut_paciente','rut_paciente')?>" />
+								<input type="text" class="form-control" autofocus="true" name="rut" maxlength="9"  placeholder="Rut sin puntos ni guión" value="<?php echo set_value_input(array(),'rut','rut')?>" />
 							</div>
 						</div>
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
@@ -96,15 +100,15 @@
 								<input type="text" class="form-control" name="apellido" placeholder="Apellido" value="<?php echo set_value_input(array(),'apellido','apellido')?>"/>
 							</div>
 						</div>
-						<label class="control-label" for="clave" >Sexo: <span class="text-danger">*</span></label>
+						<label class="control-label" for="sexo" >Sexo: <span class="text-danger">*</span></label>
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-  									<input type="radio" name="sexo" value="1">
+  									<input type="radio" checked="" name="sexo" value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino
-  									<input type="radio" name="sexo" value="2">
+  									<input type="radio"   name="sexo" value="2">
   									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -118,13 +122,13 @@
                         <label for="contraseña" class="control-label">Contraseña:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="contrasena" placeholder="Contraseña" >
+								<input type="password" class="form-control" name="contrasena" placeholder="Contraseña" >
 							</div>
                         </div>
                         <label for="contraseña" class="control-label">Repetir contraseña:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="contrasena_2" placeholder="Repetir contraseña" />
+								<input type="password" class="form-control" name="contrasena_2" placeholder="Repetir contraseña" />
 							</div>
                         </div>
 						<div class="register-buttons">
@@ -156,11 +160,10 @@
 	<script src="<?php echo base_url();?>assets/plugins/jquery/jquery-3.3.1.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
+	<script src="<?php echo base_url();?>assets/js/demo/formato_rut.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

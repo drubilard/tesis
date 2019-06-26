@@ -49,7 +49,8 @@
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
 				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Editar paciente</li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_pacientes"><strong>Pacientes</strong></a></li>
+					<li class="breadcrumb-item" aria-current="page">Editar paciente</li>
   				</ol>
 			</nav>  			
 			
@@ -87,13 +88,17 @@
 							<?php }
 							if ($this->session->flashdata('mensaje')!='') {?>
 								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje');?></div>
+									echo $this->session->flashdata('mensaje');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   					<span aria-hidden="true">&times;</span>
+									</button>	
+								</div>
 
                             <?php }?>
                         <label for="nombre" class="control-label">Rut:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="rut_paciente" placeholder="ej:12345678-9" value="<?php echo $datos->rut?>" />
+								<input type="text" class="form-control" autofocus="true" name="rut_paciente" placeholder="ej:12345678-9" value="<?php echo $datos->rut?>" />
 							</div>
 						</div>
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
@@ -158,7 +163,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     mostrarDatos("",1,"5");
     $("input[name=busqueda]").keyup(function(){
@@ -29,25 +28,24 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-    path="http://localhost/nutricion/registrar/"
-	$.ajax({
-		url : "http://192.168.0.12/nutricion/registrar/mostrar_alimentos",
+	path="http://192.168.0.12/nutricion/registrar/";
+	//path="http://10.145.243.133/nutricion/registrar/";
+		$.ajax({
+		url : path+"mostrar_alimentos",
 		type: "POST",
 		data: {buscar:valorBuscar,nropagina:pagina,cantidad:cantidad},
 		dataType:"json",
 		success:function(response){
 			filas = "";
 			$.each(response.alimento,function(key,item){
-				filas+="<tr><td>"+item.idAlimento+"</td><td>"+item.nombre+"</td><td>"+item.tipo+"</td><td><a href='/nutricion/registrar/editar_alimento/"+item.idAlimento+"/"+pagina+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>"+"<a class='eliminar_alimento' href='/nutricion/registrar/eliminar_alimento/"+item.idAlimento+"/"+pagina+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>";
+				filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.tipo+"<center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion/registrar/editar_alimento/"+item.idAlimento+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"  <a class='eliminar_alimento btn btn-danger tabla btn-xs' href='/nutricion/registrar/eliminar_alimento/"+item.idAlimento+"/"+pagina+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></center></td></tr>";
 			});
-
 			$("#body_alimentos").html(filas);
 			linkseleccionado = Number(pagina);
 			//total registros
 			totalregistros = response.totalregistros;
 			//cantidad de registros por pagina
 			cantidadregistros = response.cantidad;
-
 			numerolinks = Math.ceil(totalregistros/cantidadregistros);
 			paginador = "<ul class='pagination'>";
 			if(linkseleccionado>1)

@@ -49,7 +49,9 @@
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
 				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Ingreso de alimento</li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestion</strong></a></li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_alimentos"><strong>Gestión de alimentos</strong></a></li>
+					<li class="breadcrumb-item" aria-current="page">Ingreso de alimento</li>
   				</ol>
 			</nav>  			
 			
@@ -86,25 +88,29 @@
 
 							<?php }
 							if ($this->session->flashdata('mensaje')!='') {?>
-								<div class="alert-<?php echo $this->session->flashdata('css');?> "><?php
-									echo $this->session->flashdata('mensaje');?></div>
+								<div class="alert alert-<?php echo $this->session->flashdata('css');?> "><?php
+									echo $this->session->flashdata('mensaje');?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   				<span aria-hidden="true">&times;</span>
+									</button>	
+								</div>
 
                             <?php }?>
                         <label for="nombre" class="control-label">Nombre alimento:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="nombre_alimento" value="<?php echo set_value_input(array(),'nombre_alimento','nombre_alimento')?>" />
+								<input type="text" class="form-control" autofocus="true" placeholder="Nombre alimento" name="nombre_alimento" value="<?php echo set_value_input(array(),'nombre_alimento','nombre_alimento')?>" />
 						</div>
 						<label for="tipo" class="control-label">Tipo <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="tipo" placeholder="" value="<?php echo set_value_input(array(),'tipo','tipo')?>" />
+								<input type="text" class="form-control" placeholder="Tipo de alimento" name="tipo" placeholder="" value="<?php echo set_value_input(array(),'tipo','tipo')?>" />
 						</div>
 						<label for="aporte" class="control-label">Aporte:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="aporte" value="<?php echo set_value_input(array(),'aporte','aporte')?>" />
+								<input type="text" class="form-control" name="aporte" placeholder="Aporte nutricional" value="<?php echo set_value_input(array(),'aporte','aporte')?>" />
 						</div>
 						<label for="propiedades" class="control-label">Propiedades:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="propiedades" value="<?php echo set_value_input(array(),'propiedades','propiedades')?>" />
+								<input type="text" class="form-control" name="propiedades" placeholder="Propiedades nutricionales" value="<?php echo set_value_input(array(),'propiedades','propiedades')?>" />
 						</div>
 
 						<br>
@@ -142,7 +148,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/despliegue_tipo_consulta.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->

@@ -251,6 +251,11 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 	font-weight: normal;
 	color: #6a7786;
 }
+.frase{
+	font-size: 60%;
+	font-weight: normal;
+	color: #ffffff;
+}
 a {
 	color: #007bff;
 	transition: color 100ms ease-in-out;
@@ -315,6 +320,9 @@ table.dataTable thead .sorting_desc_disabled:after,
 	font-variant: normal;
 	text-rendering: auto;
 }
+
+/* .slideThree */
+
 
 
 
@@ -1835,7 +1843,7 @@ table.dataTable thead .sorting_desc_disabled:after,
 	line-height: 20px;
 }
 .breadcrumb {
-	padding: 0;
+	padding: 0.5;
 	margin: 0;
 	background: #f59c1a;
     border-radius: 0px 0px 0px 0px;
@@ -1847,7 +1855,7 @@ table.dataTable thead .sorting_desc_disabled:after,
     border-radius: 10px 10px 10px 10px;
 }
 .breadcrumb > li {
-	line-height: 32px;
+	line-height: 15px;
 }
 .ie8 .breadcrumb > li {
 	display: inline;
@@ -2184,8 +2192,7 @@ textarea.form-control {
     font-family: Arial,verdana;
     font-size: 12pt;
     font-weight: bold;
-    width: 100%;
-    height: 500px;
+    height: 340px;
 }
 .col-form-label,
 .row.form-group > .col-form-label {
@@ -3301,7 +3308,7 @@ legend {
 
 /* 4.14.4 Component - Button - Primary */
 
-.btn.btn-primary,
+.btn.btn-primary.tabla,
 .btn.btn-primary.disabled,
 .btn.btn-primary.disabled:hover,
 .btn.btn-primary.disabled:focus,
@@ -3351,8 +3358,8 @@ legend {
 .btn.btn-success[disabled]:hover,
 .btn.btn-success[disabled]:focus {
 	color: #fff;
-	background: #0078d7;
-	border-color: #0078d7;
+	background: #5cb85c;
+	border-color: #5cb85c;
 }
 .btn-success:hover, 
 .btn-success:focus, 
@@ -3370,16 +3377,16 @@ legend {
 .open > .dropdown-toggle.btn-success:focus,
 .btn-success:not(:disabled):not(.disabled).active, 
 .btn-success:not(:disabled):not(.disabled):active {
-	background: #348fe2;
-	border-color: #348fe2;
+	background: #5cb85c;
+	border-color: #5cb85c;
 }
 .input-group-append .btn.btn-success,
 .btn-group .btn.btn-success:not(.active) + .btn.btn-success,
 .input-group-btn .btn.btn-success:not(.active) + .btn.btn-success {
-	border-left-color: #008a8a;
+	border-left-color: #5cb85c;
 }
 .input-group-prepend .btn.btn-success {
-	border-right-color: #008a8a;
+	border-right-color: #5cb85c;
 }
 
 
@@ -3986,8 +3993,8 @@ legend {
 .panel-primary > .panel-heading {
 	color: #fff;
 }
-.panel-inverse > .panel-heading { background: #242a30; }
-.panel-success > .panel-heading { background: #074C16; }
+.panel-inverse > .panel-heading { background: #5cb85c; }
+.panel-success > .panel-heading { background: #5cb85c; }
 .panel-warning > .panel-heading { background: #c47d15; }
 .panel-danger > .panel-heading { background: #cc4946; }
 .panel-primary > .panel-heading { background: #2a72b5; }
@@ -4150,7 +4157,7 @@ legend {
 .modal-content {
 	border: none;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	border-radius: 3px;
+	border-radius: 30px;
 }
 .modal-header {
 	padding: 12px 15px;
@@ -4185,10 +4192,10 @@ legend {
 	margin: 0 auto;
 }
 .modal-backdrop {
-	background: rgba(0,0,0,0.5);
+	background: rgba(0, 0, 0, 0.418);
 }
 .modal-backdrop.fade.in {
-	opacity: 0.5;
+	opacity: 0.9;
 }
 
 
@@ -4262,7 +4269,7 @@ legend {
 }
 .table tbody td,
 .table > tbody > td  {
-    color: #008a8a;
+    color: #428bca;
     font-weight: 600;
     border-bottom: 1px solid #b6c2c9 !important;
 }
@@ -4644,6 +4651,24 @@ blockquote-reverse, blockquote.pull-right {
 
 
 /* 4.34 Component - CSS Checkbox (Added in V3.0) */
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(1); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(1.2);
+  padding: 1px;
+}
+
+/* Might want to wrap a span around your checkbox text */
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 0%;
+  display: inline;
+}
 
 .checkbox.checkbox-css {
 	position: relative;
@@ -6495,6 +6520,7 @@ body .fc button.fc-state-active {
 }
 .editableform textarea.form-control {
 	min-width: 240px;
+	
 }
 .editable-checklist label {
 	display: block;
@@ -10018,6 +10044,15 @@ a.inverse-mode.widget-card {
 	color:#ccc;
 	width:400px;
 	margin:120px 0 0 -200px;
+	position:absolute;
+	top:0;
+	left:50%;
+	border-radius:4px
+}
+.login.login-v2.movil {
+	color:#ccc;
+	width:400px;
+	margin:42px 0 0 -200px;
 	position:absolute;
 	top:0;
 	left:50%;

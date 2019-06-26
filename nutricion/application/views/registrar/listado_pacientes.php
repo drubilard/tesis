@@ -24,7 +24,6 @@
 	<script src="<?php echo base_url();?>assets/plugins/pace/pace.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/demo/ajustes_planilla.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -54,7 +53,7 @@
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
     				<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Gestión de pacientes</li>
+    				<li class="breadcrumb-item" aria-current="page">Pacientes</li>
   				</ol>
 			</nav>  			
 			
@@ -69,7 +68,7 @@
 			<!-- end brand -->
 			<!-- begin login-content -->
 			
-			<div class="container-fluid">
+	<div class="container-fluid">
     <div class="panel panel-success">
 
         <div class="panel-heading">Listado de pacientes</div>
@@ -78,7 +77,11 @@
             if($this->session->flashdata('mensaje')!='')
             {
                ?>
-               <div class="alert alert-<?php echo $this->session->flashdata('css')?>"><?php echo $this->session->flashdata('mensaje')?></div>
+			   	<div class="alert alert-<?php echo $this->session->flashdata('css')?>"><?php echo $this->session->flashdata('mensaje')?>
+				   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					   <span aria-hidden="true">&times;</span>
+				</button>
+				</div>
                <?php 
             }
             ?>
@@ -86,47 +89,41 @@
 		<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-9 col-xs-12">
-	
 					</div>
 					<div class="col-md-3 col-xs-5">
     						<div class="input-group">
 								<span class="input-group-addon "><span class=" glyphicon glyphicon-search" aria-hidden="true"></span></span>
-      							<input type="text" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar paciente..">
+      							<input type="text" autofocus="true" name="busqueda" class="form-control form-control-lg" id="b_contraido_id" placeholder="buscar paciente..">
+								  <input type="hidden"  name="rut" value="<?php echo $this->session->userdata("id");?>">
 							</div>
 					</div>
 				</div>
-			</div>
             <div class="panel-body">
 				<div class="table-responsive">
   					<table class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th><center>Rut</center></th>
-                        <th><center>Paciente</center></th>
-						<th><center>Evaluaciones</center></th>
-						<th><center>Informe</centerZ</th>
-						<th><center>Recomendación</center></th>
-                        <th><center>Opciones</center></th>
-                    </tr>
-                </thead>
-                <tbody id="body_pacientes">
-                
-                </tbody>
-                
-            </table>
-			<div class="text-center paginacion">
-        </div>
-    </div>
-</div>
-	</div>	
-			<!-- end login-content -->
-
-		<!-- end login -->
-		
-		
-		<!-- Modal -->
-
-
+						<thead>
+							<tr>
+								<th><center>Paciente</center></th>
+								<th><center>Ficha clínica</center></th>
+								<th><center>Patologías</center></th>
+								<th><center>Evaluaciones</center></th>
+								<th><center>Reportes</centerZ</th>
+								<th><center>Minutas</center></th>
+								<th><center>Opciones</center></th>
+							</tr>
+						</thead>
+						<tbody id="body_pacientes">
+						
+						</tbody>
+						
+					</table>
+					<div class="text-center paginacion">
+        			</div>
+    			</div>
+			</div>
+		</div>	
+			
+	<!-- Modal -->
 
 	<!-- end page container -->
 	
@@ -138,8 +135,7 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
 	<script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/eliminar.js"></script>
-	<script src="<?php echo base_url();?>assets/js/demo/busqueda_paciente.js"></script>
+	<script src="<?php echo base_url();?>assets/js/demo/busqueda_pacientes.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
