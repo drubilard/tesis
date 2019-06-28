@@ -42,15 +42,14 @@ class Registrar extends CI_Controller
                         $this->session->set_flashdata('css','danger');
                         $this->session->set_flashdata('mensaje','Rut no válido');
                     }
-                    }else{
-                        $this->session->set_flashdata('css','danger');
-                        $this->session->set_flashdata('mensaje','las contraseñas no coinciden');
-                    }
-
-                }  
-            }
-            $this->load->view('registrar/add_nutricionista');
-        }  
+                }else{
+                    $this->session->set_flashdata('css','danger');
+                    $this->session->set_flashdata('mensaje','las contraseñas no coinciden');
+                }
+            }  
+        }
+        $this->load->view('registrar/add_nutricionista');
+    }  
 	public function add_paciente(){
     if($this->session->userdata("id")){
             $rut_paciente="";
@@ -294,7 +293,8 @@ public function login(){
             if($this->input->post()){
                 if ($this->form_validation->run('add_preparacion')) {
                     $data=array(
-                    'nombre'=>$this->input->post('nombre',true)
+                    'nombre'=>$this->input->post('nombre',true),
+                    'tipo'=>$this->input->post('tipo',true)
                     );
                     $this->datos_model->insertar_preparacion($data);
                     $this->session->set_flashdata('css','success');
@@ -412,7 +412,22 @@ public function login(){
                 $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
                 redirect(base_url()."registrar/listado_pacientes");
             }
-            else{
+            else
+            if($this->input->post("base64_4")){
+                $img = $this->input->post('base64_4');
+                $img = str_replace('data:image/octet-stream;base64,', '', $img);
+                $fileData = base64_decode($img);
+                $fileName = uniqid().'.png';
+                //$this->load->helper('download');
+                //force_download($fileName, $fileData);
+                $ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
+                //echo $ruta;die;
+                file_put_contents($ruta, $fileData);
+                $this->session->set_flashdata('css','success');
+                $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
+                redirect(base_url()."registrar/listado_pacientes");
+            }
+            else {
                 $datos_paciente=$this->datos_model->get_paciente_por_rut($rut_paciente);
                 $this->load->view('registrar/informe',compact('datos_paciente'));
             }
@@ -531,6 +546,7 @@ public function login(){
             if($this->input->post()){
             $data=array(
                 "nombre"=>$this->input->post("nombre_preparacion",true),
+                "tipo"=>$this->input->post('tipo',true)
             );
             $this->datos_model->update_preparacion($data,$id);
             $this->session->set_flashdata('css','success');
@@ -792,71 +808,76 @@ public function login(){
         if(($this->session->userdata("id"))&& ($rut_paciente=$this->uri->segment(3))){
             $preparaciones=$this->datos_model->get_all_preparaciones();
             if($this->input->post()){
-                    foreach($this->input->post('nombre_preparacion_d') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'desayuno'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                $data=array('Paciente_rut'=>$rut_paciente,
+                'fecha'=>date('Y-m-j')
+                        );
+                $id_minuta=$this->datos_model->crear_minuta($data);
+                //print_r($this->input->post('preparaciones_minuta_beb'));die;
+                foreach($this->input->post('preparaciones_minuta_beb') as $prep){
+                    $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta,
+                        );
+                    $this->datos_model->asociar_minuta_preparaciones($data);
+                    }   
+                    foreach($this->input->post('preparaciones_minuta_des') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_co') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'colacion'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_col') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_e') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'entrada'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_ent') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_a') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'almuerzo'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_alm') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_cmd') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'colacion media tarde'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_col_2') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_o') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'once'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_on') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                    foreach($this->input->post('nombre_preparacion_ce') as $prep){
-                            $data=array('rut_paciente'=>$rut_paciente,
-                                'id_preparacion'=>$prep,
-                                'opcion'=>'cena'
-                                );
-                            $this->datos_model->asociar_paciente_preparaciones($data);
+                    foreach($this->input->post('preparaciones_minuta_cen') as $prep){
+                        $data=array('preparacion_idpreparacion'=>$prep,
+                        'minuta_idminuta'=>$id_minuta
+                        );
+                            $this->datos_model->asociar_minuta_preparaciones($data);
                     }
-                 redirect(base_url()."registrar/pdf/$rut_paciente");
+                 redirect(base_url()."registrar/pdf/".$id."/".$id_minuta);
             }
         $this->load->view("registrar/minuta",compact('preparaciones'));
         }else{
             redirect(base_url()."registrar/salir");
         }
     }
-    public function pdf($id=null){
-        if(!$id){redirect(base_url()."error404/");}
-        $datos_paciente=$this->datos_model->get_paciente_por_rut($this->uri->segment(3));
-        if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
-        if(($this->session->userdata("id"))&& ($rut_paciente=$this->uri->segment(3))){
-            $paciente=$this->datos_model->get_paciente_por_rut($rut_paciente);
+    public function pdf($rut=null,$id=null){
+        if(!$id || !$rut){redirect(base_url()."error404/");}
+        $paciente=$this->datos_model->get_paciente_por_rut($rut);
+        if(sizeof($paciente)==0){redirect(base_url()."error404/");}
+        if(($this->session->userdata("id"))&& ($rut=$this->uri->segment(3))){
+            $preparaciones=$this->datos_model->get_prepraciones_minuta($id);
+            //$patologias=$this->datos_model->get_patologia_id($rut);
             date_default_timezone_set("America/Santiago");
             $hoy = date("Y-m-j_h:i:s");
-            $pdfFilePath = $rut_paciente."_".$hoy.".pdf";
+            $pdfFilePath = $rut."_".$hoy.".pdf";
             $html='<div style="position: absolute; top: 5mm; left: 175mm; width: 100mm;">
 
 <img style="vertical-align: top" src="assets/img/logo/logo.png" width="80"/>
@@ -877,7 +898,7 @@ public function login(){
 
 <td>
 <ul>';
-                    /*foreach ($preparaciones as $key => $preparacion) {
+                    foreach ($preparaciones as $preparacion) {
                         if($preparacion->tipo=="desayuno"){
                         $html.='
                     <li>'.$preparacion->nombre.'</li>';}}
@@ -890,7 +911,7 @@ public function login(){
             <td>
             <ul>';
                 foreach ($preparaciones as $key => $preparacion) {
-                    if($preparacion->tipo=="colacion"){
+                    if($preparacion->tipo=="colacion_1"){
                     $html.='
                 <li>'.$preparacion->nombre.'</li>';}}
                 $html.='
@@ -932,7 +953,7 @@ public function login(){
             <td>
                 <ul>';
                     foreach ($preparaciones as $key => $preparacion) {
-                        if($preparacion->tipo=="colacion media tarde"){
+                        if($preparacion->tipo=="colacion_2"){
                         $html.='
                     <li>'.$preparacion->nombre.'</li>';}}
                     $html.='
@@ -969,8 +990,13 @@ public function login(){
         </tr>
         </tbody>
     </table>
-        <p>&nbsp;</p>';
-        $html.='<h4>Restriciones de Alimentos</h4>
+        <p>&nbsp;</p>'
+        
+        
+        ;
+
+        
+        /*$html.='<h4>Restriciones de Alimentos</h4>
         <table class="bpmTopnTail"><tbody>
         <tr>
         <td>Preferir</td>
@@ -1004,12 +1030,11 @@ public function login(){
             if($alimento->evi==1){
             $html.='
         <li>'.$alimento->nombre.'</li>';}}
-        $html.=*/
         $html.='</ul>
         </td>
         </tr>
     </tbody>
-</table>';
+</table>';*/
     
             $estilos=file_get_contents(base_url()."assets/css/mpdfstyletables.css");
             $mpdf = new mPDF('c');
@@ -1017,7 +1042,7 @@ public function login(){
             $mpdf->WriteHTML($estilos,1);
             $mpdf->WriteHTML($html,2);
             $mpdf->SetProtection(array(), 'nutricion', 'nutricion');
-            $mpdf->Output();
+            $mpdf->Output($pdfFilePath, 'I');
             exit();
     }else{
             redirect(base_url()."registrar/salir");

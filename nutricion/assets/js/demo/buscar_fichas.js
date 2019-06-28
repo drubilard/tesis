@@ -30,7 +30,7 @@ $(document).ready(function(){
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
 	path="http://192.168.0.12/nutricion/registrar/"
-	//path="http://10.145.243.133/nutricion/registrar/"
+	//path="http://10.145.249.105/nutricion/registrar/"
 		$.ajax({
 		url : path+"mostrar_fichas",
 		type: 'POST',

@@ -3,13 +3,15 @@
     var peso=[];
     var porc_grasa=[];
     var cintura=[];
-    var rut_paciente=$("#paciente").val();
+    var imc=[];
     var ctx="";
     var ctx2="";
     var ctx3="";
+    var ctx4="";
+    var rut_paciente=$("#paciente").val();
 
     var path="http://192.168.0.12/nutricion/registrar/datos_informe/"+rut_paciente;
-    //path="http://10.145.243.133/nutricion/registrar/datos_informe/"+rut_paciente;
+    //var path="http://10.145.249.105/nutricion/registrar/datos_informe/"+rut_paciente;
         $.post(path,
             function(data){
                 var obj= JSON.parse(data);
@@ -20,6 +22,7 @@
                     fechas_evaluaciones.push(item.fecha);
                     porc_grasa.push(item.grasa_durnin_paciente);
                     cintura.push(item.cintura_min_paciente);
+                    imc.push(item.imc_paciente);
                 });
                  ctx = $("#myChart");
                 var myChart = new Chart(ctx, {
@@ -102,6 +105,33 @@
                         }
                     }
                 });
+                ctx4 = $("#myChart4");
+                var myChart = new Chart(ctx4, {
+                    type: 'line',
+                    data: {
+                        labels: fechas_evaluaciones,
+                        datasets: [{
+                        data:imc,
+                        label: 'Progreso de estado nutricional en base IMC',
+                        backgroundColor: 
+                            'rgba( 92,184,92, 0.4)',
+        
+                        borderColor: 
+                            'rgba(92,184,92, 1)',
+        
+                        borderWidth: 2
+                    }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
                  
         });
         document.getElementById('form1').addEventListener("submit",function(){
@@ -121,6 +151,12 @@
             //var image = dataURL; // data:image/png....
             //image = image.replace("image/png","image/octet-stream");
             document.getElementById('base64_3').value = image;
+         },false);
+         document.getElementById('form4').addEventListener("submit",function(){
+            var image = ctx4[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
+            //var image = dataURL; // data:image/png....
+            //image = image.replace("image/png","image/octet-stream");
+            document.getElementById('base64_4').value = image;
          },false);
 
 });

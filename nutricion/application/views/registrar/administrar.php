@@ -66,8 +66,8 @@
 			<!-- begin login-content -->
 			
 					<div class="login-buttons row animated bounceIn">
-						<a href="<?php echo base_url();?>registrar/listado_pacientes" class="btn btn-warning btn-block btn-lg">Pacientes</a>
 						<a href="<?php echo base_url();?>registrar/add_paciente" class="btn btn-warning btn-block btn-lg">Nuevo ingreso</a>
+						<a href="<?php echo base_url();?>registrar/listado_pacientes" class="btn btn-warning btn-block btn-lg">Pacientes</a>
 						<a href="<?php echo base_url();?>registrar/gestion" class="btn btn-warning btn-block btn-lg">Gestión</a>
 					</div>
 

@@ -62,20 +62,32 @@
                 <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
                 <canvas id="myChart2" width="100" height="50"></canvas>
             </div>
-        </div class="row">
-        <div>
-        <div class="col-lg-6 ">
-                <form method="POST" name="form" id="form3">
-                    <input type="hidden" name="base64_3" id="base64_3"/>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 ">
+                    <form method="POST" name="form" id="form3">
+                        <input type="hidden" name="base64_3" id="base64_3"/>
+                        <br>
+                        <button type="submit" class="btn btn-warning">
+                            Guardar imagen
+                        </button>
+                    </form>
+                    <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
+                    <canvas id="myChart3" width="100" height="50"></canvas>
+            </div>
+            <div class="col-lg-6 ">
+                <form method="POST" name="form" id="form4">
+                    <input type="hidden" name="base64_4" id="base64_4"/>
                     <br>
-                    <button type="submit" class="btn btn-warning">
+                    <button type="submit" class="btn btn-success">
                         Guardar imagen
                     </button>
                 </form>
                 <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
-                <canvas id="myChart3" width="100" height="50"></canvas>
+                <canvas id="myChart4" width="100" height="50"></canvas>
             </div>
-        </div>
+
+        </div>  
     </div>
 <script src="<?php echo base_url();?>assets/js/demo/despliegue_informe.js"></script>
 <script>

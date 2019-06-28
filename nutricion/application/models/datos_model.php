@@ -7,7 +7,7 @@ class datos_model extends CI_Model
 	}
 	public function get_datos_informe($rut){
 		$query=$this->db
-			->select("fecha,peso_paciente,cintura_min_paciente,grasa_durnin_paciente")
+			->select("fecha,peso_paciente,cintura_min_paciente,grasa_durnin_paciente,imc_paciente")
 			->from("Evaluacion_nutricional")
 			->where("Paciente_rut",$rut)
 			->order_by("fecha","asc")
@@ -117,11 +117,11 @@ class datos_model extends CI_Model
 		$this->db->where('idpreparacion',$id);
         $this->db->delete('preparacion');
 	}
-	public function get_patologia_id($id){
+	public function get_patologia_id($rut){
 		$query=$this->db
-                ->select("*")
-                ->from("patologia")
-                ->where(array("idPatologia"=>$id))
+                ->select("nombre,consideraciones")
+                ->from("Paciente_patologia,Patologia")
+                ->where("Paciente_rut =".$rut." and Patologia_idPatologia=idPatologia")
                 ->get();
         //echo $this->db->last_query();exit;        
         return $query->row();
@@ -183,8 +183,8 @@ class datos_model extends CI_Model
 	public function asociar_paciente_alimentos($data=array()){
 		$this->db->insert('paciente_alimentos',$data);
 	}
-	public function asociar_paciente_preparaciones($data=array()){
-		$this->db->insert('paciente_preparaciones',$data);
+	public function asociar_minuta_preparaciones($data=array()){
+		$this->db->insert('preparacion_minuta',$data);
 	}
 	public function add_evaluacion($data=array()){
 		$this->db->insert('Evaluacion_nutricional',$data);
@@ -402,20 +402,18 @@ class datos_model extends CI_Model
      		->order_by("tipo","desc")
      		->get();
      		return $query->result();
-    }
-    public function get_preparaciones_pot_rut($id){
-    	$query=$this->db->select('pre.nombre as nombre, pa.opcion as tipo')
-    		->from('paciente_preparaciones as pa, preparaciones as pre')
-    		->where("pa.rut_paciente='$id' and pa.id_preparacion=pre.id")
-    		->get();
-    	return $query->result();
-    }
-    public function get_alimentos_por_rut($id){
-    	$query=$this->db->select('al.alimento_info as nombre, pa.preferir as pref, pa.prevenir as prev, pa.evitar as evi')
-    		->from('paciente_alimentos as pa, alimentos as al')
-    		->where("pa.rut_paciente='$id' and pa.id_preparacion=al.id")
-    		->get();
-    	return $query->result();
-    }
+	}
+	
+	public function crear_minuta($data){
+		$this->db->insert('Minutas',$data);
+		return $this->db->insert_id();
+	}
+	public function get_prepraciones_minuta($id){
+		$query=$this->db->select('nombre,tipo')
+     		->from('preparacion, preparacion_minuta')
+     		->where("minuta_idminuta=".$id." and preparacion_idpreparacion=idpreparacion")
+     		->get();
+     		return $query->result();
+	}
 }
 

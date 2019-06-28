@@ -102,39 +102,17 @@
              <p>
 			<div class="row m-b-15">
 			<div class="col-md-12">
-            	<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
-				<label class="container">Bebestible
-  					<input type="radio" value="bebestible" name="tipo">
- 					<span class="checkmark"></span>
-				</label>
-				<label class="container">Desayuno
-  					<input type="radio" value="desayuno" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Colación
-  					<input type="radio" value="colacion" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Entrada
-  					<input type="radio" value="entrada" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Almuerzo
-  					<input type="radio" value="almuerzo" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Colación Media Tarde
-  					<input type="radio" value="colacion media tarde" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Once
-  					<input type="radio" value="once" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Cena
-  					<input type="radio" value="cena" name="tipo">
-  					<span class="checkmark"></span>
-				</label>
+			<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
+				<select name="tipo" id="tipo">
+					<option value="bebestible">Bebestible</option>
+					<option value="desayuno">Desayuno</option>
+					<option value="colacion_1">Colación</option>
+					<option value="entrada">Entrada</option>
+					<option value="almuerzo">Almuerzo</option>
+					<option value="colacion_2">Colación media tarde</option>
+					<option value="once">Once</option>
+					<option value="cena">Cena</option>
+				</select>
 			</div>
 			</div>
 

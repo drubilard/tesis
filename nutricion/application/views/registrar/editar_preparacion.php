@@ -105,38 +105,16 @@
             <div class="row m-b-15">
 			<div class="col-md-12">
             	<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
-				<label class="container">Bebestible
-  					<input type="radio" value="bebestible" name="tipo" <?php if($preparacion->nombre=="bebestible"){?> checked=""<?php }?>>
- 					<span class="checkmark"></span>
-				</label>
-				<label class="container">Desayuno
-  					<input type="radio" value="desayuno" name="tipo" <?php if($preparacion->nombre=="desayuno"){?> checked=""<?php }?>> 
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Colación
-  					<input type="radio" value="colacion" name="tipo" <?php if($preparacion->nombre=="colacion"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Entrada
-  					<input type="radio" value="entrada" name="tipo" <?php if($preparacion->nombre=="entrada"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Almuerzo
-  					<input type="radio" value="almuerzo" name="tipo" <?php if($preparacion->nombre=="almuerzo"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Colación Media Tarde
-  					<input type="radio" value="colacion media tarde" name="tipo" <?php if($preparacion->nombre=="colacion media tarde"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Once
-  					<input type="radio" value="once" name="tipo" <?php if($preparacion->nombre=="once"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
-				<label class="container">Cena
-  					<input type="radio" value="cena" name="tipo" <?php if($preparacion->nombre=="cena"){?> checked=""<?php }?>>
-  					<span class="checkmark"></span>
-				</label>
+				<select name="tipo" id="tipo">
+					<option value="bebestible">Bebestible</option>
+					<option value="desayuno">Desayuno</option>
+					<option value="colacion_1">Colación</option>
+					<option value="entrada">Entrada</option>
+					<option value="almuerzo">Almuerzo</option>
+					<option value="colacion_2">Colación media tarde</option>
+					<option value="once">Once</option>
+					<option value="cena">Cena</option>
+				</select>
 			</div>
 			</div>
             
