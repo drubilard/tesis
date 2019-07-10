@@ -104,7 +104,6 @@
 			<div class="col-md-12">
 			<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
 				<select name="tipo" id="tipo">
-					<option value="bebestible">Bebestible</option>
 					<option value="desayuno">Desayuno</option>
 					<option value="colacion_1">Colación</option>
 					<option value="entrada">Entrada</option>

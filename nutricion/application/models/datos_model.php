@@ -39,7 +39,11 @@ class datos_model extends CI_Model
     	$this->db->insert('patologias_habitos',$data);
     }
     public function insertar_alimento($data=array()){
-    	$this->db->insert('alimento',$data);
+		$this->db->insert('alimento',$data);
+		return $this->db->insert_id();
+	}
+	public function asociar_tipo_alimento($data){
+		$this->db->insert('tipo_alimento',$data);
 	}
 	public function insertar_ficha($data=array()){
     	$this->db->insert('ficha_clinica',$data);
@@ -93,6 +97,14 @@ class datos_model extends CI_Model
 		$this->db->where('rut',$id);
         $this->db->delete('paciente');
 	}
+	public function delete_minuta($id){
+		$this->db->where('idMinutas',$id);
+        $this->db->delete('minutas');
+	}
+	public function delete_preparaciones_minuta($id){
+		$this->db->where('minuta_idminuta',$id);
+        $this->db->delete('preparacion_minuta');
+	}
 	public function delete_asignacion_patologia($rut){
 		$this->db->where('Paciente_rut',$rut);
 		$this->db->delete('Paciente_patologia');
@@ -116,15 +128,6 @@ class datos_model extends CI_Model
 	public function delete_preparacion($id){
 		$this->db->where('idpreparacion',$id);
         $this->db->delete('preparacion');
-	}
-	public function get_patologia_id($rut){
-		$query=$this->db
-                ->select("nombre,consideraciones")
-                ->from("Paciente_patologia,Patologia")
-                ->where("Paciente_rut =".$rut." and Patologia_idPatologia=idPatologia")
-                ->get();
-        //echo $this->db->last_query();exit;        
-        return $query->row();
 	}
 	public function get_alimento_id($id){
 		$query=$this->db
@@ -153,6 +156,39 @@ class datos_model extends CI_Model
         //echo $this->db->last_query();exit;        
         return $query->row();
 	}
+	public function preparaciones_por_patologia_permitidas($id=array()){
+		$id=implode($id);
+		//print_r($id);die;
+		$query=$this->db
+                ->select("DISTINCT(preparacion.nombre),preparacion.idpreparacion as id, preparacion.tipo as tipo")
+                ->from("alimento, tipo, preparacion_alimento, hechos_bc_permitido, preparacion")
+                ->where("hechos_bc_permitido.id_patologia in('".$id."') and hechos_bc_permitido.id_tipo_alimento=tipo.idtipo and tipo.idtipo=alimento.tipo_alimento and alimento.idAlimento=preparacion_alimento.alimento_idalimento and preparacion_alimento.preparacion_idpreparacion=preparacion.idpreparacion")
+				->order_by("preparacion.nombre","desc")
+				->get();      
+        return $query->result();
+	}
+	public function preparaciones_por_patologia_restringidas($id=array()){
+		$id=implode($id);
+		//print_r($id);die;
+		$query=$this->db
+                ->select("DISTINCT(preparacion.nombre),preparacion.idpreparacion as id")
+                ->from("alimento, tipo, preparacion_alimento, hechos_bc_restringido, preparacion")
+                ->where("hechos_bc_restringido.id_patologia in('".$id."') and hechos_bc_restringido.id_tipo_alimento=tipo.idtipo and tipo.idtipo=alimento.tipo_alimento and alimento.idAlimento=preparacion_alimento.alimento_idalimento and preparacion_alimento.preparacion_idpreparacion=preparacion.idpreparacion")
+				->order_by("preparacion.nombre","desc")
+				->get();      
+        return $query->result();
+	}
+	public function tipo_alimento_por_patologia_restringidas($id=array()){
+		$id=implode($id);
+		//print_r($id);die;
+		$query=$this->db
+                ->select("tipo.nombre as nombre")
+                ->from("tipo,hechos_bc_restringido")
+                ->where("hechos_bc_restringido.id_patologia in('".$id."') and hechos_bc_restringido.id_tipo_alimento=tipo.idtipo ")
+				->order_by("nombre","asc")
+				->get();
+				return $query->result();
+	}
 	public function update_patologia($data=array(),$id){
 		$this->db->where('idPatologia',$id)
 				->update('Patologia',$data);
@@ -180,6 +216,26 @@ class datos_model extends CI_Model
 	public function agregar_asociar_patologia($data=array(),$rut){
 		$this->db->insert('Paciente_patologia',$data);
 	}
+	public function insert_alimentos_asociados($data=array()){
+		$this->db->insert('preparacion_alimento',$data);
+		return $this->db->insert_id();
+	}
+	public function porcion_alimentos_asociados($id,$data=array()){
+		$this->db->where('idpreparacion_alimento',$id)
+				->update('preparacion_alimento',$data);
+	}
+	public function get_alimento_asociado($id){
+		$query=$this->db
+			->select("alimento.tipo_alimento as tipo, alimento.nombre as nombre, idpreparacion_alimento as id ")
+			->from('preparacion_alimento, alimento')
+			->where("idpreparacion_alimento="."'$id'"." and preparacion_alimento.alimento_idalimento=alimento.idAlimento")
+			->get();
+		return $query->row();
+	}
+	public function delete_alimentos_asociados($id){
+		$this->db->where("idpreparacion_alimento",$id);
+		$this->db->delete('preparacion_alimento');
+	}
 	public function asociar_paciente_alimentos($data=array()){
 		$this->db->insert('paciente_alimentos',$data);
 	}
@@ -193,6 +249,20 @@ class datos_model extends CI_Model
 		$query=$this->db->select('*')
 			->from('Evaluacion_nutricional')
 			->where('idevaluacion_nutricional',$id)
+			->get();
+			return $query->row();
+	}
+	public function get_preparaciones_minuta($id){
+		$query=$this->db->select('preparacion_idpreparacion')
+			->from('preparacion_minuta')
+			->where('minuta_idminuta',$id)
+			->get();
+			return $query->result();
+	}
+	public function get_minuta($id){
+		$query=$this->db->select('fecha,Paciente_rut')
+			->from('minutas')
+			->where('idMinutas',$id)
 			->get();
 			return $query->row();
 	}
@@ -250,6 +320,31 @@ class datos_model extends CI_Model
             break;
         }
 	}
+	public function getTodosPaginacion_minutas($buscar="",$pagina,$porpagina,$quehago,$rut){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("minutas")
+						->where('Paciente_rut',$rut)
+						->limit($porpagina,$pagina)
+						->like('fecha',$buscar,'after')
+						->order_by('fecha','desc')
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("minutas")
+						->where('Paciente_rut',$rut)
+						->like('fecha',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
 	public function getTodosPaginacion_fichas($buscar="",$pagina,$porpagina,$quehago,$rut){
         switch($quehago)
         {
@@ -279,6 +374,13 @@ class datos_model extends CI_Model
 		$query=$this->db->select("*")
 				->from('paciente')
 				->where('rut',$rut)
+				->get();
+		return $query->row();
+	}
+	public function get_paciente_por_rut_minuta($rut){
+		$query=$this->db->select("paciente.rut as rut, paciente.nombre as nombre_paciente, paciente.apellido as apellido_paciente, nutricionista.Nombres as nombre_nutri, nutricionista.Apellidos as apellido_nutri")
+				->from('paciente,nutricionista')
+				->where("paciente.rut= '".$rut."' and paciente.Nutricionista_rut=nutricionista.rut")
 				->get();
 		return $query->row();
 	}
@@ -348,20 +450,74 @@ class datos_model extends CI_Model
         {
             case 'limit':
                 $query=$this->db
-                        ->select("*")
-                        ->from("alimento")
+                        ->select("alimento.idAlimento as idAlimento, alimento.nombre as nombre, alimento.aporte as aporte, alimento.propiedades as propiedades, alimento.tipo_alimento as tipo_alimento, tipo.idtipo as idtipo, tipo.nombre as nombre_tipo")
+						->from("alimento, tipo")
+						->where("alimento.tipo_alimento=tipo.idtipo")
 						->limit($porpagina,$pagina)
-						->like('nombre',$buscar,'after')
-                        ->order_by("nombre","asc")
+						->like('alimento.nombre',$buscar,'after')
+                        ->order_by("tipo.nombre","asc")
                         ->get();
                 return $query->result();        
             break;
             case 'cuantos':
                 $query=$this->db
                         ->select("*")
-						->from("alimento")
-						->like('nombre',$buscar,'after')
+						->from("alimento, tipo")
+						->where("alimento.tipo_alimento=tipo.idtipo")
+						->like('alimento.nombre',$buscar,'after')
                         ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_alimentos_asociar($buscar="",$pagina,$porpagina,$quehago,$id){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("alimento")
+						->join("preparacion_alimento","preparacion_alimento.alimento_idalimento=alimento.idAlimento and preparacion_alimento.preparacion_idpreparacion='".$id."'","left")
+						->where("preparacion_alimento.idpreparacion_alimento is null")
+						->like('nombre',$buscar,'after')
+						->limit($porpagina,$pagina)
+                        ->order_by("nombre","asc")
+                        ->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+				->select("*")
+				->from("alimento")
+				->join("preparacion_alimento","preparacion_alimento.alimento_idalimento=alimento.idAlimento and preparacion_alimento.preparacion_idpreparacion='".$id."'","left")
+				->where("preparacion_alimento.idpreparacion_alimento is null")
+				->like('nombre',$buscar,'after')
+                ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_alimentos_quitar($buscar="",$pagina,$porpagina,$quehago,$id){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("a.nombre as nombre, a.idAlimento as id, a.tipo_alimento as tipo, pa.idpreparacion_alimento as idpa")
+						->from("alimento as a,preparacion_alimento as pa,preparacion as p")
+						->where("alimento_idalimento =idAlimento and idpreparacion=preparacion_idpreparacion and idpreparacion=".$id)
+						->like('a.nombre',$buscar,'after')
+						->limit($porpagina,$pagina)
+                        ->order_by("a.nombre","asc")
+                        ->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+						->select("a.nombre as nombre, a.idAlimento as id, a.tipo_alimento as tipo")
+						->from("alimento as a,preparacion_alimento as pa,preparacion as p")
+						->where("alimento_idalimento =idAlimento and idpreparacion=preparacion_idpreparacion and idpreparacion=".$id)
+						->like('a.nombre',$buscar,'after')
+                		->count_all_results();
                 return $query;
             break;
         }
@@ -391,8 +547,15 @@ class datos_model extends CI_Model
 	}
     public function get_all_alimentos(){
     	$query=$this->db->select('*')
-    			->from('alimentos')
-    			->order_by("opcion","desc")
+    			->from('alimento')
+    			->order_by("nombre","desc")
+    			->get();
+    		return $query->result();
+	}
+	public function get_all_tipo_alimentos(){
+    	$query=$this->db->select('*')
+    			->from('tipo')
+    			->order_by("nombre","asc")
     			->get();
     		return $query->result();
     }
@@ -409,11 +572,36 @@ class datos_model extends CI_Model
 		return $this->db->insert_id();
 	}
 	public function get_prepraciones_minuta($id){
-		$query=$this->db->select('nombre,tipo')
+		$query=$this->db->select('nombre,tipo, idpreparacion')
      		->from('preparacion, preparacion_minuta')
-     		->where("minuta_idminuta=".$id." and preparacion_idpreparacion=idpreparacion")
+			 ->where("minuta_idminuta=".$id." and preparacion_idpreparacion=idpreparacion")
+			 ->order_by('preparacion.idpreparacion','asc')
      		->get();
      		return $query->result();
+	}
+	public function get_alimentos_minuta($id){
+		$query=$this->db->select('preparacion.idpreparacion as id,alimento.nombre as nombre, preparacion_alimento.porcion as porcion')
+     		->from("preparacion, preparacion_minuta, minutas, preparacion_alimento, alimento")
+     		->where("minutas.idMinutas='".$id."' and minutas.idMinutas=preparacion_minuta.minuta_idminuta and preparacion_minuta.preparacion_idpreparacion = preparacion.idpreparacion and preparacion.idpreparacion=preparacion_alimento.preparacion_idpreparacion and preparacion_alimento.alimento_idalimento=alimento.idAlimento")
+			->order_by('preparacion.idpreparacion', "asc") 
+			 ->get();
+     		return $query->result();
+	}
+	public function get_patologia_rut($rut){
+		$query=$this->db
+                ->select("idPatologia,nombre,consideraciones")
+                ->from("Paciente_patologia,Patologia")
+                ->where("Paciente_rut='".$rut."' and Patologia_idPatologia=idPatologia")
+				->get();      
+        return $query->result();
+	}
+	public function get_patologia_id($id){
+		$query=$this->db
+                ->select("nombre,consideraciones")
+                ->from("Patologia")
+                ->where("idPatologia=",$id)
+				->get();      
+        return $query->row();
 	}
 }
 

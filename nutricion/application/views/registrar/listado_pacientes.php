@@ -43,7 +43,7 @@
     <div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
 				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
-					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> </a>
 				</div>
 				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
 					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>

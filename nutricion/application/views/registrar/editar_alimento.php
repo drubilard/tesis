@@ -102,7 +102,11 @@
 						</div>
 						<label for="tipo" class="control-label">Tipo <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="tipo" placeholder="" value="<?php echo $alimento->tipo?>" />
+								<select class="form-control" name="tipo" id="tipo">
+									<?php foreach($tipo_alimentos as $tipo){?>
+										<option  <?php if($alimento->tipo_alimento==$tipo->idtipo){?> selected<?php }?> value="<?php echo $tipo->idtipo; ?>"><?php echo $tipo->nombre;?></option>
+									<?php }?>
+								</select>
 						</div>
 						<label for="aporte" class="control-label">Aporte:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">

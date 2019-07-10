@@ -48,10 +48,10 @@
 		<div id="header" class="header navbar-default">
 			<nav aria-label="breadcrumb">
   				<ol class="breadcrumb">
-				  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar	"><strong>Administrar</strong></a></li>
+				  	<li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/administrar"><strong>Administrar</strong></a></li>
 					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/gestion"><strong>Gestión</strong></a></li>
-					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_patologias"><strong>Gestión de patologías</strong></a></li>
-    				<li class="breadcrumb-item" aria-current="page">Editar patología</li>
+					  <li class="breadcrumb-item"><a href="<?php echo base_url();?>registrar/listado_patologias"><strong>Gestión patologías</strong></a></li>
+					  <li class="breadcrumb-item" aria-current="page">Editar patología</li>
   				</ol>
 			</nav>  			
 			
@@ -63,7 +63,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> patología
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b><br> Editar Patología <?php echo $patologia->nombre;?>
 				</div>
 
 			</div>
@@ -75,7 +75,7 @@
 			
 				<div class="login-buttons row animated bounceIn">
 						
-				<div class="container">
+				<div class="container-fluid">
 					<?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
 						<?php 
 							$errors=validation_errors('<li>','</li>');
@@ -96,23 +96,14 @@
 								</div>
 
                             <?php }?>
-                        <label for="nombre" class="control-label">Nombre patología:<span class="text-danger">*</span></label>
+						<label for="consideraciones" class="control-label">Consideraciones <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="nombre_patologia" autofocus="true" value="<?php echo $patologia->nombre?>" />
-						</div>
-						<label for="tipo" class="control-label">Grupo patológico <span class="text-danger">*</span></label>
-						<div class="row row-space-10">
-								<input type="text" class="form-control" name="grupo" placeholder="" value="<?php echo $patologia->Grupo_patologico?>" />
+						<textarea cols="20" rows="10" id="textarea_fichaclinica" placeholder="Consideraciones patología" class="form-control" name="consideraciones"><?php echo ltrim( $patologia->consideraciones);?></textarea>	
 						</div>
 						<br>
-						<div class="row row-space-10">
-						<label for="" class="control-label">Consideraciones </label>
-						<textarea cols="20" rows="10" id="textarea_fichaclinica" placeholder="Consideraciones respecto a la patología" class="form-control" name="consideraciones"><?php echo $patologia->consideraciones; ?></textarea>	
 
-						</div>
-
-						<br>
-						<br>
+						
+                        
 						<div class="register-buttons">
 							<button type="submit" class="btn btn-warning btn-block btn-lg"> Enviar </button>
 						</div>

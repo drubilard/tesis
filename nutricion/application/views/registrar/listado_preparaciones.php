@@ -110,6 +110,8 @@
                         <th><center>Nº</center></th>
                         <th><center>Nombre</center></th>
                         <th><center>Tipo</center></th>
+						<th><center>Añadir Alimentos</center></th>
+						<th><center>Quitar Alimentos</center></th>
                         <th><center>Editar</center></th>
                     </tr>
                 </thead>

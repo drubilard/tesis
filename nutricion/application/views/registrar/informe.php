@@ -16,13 +16,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <title>Document</title>
+    <title>NUTRICIÓN</title>
 </head>
 <body>
 <div id="header" class="header navbar-default row justify-content-center justify-content-md-start">
 			<!-- begin navbar-header -->
 				<div class="navbar-header col-xs-8 col-md-8 col-lg-10">
-					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> evaluación</a>
+					<a href="<?php echo base_url();?>registrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b> </a>
 				</div>
 				<div class="navbar-header col-xs-4 col-md-4 col-lg-2">
 					<a href="<?php echo base_url();?>registrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>

@@ -106,14 +106,13 @@
 			<div class="col-md-12">
             	<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
 				<select name="tipo" id="tipo">
-					<option value="bebestible">Bebestible</option>
-					<option value="desayuno">Desayuno</option>
-					<option value="colacion_1">Colación</option>
-					<option value="entrada">Entrada</option>
-					<option value="almuerzo">Almuerzo</option>
-					<option value="colacion_2">Colación media tarde</option>
-					<option value="once">Once</option>
-					<option value="cena">Cena</option>
+					<option value="desayuno" <?php if ($preparacion->tipo=="desayuno"){ ?> selected <?php }?>>Desayuno</option>
+					<option value="colacion_1" <?php if ($preparacion->tipo=="colacion_1"){ ?> selected <?php }?>>Colación</option>
+					<option value="entrada" <?php if ($preparacion->tipo=="entrada"){ ?> selected <?php }?>>Entrada</option>
+					<option value="almuerzo" <?php if ($preparacion->tipo=="almuerzo"){ ?> selected <?php }?>>Almuerzo</option>
+					<option value="colacion_2" <?php if ($preparacion->tipo=="colacion_2"){ ?> selected <?php }?>>Colación media tarde</option>
+					<option value="once" <?php if ($preparacion->tipo=="once"){ ?> selected <?php }?>>Once</option>
+					<option value="cena" <?php if ($preparacion->tipo=="cena"){ ?> selected <?php }?>>Cena</option>
 				</select>
 			</div>
 			</div>

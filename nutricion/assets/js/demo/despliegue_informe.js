@@ -11,7 +11,7 @@
     var rut_paciente=$("#paciente").val();
 
     var path="http://192.168.0.12/nutricion/registrar/datos_informe/"+rut_paciente;
-    //var path="http://10.145.249.105/nutricion/registrar/datos_informe/"+rut_paciente;
+    //var path="http://10.145.149.41/nutricion/registrar/datos_informe/"+rut_paciente;
         $.post(path,
             function(data){
                 var obj= JSON.parse(data);

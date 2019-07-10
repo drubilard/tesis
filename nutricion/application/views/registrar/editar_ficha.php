@@ -104,7 +104,7 @@
 						<br>
 						<label for="tipo" class="control-label">Información <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<textarea cols="20" rows="10" id="textarea_fichaclinica" placeholder="Información ficha clínica" class="form-control" name="info"><?php echo ltrim( $ficha->informacion);?></textarea>	
+								<textarea cols="20" rows="10" name="textarea_fichaclinica" placeholder="Información ficha clínica" class="form-control" name="info"><?php echo ltrim( $ficha->informacion);?></textarea>	
 						</div>
 						<br>
 						<br>
