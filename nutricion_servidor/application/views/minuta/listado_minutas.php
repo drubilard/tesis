@@ -50,13 +50,7 @@
 				</div>
 	</div>
 		<div id="breadcrumb" class="header navbar-default">
-			<nav aria-label="breadcrumb">
-  				<ol class="breadcrumb">
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/documentos"><strong>Documentos</strong></a></li>
-                    <li class="breadcrumb-item" aria-current="page">Consulta de minutas</li>
-
-                </ol>
-			</nav>  			
+			
 			
 		</div>
 

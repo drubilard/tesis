@@ -41,7 +41,7 @@
 	<div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="<?php echo base_url();?>administrar/inicio" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
+				<a href="<?php echo base_url();?>administrador/crear_usuario" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> evaluación</a>
 			</div>
 		</div>
 

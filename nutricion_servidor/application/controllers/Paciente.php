@@ -128,7 +128,10 @@
             if(!$id){redirect(base_url()."error404/");}
                 $datos=$this->datos_model->get_paciente_por_rut($id);
                 if(sizeof($datos)==0){redirect(base_url()."error404/");}
+                //$result=$this->datos_model->delete_evaluacion($id);
+                //$result=$this->datos_model->delete_ficha($id);
                 $result=$this->datos_model->delete_paciente($id);
+                //print_r($result);die;
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
                 redirect(base_url()."paciente/listado_pacientes");

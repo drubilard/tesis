@@ -8,9 +8,9 @@
         {
             parent::__construct();
         }
-        public function inicio(){
+        /*public function inicio(){
             $this->load->view('administrar/inicio');
-        } 
+        } */
     
         public function login(){
 
@@ -18,9 +18,8 @@
                 if ($this->form_validation->run('login_formulario')) {
                     $data_user=$this->datos_model->get_user_nutri($this->input->post('user',true),$this->input->post('clave',true)); 
                     $data_user_paciente=$this->datos_model->get_user_paciente($this->input->post('user',true),$this->input->post('clave',true)); 
-
-                    //print_r($data); die("bandera");
-                    if ((sizeof($data_user)==0) && (sizeof($data_user_paciente)==0)) {                  
+                    $data_admin=$this->datos_model->get_user_admin($this->input->post('user',true),$this->input->post('clave',true)); 
+                    if ((sizeof($data_user)==0) && (sizeof($data_user_paciente)==0)&&(sizeof($data_admin)==0)){                  
                             $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje_login','los datos no coinciden');
                             redirect(base_url()."administrar/login");                
@@ -32,7 +31,7 @@
                             $this->session->set_userdata("sexo",$data_user_paciente->sexo); 
                         redirect(base_url()."paciente/documentos/");
                         }
-                        else{
+                        else if (sizeof($data_user)>0){
                         $data=$this->datos_model->get_sesiones_activas($data_user->rut);
                         $data_insert=array(
                             'rut'=>$data_user->rut,
@@ -42,9 +41,14 @@
                         $this->session->set_userdata($id_sesion);
                         $this->session->set_userdata("id",$data_user->rut);
                         $this->session->set_userdata("nombre",$data_user->Nombres);
-                        $this->session->set_userdata("sexo",$data_user->sexo); 
+                        $this->session->set_userdata("sexo",$data_user->sexo);
+                        $this->session->set_userdata("tipo",$data_user->tipo);  
                         redirect(base_url()."administrar/administrar/");
                         } 
+                        else{
+                            $this->session->set_userdata("admin",$data_admin->rut);
+                            redirect(base_url()."administrador/crear_usuario/");
+                        }
                     }
                 }
             }
@@ -52,7 +56,7 @@
         }
         public function salir(){
             $this->session->sess_destroy("datos_usuario");
-            redirect(base_url()."administrar/inicio");
+            redirect(base_url()."administrar/login");
         }
 
         public function administrar(){

@@ -48,6 +48,18 @@
           <a href="<?php echo base_url();?>administrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
         </div>
   </div>
+  <div id="header" class="header navbar-default">
+  <nav aria-label='breadcrumb'>
+    <ol class='breadcrumb'>
+      <li class='breadcrumb-item'><a href='/nutricion_servidor/administrar/administrar'><strong>Administrar</strong></a></li>
+      <li class='breadcrumb-item'><a href='/nutricion_servidor/paciente/listado_pacientes'><strong>Pacientes</strong></a></li>
+      <li class='breadcrumb-item'><a href='/nutricion_servidor/minuta/gestion_minuta/<?php echo $rut?>'><strong>Gestión minutas</strong></a></li>
+      <li class='breadcrumb-item'><a href='/nutricion_servidor/minuta/listado_minutas/<?php echo $rut?>'><strong>Consultar minutas</strong></a></li>
+      <li class='breadcrumb-item' aria-current='page'>Editar minuta</li>
+    </ol>
+  </nav>			
+			
+		</div>
 
   <div id="page-container" class="fade">
     <!-- begin login -->

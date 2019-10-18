@@ -282,7 +282,7 @@
                         redirect(base_url()."minuta/pdf/".$rut."/".$id_minuta);
                         }
                 }
-            $this->load->view("minuta/editar_minuta",compact('preparaciones','minuta_preparaciones'));
+            $this->load->view("minuta/editar_minuta",compact('preparaciones','minuta_preparaciones','rut'));
             }else{
                 redirect(base_url()."administrar/salir");
             }

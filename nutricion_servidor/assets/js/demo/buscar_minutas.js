@@ -46,9 +46,8 @@ function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
         breadcrumb= "<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/nutricion_servidor/administrar/administrar'><strong>Administrar</strong></a></li><li class='breadcrumb-item'><a href='/nutricion_servidor/paciente/listado_pacientes'><strong>Pacientes</strong></a></li><li class='breadcrumb-item'><a href='/nutricion_servidor/minuta/gestion_minuta/"+rut+"'><strong>Gestión minutas</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de minutas</li></ol></nav> "; 
 
       });
-
-      $("#body_minutas").html(filas);
       $("#breadcrumb").html(breadcrumb);
+      $("#body_minutas").html(filas);
       linkseleccionado = Number(pagina);
       //total registros
       totalregistros = response.totalregistros;

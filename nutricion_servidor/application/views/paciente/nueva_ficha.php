@@ -107,7 +107,7 @@
             <br>
             <br>
             <div class="register-buttons">
-              <button type="submit" class="btn btn-warning btn-block btn-lg"> Enviar </button>
+              <button type="submit" class="btn btn-warning btn-block btn-lg"> Guardar </button>
             </div>
             <hr />
             <p class="text-center">

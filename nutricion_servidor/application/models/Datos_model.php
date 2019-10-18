@@ -95,6 +95,15 @@ class datos_model extends CI_Model
 				//echo $this->db->last_query();die;
 		return $query->row();
 	}
+	public function get_user_admin($user,$clave){
+		$query=$this->db
+				->select("*")
+				->from("administrador")
+				->where(array("rut"=>$user,"clave"=>$clave))
+				->get();
+				//echo $this->db->last_query();die;
+		return $query->row();
+	}
 	public function get_user_paciente($user,$clave){
 		//$clave=sha1($clave);
 		$query=$this->db
@@ -698,6 +707,15 @@ class datos_model extends CI_Model
                 ->where("idPatologia=",$id)
 				->get();      
         return $query->row();
+	}
+
+	public function get_porc_grasa($sexo){
+		$query=$this->db
+			->select ("*")
+			->from ("porcen_grasa")
+			->where("sexo",$sexo)
+			->get();
+		return $query->result();
 	}
 }
 

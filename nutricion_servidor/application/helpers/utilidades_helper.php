@@ -207,7 +207,7 @@ if(!function_exists("saludo"))
       }
       function valida_fecha($fecha){
         $año=explode('-', $fecha, 3);
-        if((int)$año[0]>1900 && $fecha < date('Y-m-d')) {
+        if((int)$año[0]>1900 && $fecha <= date('Y-m-d')) {
           return true;
           }
         return false;

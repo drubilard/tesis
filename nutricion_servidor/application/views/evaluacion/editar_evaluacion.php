@@ -480,10 +480,28 @@
               <h4 class="modal-title" id="myModalLabel">Porcentajes de grasa</h4>
             </div>
             <div class="modal-body">
-              <?php echo form_open(null,array("class"=>"margin-bottom-0"));?>
-                  <div class="form-group">
-
-                <?php echo form_close();?>
+            <table class="table table-bordered table-striped mb-0">
+							<thead>
+								<tr>
+									<th scope="col">mm.</th>
+									<th scope="col">17-29</th>
+									<th scope="col">30-39</th>
+									<th scope="col">40-49</th>
+									<th scope="col">50+</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($porc_grasa as $valor){?>
+								<tr>
+									<td><?php echo $valor->mm;?></td>
+									<td><?php echo $valor->edad1729;?></td>
+									<td><?php echo $valor->edad3039;?></td>
+									<td><?php echo $valor->edad4049;?></td>
+									<td><?php echo $valor->edad50;?></td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
             </div>
           </div>
 

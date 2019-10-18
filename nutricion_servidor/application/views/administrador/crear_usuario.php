@@ -35,6 +35,15 @@
         <div class="login-cover-image" style="background-image: url(<?php echo base_url();?>assets/img/login-bg/nutricion_3.jpg)" data-id="login-cover-image"></div>
         <div class="login-cover-bg"></div>
     </div>
+    <div id="header" class="header navbar-default">
+			<!-- begin navbar-header -->
+			<div class="navbar-header col-xs-12 col-sm-12  col-md-8 col-lg-8 col-xl-9">
+					<a href="" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"  > <b>NUTRICIÓN</b></a>
+				</div>
+				<div class="navbar-header col-xs-12 col-sm-12 col-md-2 col-lg-4 col-xl-3">
+					<a href="<?php echo base_url();?>administrar/salir" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logout.png" >  Cerrar Sesión</a>
+				</div>
+		</div>
     <!-- end login-cover -->
     
     <!-- begin #page-container -->
@@ -46,7 +55,7 @@
             <!-- begin brand -->
             <div class="login-header row animated bounceInLeft">
                 <div class="brand ">
-                    <img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Inicio
+                    <img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Administrador
                 </div>
 
             </div>
@@ -54,8 +63,9 @@
             <!-- begin login-content -->
             
                     <div class="login-buttons row animated bounceIn">
-                        <a href="<?php echo base_url();?>nutricionista/add_nutricionista" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Registrar</a>
-                        <a   href="<?php echo base_url();?>administrar/login" class="btn btn-warning btn-block btn-lg"><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Iniciar sesión</a>
+                        <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Registrar Usuario</a>
+                        <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Acitvar cuenta</a>
+                        <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-danger btn-block btn-lg"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Desactivar cuenta</a>
                     </div>
 
 
@@ -68,7 +78,7 @@
     </div>
         <!-- Modal -->
 
-    <div class="modal fade" id="tipo_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!--<div class="modal fade" id="tipo_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   		<div class="modal-dialog" role="document">
     		<div class="modal-content">
       			<div class="modal-header">
@@ -89,7 +99,7 @@
       		</div>
 
     	</div>
-  	</div>
+  	</div>-->
     <!-- end page container -->
     
     <!-- ================== BEGIN BASE JS ================== -->
