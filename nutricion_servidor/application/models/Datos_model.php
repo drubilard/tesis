@@ -96,6 +96,7 @@ class datos_model extends CI_Model
 		return $query->row();
 	}
 	public function get_user_admin($user,$clave){
+		$clave=sha1($clave);
 		$query=$this->db
 				->select("*")
 				->from("administrador")

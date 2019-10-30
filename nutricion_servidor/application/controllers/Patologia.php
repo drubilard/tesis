@@ -78,5 +78,5 @@
             redirect(base_url()."administrar/salir");
             }
         }
-    }  
+    }
 ?>     
