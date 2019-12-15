@@ -62,7 +62,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b><br> Editar Patología <?php echo $patologia->nombre;?>
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b><br> Editar Patología <?php echo $patologia[0]->nombre;?>
 				</div>
 
 			</div>
@@ -97,7 +97,7 @@
                             <?php }?>
 						<label for="consideraciones" class="control-label">Consideraciones <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-						<textarea cols="20" rows="10" id="textarea_fichaclinica" name="consideraciones"  placeholder="Consideraciones patología" class="form-control" name="consideraciones"><?php echo ltrim( $patologia->consideraciones);?></textarea>	
+						<textarea cols="20" rows="10" id="textarea_fichaclinica" name="consideraciones"  placeholder="Consideraciones patología" class="form-control" name="consideraciones"><?php echo ltrim( $patologia[0]->consideraciones);?></textarea>	
 						</div>
 						<br>
 

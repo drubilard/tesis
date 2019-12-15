@@ -97,23 +97,23 @@
                             <?php }?>
                         <label for="nombre" class="control-label">Nombre alimento:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" autofocus="true" name="nombre_alimento" value="<?php echo $alimento->nombre?>" />
+								<input type="text" class="form-control" autofocus="true" name="nombre_alimento" value="<?php echo $alimento[0]->nombre?>" />
 						</div>
 						<label for="tipo" class="control-label">Tipo <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 								<select class="form-control" name="tipo" id="tipo">
 									<?php foreach($tipo_alimentos as $tipo){?>
-										<option  <?php if($alimento->tipo_alimento==$tipo->idtipo){?> selected<?php }?> value="<?php echo $tipo->idtipo; ?>"><?php echo $tipo->nombre;?></option>
+										<option  <?php if($alimento[0]->tipo_alimento==$tipo->idtipo){?> selected<?php }?> value="<?php echo $tipo->idtipo; ?>"><?php echo $tipo->nombre;?></option>
 									<?php }?>
 								</select>
 						</div>
 						<label for="aporte" class="control-label">Aporte:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="aporte" value="<?php echo $alimento->aporte?>" />
+								<input type="text" class="form-control" name="aporte" value="<?php echo $alimento[0]->aporte?>" />
 						</div>
 						<label for="propiedades" class="control-label">Propiedades:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="text" class="form-control" name="propiedades" value="<?php echo $alimento->propiedades?>" />
+								<input type="text" class="form-control" name="propiedades" value="<?php echo $alimento[0]->propiedades?>" />
 						</div>
 
 						<br>

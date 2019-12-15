@@ -58,5 +58,61 @@
                 $this->redirect(base_url().'salir');
             }
     }  
+    public function mostrar_usuarios_desactivados(){
+        $buscar = $this->input->post("buscar");
+        $numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $rut = $this->input->post("rut");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "usuarios" => $this->datos_model->getTodosPaginacion_usuarios_des($buscar,$inicio,$cantidad,"limit",$rut),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_usuarios_des($buscar,$inicio,$cantidad,"cuantos",$rut),
+            "cantidad" =>$cantidad              
+        );
+        echo json_encode($data);
+    }
+    public function mostrar_usuarios_activados(){
+        $buscar = $this->input->post("buscar");
+        $numeropagina = $this->input->post("nropagina");
+        $cantidad = $this->input->post("cantidad");
+        $rut = $this->input->post("rut");
+        $inicio = ($numeropagina -1)*$cantidad;
+        $data = array(
+            "usuarios" => $this->datos_model->getTodosPaginacion_usuarios_act($buscar,$inicio,$cantidad,"limit",$rut),
+            "totalregistros" => $this->datos_model->getTodosPaginacion_usuarios_act($buscar,$inicio,$cantidad,"cuantos",$rut),
+            "cantidad" =>$cantidad              
+        );
+        echo json_encode($data);
+    }
+    public function activar_usuario($rut=null){
+        if($this->session->userdata('admin')){
+            if($rut){
+                $this->datos_model->activar_usuario($rut);
+                $this->session->set_flashdata('css','success');
+                $this->session->set_flashdata('mensaje','el usuario se activó exitosamente');
+                redirect(base_url()."administrador/activar_usuario");
+            }
+            else{
+                $this->load->view("administrador/activar_usuario");
+            }
+        }else{
+            redirect(base_url()."administrar/salir");
+        }
+    }
+    public function desactivar_usuario($rut=null){
+        if($this->session->userdata('admin')){
+            if($rut){
+                $this->datos_model->desactivar_usuario($rut);
+                $this->session->set_flashdata('css','success');
+                $this->session->set_flashdata('mensaje','el usuario se desactivó exitosamente');
+                redirect(base_url()."administrador/desactivar_usuario");
+            }
+            else{
+                $this->load->view("administrador/desactivar_usuario");
+            }
+        }else{
+            redirect(base_url()."administrar/salir");
+        }
+    }
     
     }?>

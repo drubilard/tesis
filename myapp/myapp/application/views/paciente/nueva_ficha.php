@@ -49,7 +49,7 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administrar</strong></a></li>
                   <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-          <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos->rut?>"><strong>Ficha clínica</strong></a></li>
+          <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos[0]->rut?>"><strong>Ficha clínica</strong></a></li>
           <li class="breadcrumb-item" aria-current="page">Nueva ficha</li>
           </ol>
       </nav>        

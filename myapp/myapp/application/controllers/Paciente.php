@@ -129,10 +129,17 @@
             if(!$id){redirect(base_url()."error404/");}
                 $datos=$this->datos_model->get_paciente_por_rut($id);
                 if(sizeof($datos)==0){redirect(base_url()."error404/");}
-                //$result=$this->datos_model->delete_evaluacion($id);
-                //$result=$this->datos_model->delete_ficha($id);
+                $ids=$this->datos_model->get_minuta_paciente_delete($id);
+                foreach ($ids as $i){
+                 $result=$this->datos_model->delete_preparaciones_minuta_paciente($i->idMinutas);
+                }
+                foreach ($ids as $i){
+                    $result=$this->datos_model->delete_minuta_paciente($i->idMinutas);
+                   }
+                $result=$this->datos_model->delete_evaluacion_paciente($id);
+                $result=$this->datos_model->delete_ficha_paciente($id);
+                $result=$this->datos_model->delete_asignacion_patologia($id);
                 $result=$this->datos_model->delete_paciente($id);
-                //print_r($result);die;
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
                 redirect(base_url()."paciente/listado_pacientes");

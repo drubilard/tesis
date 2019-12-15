@@ -40,7 +40,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad){
     success:function(response){
       filas = "";
       $.each(response.alimento,function(key,item){
-        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.nombre_tipo+"<center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion_servidor/alimento/editar_alimento/"+item.idAlimento+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"  <a class='eliminar_alimento btn btn-danger tabla btn-xs' href='/nutricion_servidor/alimento/eliminar_alimento/"+item.idAlimento+"/"+pagina+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.nombre_tipo+"<center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/alimento/editar_alimento/"+item.idAlimento+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"  <a class='eliminar_alimento btn btn-danger tabla btn-xs' href='/alimento/eliminar_alimento/"+item.idAlimento+"/"+pagina+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></center></td></tr>";
       });
       $("#body_alimentos").html(filas);
       linkseleccionado = Number(pagina);

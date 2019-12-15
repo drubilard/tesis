@@ -35,7 +35,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad){
       filas = "";
       $.each(response.patologia,function(key,item){
         console.log(response.paciente);
-        filas+="<tr><td><center>"+item.idPatologia+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.Grupo_patologico+"</center></td><td><center><a class='btn btn-primary brn-xs' href='/nutricion_servidor/patologia/editar_patologia/"+item.idPatologia+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center>"+item.idPatologia+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.Grupo_patologico+"</center></td><td><center><a class='btn btn-primary brn-xs' href='/patologia/editar_patologia/"+item.idPatologia+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></center></td></tr>";
       });
 
       $("#body_patologias").html(filas);

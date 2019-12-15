@@ -30,6 +30,66 @@ class datos_model extends CI_Model
 			->get();
 			return $query->result(); 
 	}
+	public function getTodosPaginacion_usuarios_des($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',1)
+						->limit($porpagina,$pagina)
+						->like('Nombres',$buscar,'after')
+                        ->order_by("Nombres","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',1)
+						->like('Nombres',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_usuarios_act($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',0)
+						->limit($porpagina,$pagina)
+						->like('Nombres',$buscar,'after')
+                        ->order_by("Nombres","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',0)
+						->like('Nombres',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function activar_usuario($rut){
+		$this->db->set('estado',0);
+		$this->db->where('rut',$rut);
+		$this->db->update('nutricionista');
+	}
+	public function desactivar_usuario($rut){
+		$this->db->set('estado',1);
+		$this->db->where('rut',$rut);
+		$this->db->update('nutricionista');
+	}
     public function getTodosPaginacion_pat_hab($pagina,$porpagina,$quehago){
         switch($quehago)
         {
@@ -90,7 +150,7 @@ class datos_model extends CI_Model
 		$query=$this->db
 				->select("*")
 				->from("nutricionista")
-				->where(array("usuario"=>$user,"clave"=>$clave))
+				->where(array("usuario"=>$user,"clave"=>$clave,"estado"=>0))
 				->get();
 				//echo $this->db->last_query();die;
 		return $query->result();
@@ -145,16 +205,29 @@ class datos_model extends CI_Model
 		$this->db->where('idMinutas',$id);
         $this->db->delete('minutas');
 	}
+	public function delete_minuta_paciente($id){
+		$this->db->where("idMinutas,$id");
+        $this->db->delete('minutas');
+	}
 	public function delete_preparaciones_minuta($id){
 		$this->db->where('minuta_idminuta',$id);
+        $this->db->delete('preparacion_minuta');
+	}
+	public function delete_preparaciones_minuta_paciente($id){
+		$this->db->where("minuta_idminuta,$id");
         $this->db->delete('preparacion_minuta');
 	}
 	public function delete_asignacion_patologia($rut){
 		$this->db->where('Paciente_rut',$rut);
 		$this->db->delete('paciente_patologia');
 	}
+	
 	public function delete_evaluacion($id){
 		$this->db->where('idevaluacion_nutricional',$id);
+        $this->db->delete('evaluacion_nutricional');
+	}
+	public function delete_evaluacion_paciente($id){
+		$this->db->where('Paciente_rut',$id);
         $this->db->delete('evaluacion_nutricional');
 	}
 	public function delete_pat_hab($id){
@@ -171,6 +244,10 @@ class datos_model extends CI_Model
 	}
 	public function delete_ficha($id){
 		$this->db->where('id',$id);
+        $this->db->delete('ficha_clinica');
+	}
+	public function delete_ficha_paciente($id){
+		$this->db->where('rut',$id);
         $this->db->delete('ficha_clinica');
 	}
 	public function delete_preparacion($id){
@@ -330,9 +407,23 @@ class datos_model extends CI_Model
 			return $query->result();
 	}
 	public function get_minuta($id){
-		$query=$this->db->select('fecha,Paciente_rut')
+		$query=$this->db->select('fecha,Paciente_rut,idMinutas')
 			->from('minutas')
 			->where('idMinutas',$id)
+			->get();
+			return $query->result();
+	}
+	public function get_minuta_paciente($rut){
+		$query=$this->db->select('fecha,Paciente_rut')
+			->from('minutas')
+			->where('Paciente_rut',$rut)
+			->get();
+			return $query->result();
+	}
+	public function get_minuta_paciente_delete($rut){
+		$query=$this->db->select('idMinutas')
+			->from('minutas')
+			->where('Paciente_rut',$rut)
 			->get();
 			return $query->result();
 	}
