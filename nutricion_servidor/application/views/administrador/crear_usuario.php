@@ -64,8 +64,8 @@
             
                     <div class="login-buttons row animated bounceIn">
                         <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Registrar Usuario</a>
-                        <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Acitvar cuenta</a>
-                        <a href="<?php echo base_url();?>administrador/add_nutricionista" class="btn btn-danger btn-block btn-lg"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Desactivar cuenta</a>
+                        <a href="<?php echo base_url();?>administrador/activar_usuario" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Acitvar cuenta</a>
+                        <a href="<?php echo base_url();?>administrador/desactivar_usuario" class="btn btn-danger btn-block btn-lg"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span><span class="glyphicon glyphicon-user " aria-hidden="true"></span>  Desactivar cuenta</a>
                     </div>
 
 

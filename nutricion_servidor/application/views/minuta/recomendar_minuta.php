@@ -27,6 +27,7 @@
   <!-- ================== BEGIN BASE JS ================== -->
   <!-- ================== END BASE JS ================== -->
 </head>
+
 <body class="pace-top">
   <!-- begin #page-loader -->
   <div id="page-loader" class="fade show"><span class="spinner"></span></div>

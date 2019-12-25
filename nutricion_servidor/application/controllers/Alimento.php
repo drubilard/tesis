@@ -137,7 +137,7 @@
                 $result=$this->datos_model->delete_evaluacion($id);
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
-                redirect(base_url()."registrar/listado_evaluaciones/".$datos->Paciente_rut);
+                redirect(base_url()."registrar/listado_evaluaciones/".$datos[0]->Paciente_rut);
         }
         public function listado_evaluaciones($id=null){
             if(!$id){redirect(base_url()."error404/");}

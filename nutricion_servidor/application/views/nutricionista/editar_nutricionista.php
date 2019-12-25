@@ -96,27 +96,27 @@
                         <label for="nombre" class="control-label">Rut:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" autofocus="true" disabled="" name="rut_nutricionista" value="<?php echo $datos->rut?>" />
+								<input type="text" class="form-control" autofocus="true" disabled="" name="rut_nutricionista" value="<?php echo $datos[0]->rut?>" />
 							</div>
 						</div>
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="nombre_nutricionista" value="<?php echo $datos->Nombres?>" />
+								<input type="text" class="form-control" name="nombre_nutricionista" value="<?php echo $datos[0]->Nombres?>" />
 							</div>
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="apellido_nutricionista" value="<?php echo $datos->Apellidos?>"/>
+								<input type="text" class="form-control" name="apellido_nutricionista" value="<?php echo $datos[0]->Apellidos?>"/>
 							</div>
 						</div>
 						<label class="control-label" for="sexo" >Sexo: <span class="text-danger">*</span></label>
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-                            <input type="radio" name="sexo" <?if($datos->sexo=="1"){?>checked="checked"<?php }?> value="1">
+                            <input type="radio" name="sexo" <?php if($datos[0]->sexo=="1"){?>checked="checked"<?php }?> value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino
-  									<input type="radio" name="sexo"<?if($datos->sexo=="2"){?>checked="checked"<?php }?> value="2">
+  									<input type="radio" name="sexo"<?php if($datos[0]->sexo=="2"){?>checked="checked"<?php }?> value="2">
   									<span class="checkmark"></span>
 								</label>
 							</div>

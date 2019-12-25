@@ -61,7 +61,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Editar paciente <?php echo $datos->rut?>
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Editar paciente <?php echo $datos[0]->rut?>
 				</div>
 
 			</div>
@@ -97,27 +97,27 @@
 						<label for="nombre" class="control-label">Nombre <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="nombre_paciente" placeholder="Nombre" value="<?php echo $datos->nombre?>" />
+								<input type="text" class="form-control" name="nombre_paciente" placeholder="Nombre" value="<?php echo $datos[0]->nombre?>" />
 							</div>
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="apellido_paciente" placeholder="Apellidos" value="<?php echo $datos->apellido?>"/>
+								<input type="text" class="form-control" name="apellido_paciente" placeholder="Apellidos" value="<?php echo $datos[0]->apellido?>"/>
 							</div>
 						</div>
 						<label for="fecha_nacimiento" class="control-label">Fecha de Nacimiento:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="date" class="form-control" name="fecha_nacimiento_p" value="<?php echo $datos->fecha_nacimiento?>" />
+								<input type="date" class="form-control" name="fecha_nacimiento_p" value="<?php echo $datos[0]->fecha_nacimiento?>" />
 							</div>
 						</div>
 						<label class="control-label" for="sexo" >Sexo: <span class="text-danger">*</span></label>
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-                            <input type="radio" name="sexo" <?if($datos->sexo=="1"){?>checked="checked"<?php }?> value="1">
+                            <input type="radio" name="sexo" <?php if($datos[0]->sexo=="1") { ?> checked="checked" <?php } ?> value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino
-  									<input type="radio" name="sexo"<?if($datos->sexo=="2"){?>checked="checked"<?php }?> value="2">
+  									<input type="radio" name="correo"<?php if($datos[0]->sexo=="2"){ ?> checked="checked" <?php } ?> value="2">
   									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -125,7 +125,7 @@
                         <label for="correo" class="control-label">Correo:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
-								<input type="text" class="form-control" name="correo" value="<?php echo $datos->correo?>" />
+								<input type="text" class="form-control" name="correo" value="<?php echo $datos[0]->correo?>" />
 							</div>
 						</div>
 						<div class="register-buttons">

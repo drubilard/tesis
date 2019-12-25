@@ -51,7 +51,7 @@
         public function asociar_patologia($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos_paciente=$this->datos_model->get_paciente_por_rut($this->uri->segment(3));
-            if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
+            if($datos_paciente==0){redirect(base_url()."error404/");}
             $patologias=$this->datos_model->all_patologias();
             $patologias_asociadas=$this->datos_model->patologias_asociadas($id);
             if($this->session->userdata("id")){
@@ -63,7 +63,7 @@
                     //print_r($asociar);die;
                     foreach($asociar as $pat){
                         $data=array('Patologia_idPatologia'=>$pat,
-                                'Paciente_rut'=>$datos_paciente->rut
+                                'Paciente_rut'=>$datos_paciente[0]->rut
                                 );
                             $this->datos_model->agregar_asociar_patologia($data,$id);
                     }
@@ -72,6 +72,7 @@
                     redirect(base_url()."paciente/listado_pacientes");
                 }
                 else{
+
                     $this->load->view("patologia/asociar_patologia",compact("datos_paciente","patologias","patologias_asociadas"));
                 }
             }else{

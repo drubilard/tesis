@@ -93,9 +93,9 @@
 		<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-9 col-xs-12">
-                    <h4 class="h4">Paciente: <?php echo $datos->nombre." ".$datos->apellido?></h4>
+                    <h4 class="h4">Paciente: <?php echo $datos[0]->nombre." ".$datos[0]->apellido?></h4>
                     <div class="input-group">
-      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos->rut?>">
+      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos[0]->rut?>">
 							</div>
 					</div>
 					<div class="col-md-3 col-xs-5">

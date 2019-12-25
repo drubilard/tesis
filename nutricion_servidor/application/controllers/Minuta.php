@@ -20,7 +20,7 @@
                 $result=$this->datos_model->delete_minuta($id);
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
-                redirect(base_url()."minuta/listado_minutas/".$datos->Paciente_rut);
+                redirect(base_url()."minuta/listado_minutas/".$datos[0]->Paciente_rut);
         }
         public function listado_minutas($id=null){
             if(!$id){redirect(base_url()."error404/");}
@@ -55,7 +55,7 @@
                 $preparaciones=$this->datos_model->get_all_preparaciones();
                 if($this->input->post()){
                         if($this->input->post('preparaciones_minuta_des')&&$this->input->post('preparaciones_minuta_col')&&$this->input->post('preparaciones_minuta_ent')&&$this->input->post('preparaciones_minuta_alm')&&$this->input->post('preparaciones_minuta_col_2')&&$this->input->post('preparaciones_minuta_on')&&$this->input->post('preparaciones_minuta_cen')){
-                            $data=array('Paciente_rut'=>$datos_paciente->rut,
+                            $data=array('Paciente_rut'=>$datos_paciente[0]->rut,
                             'fecha'=>date('Y-m-j')
                                     );
                             $id_minuta=$this->datos_model->crear_minuta($data);
@@ -134,10 +134,12 @@
                 }
                 $estado_nutri=$this->datos_model->get_last_evaluacion($rut);
                 array_splice($patologias_id, sizeof($patologias_id)-1, 1);
+                //print_r($estado_nutri);die;
                 $preparaciones_permitidas=$this->datos_model->preparaciones_por_patologia_permitidas($patologias_id,$estado_nutri->estado);
                 $preparaciones_restringidas=$this->datos_model->preparaciones_por_patologia_restringidas($patologias_id,$estado_nutri->estado);
                 $preparaciones_descartadas=$this->datos_model->preparaciones_por_gustos_restringidas($rut);
-                //print_r($preparaciones_descartadas);die;
+                //echo "test";
+                //print_r($preparaciones_permitidas);die;
                 $i=0;
                 foreach($preparaciones_permitidas as $prep){
                     foreach($preparaciones_restringidas as $prep2){
@@ -162,7 +164,7 @@
                 //print_r($preparaciones_permitidas);die;
                 if($this->input->post()){
                     if($this->input->post('preparaciones_minuta_des')&&$this->input->post('preparaciones_minuta_col')&&$this->input->post('preparaciones_minuta_ent')&&$this->input->post('preparaciones_minuta_alm')&&$this->input->post('preparaciones_minuta_col_2')&&$this->input->post('preparaciones_minuta_on')&&$this->input->post('preparaciones_minuta_cen')){
-                        $data=array('Paciente_rut'=>$datos_paciente->rut,
+                        $data=array('Paciente_rut'=>$datos_paciente[0]->rut,
                         'fecha'=>date('Y-m-j')
                                 );
                         $id_minuta=$this->datos_model->crear_minuta($data); 
@@ -213,7 +215,8 @@
                             $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje_minuta','Asegurese de que existe al menos una preparación en cada tiempo de comida');
                         }
-                    }        
+                    }  
+                    //die();      
                 $this->load->view("minuta/recomendar_minuta",compact('preparaciones','rut','preparaciones_permitidas'));
             }else{
                 redirect(base_url()."administrar/salir");
@@ -324,10 +327,10 @@
     <img style="vertical-align: top" src="assets/img/logo/logo.png" width="80"/>
     
     </div>';
-                $html.=' <h1>Minuta Nutricional</h1><h2> Nutricionista: '.$paciente->nombre_nutri.' '.$paciente->apellido_nutri.'</h2>
+                $html.=' <h1>Minuta Nutricional</h1><h2> Nutricionista: '.$paciente[0]->nombre_nutri.' '.$paciente[0]->apellido_nutri.'</h2>
     <p><h5><label>Fecha:</label> '.date('d-m-Y').'</h5></p>
-    <p><h5><label>Paciente: </label>'.$paciente->nombre_paciente.' '.$paciente->apellido_paciente.'</h5>
-    <h5><label>Rut: </label>'.$paciente->rut.'</h5></p>
+    <p><h5><label>Paciente: </label>'.$paciente[0]->nombre_paciente.' '.$paciente[0]->apellido_paciente.'</h5>
+    <h5><label>Rut: </label>'.$paciente[0]->rut.'</h5></p>
     <h5><label>Hidratación recomendada: </label>'.$agua_beber.'litros</h5></p>
     <h4>Minuta nutricional</h4>
     <table class="bpmTopnTail"><thead>
@@ -764,15 +767,18 @@
                             $html.='<td>'.$alimento->aporte.'.</td>';
                             $html.='<td>'.$alimento->propiedades.'.</td></tr> ';
                         }
-                        $html.=
-                '</tbody>
-            </table>';
+                        $html.='</tbody></table>';
+                        ob_start();
+                error_reporting(E_ALL & ~E_NOTICE);
+                ini_set('display_errors', 0);
+                ini_set('log_errors', 1);
                 $estilos=file_get_contents("assets/css/mpdfstyletables.css");
                 $mpdf = new mPDF('c');
                 $mpdf->setFooter('{PAGENO}');
                 $mpdf->setDisplayMode('fullpage');
                 $mpdf->WriteHTML($estilos,1);
                 $mpdf->WriteHTML($html,2);
+                ob_end_clean();
                 $mpdf->Output($pdfFilePath, 'D');
                 exit();
         }else{

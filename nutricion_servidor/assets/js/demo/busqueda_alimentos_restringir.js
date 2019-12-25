@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-  path="http://localhost/nutricion_servidor/alimento/";
+  path="http://localhost:8000/alimento/";
   //path="http://mard.cl/nutricion/registrar/";
   //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
@@ -39,7 +39,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad){
     success:function(response){
       filas = "";
       $.each(response.alimento,function(key,item){
-        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.tipo+"<center></td><td><center><a href='http://localhost/nutricion_servidor/alimento/restringir_alimentos/"+rut+"/"+item.idAlimento+"' class=' btn btn-danger glyphicon glyphicon-ban-circle'></center></td></tr>";
+        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.tipo+"<center></td><td><center><a href='http://localhost:8000/alimento/restringir_alimentos/"+rut+"/"+item.idAlimento+"' class=' btn btn-danger glyphicon glyphicon-ban-circle'></center></td></tr>";
       });
       $("#body_alimentos").html(filas);
       linkseleccionado = Number(pagina);

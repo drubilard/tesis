@@ -25,7 +25,7 @@
                 $this->datos_model->update_nutricionista($data,$id);
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro ha sido modificado exitosamente, vuelva a iniciar sesión por favor');
-                redirect(base_url()."nutricionista/login");
+                redirect(base_url()."administrar/salir");
             }else{
                 $this->load->view("nutricionista/editar_nutricionista",compact('datos'));
             }

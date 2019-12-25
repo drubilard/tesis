@@ -12,14 +12,14 @@
             if(!$id){redirect(base_url()."error404/");}
             if($this->session->userdata("id")&&$this->uri->segment(3)){
                 $datos_evaluacion=$this->datos_model->get_evaluacion($id);
-                $datos_paciente=$this->datos_model->get_paciente_por_rut($datos_evaluacion->Paciente_rut);
-                $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente->sexo);
+                $datos_paciente=$this->datos_model->get_paciente_por_rut($datos_evaluacion[0]->Paciente_rut);
+                $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente[0]->sexo);
                 //print_r($datos_evaluacion);die;
                 if($this->input->post()){
                 if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
-                $edad=(int)calculaEdad($datos_paciente->fecha_nacimiento);
+                $edad=(int)calculaEdad($datos_paciente[0]->fecha_nacimiento);
                 $porc_grasa=(int)$this->input->post('grasa_durnin');
-                $sexo=$datos_paciente->sexo;
+                $sexo=$datos_paciente[0]->sexo;
                 switch ($sexo) {
                     case '1':
                     if($porc_grasa<10){
@@ -244,13 +244,13 @@
                                 "seis_pliegues_paciente"=>$this->input->post('6pliegues'),
                                 "fecha"=>$this->input->post('fecha_control'),
                                 "estado"=>$estado_nutri_paciente_bd,
-                                "Paciente_rut"=>$datos_paciente->rut);
+                                "Paciente_rut"=>$datos_paciente[0]->rut);
                             $this->session->set_flashdata('css','success');
                             $this->session->set_flashdata('mensaje','se edito exitosamente su evaluación');
                             $this->session->set_flashdata('css_estado_nutri','warning');
                             $this->session->set_flashdata('estado_nutri','Respecto a la reciente modificación en la evaluación, el estado nutricional del paciente '. $estado_nutri_paciente);
                             $this->datos_model->update_evaluacion($data,$id);
-                            redirect(base_url()."evaluacion/listado_evaluaciones/".$datos_paciente->rut);
+                            redirect(base_url()."evaluacion/listado_evaluaciones/".$datos_paciente[0]->rut);
                  }else{
                     $this->load->view("evaluacion/editar_evaluacion",compact('datos_paciente','datos_evaluacion','porc_grasa'));
                 }
@@ -282,17 +282,17 @@
         }
         public function planilla_evaluacion($id=null){
             if(!$id){redirect(base_url()."error404/");}
-            $datos_paciente=$this->datos_model->get_paciente_por_rut($this->uri->segment(3));
+            $datos_paciente=$this->datos_model->get_paciente_por_rut($id);
             if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
             if(($this->session->userdata("id")) && ($rut_paciente=$this->uri->segment(3))){
-                //print_r($datos_paciente->sexo);exit;
-                $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente->sexo);
+                //print_r($datos_paciente[0]->sexo);exit;
+                $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente[0]->sexo);
                 if($this->input->post()){
                     if ($this->form_validation->run('add_evaluacion')){
                         //echo $this->input->post('imc');exit;
-                            $edad=(int)calculaEdad($datos_paciente->fecha_nacimiento);
+                            $edad=(int)calculaEdad($datos_paciente[0]->fecha_nacimiento);
                             $porc_grasa=(int)$this->input->post('grasa_durnin');
-                            $sexo=$datos_paciente->sexo;
+                            $sexo=$datos_paciente[0]->sexo;
                             switch ($sexo) {
                                 case '1':
                                 if($porc_grasa<10){
@@ -516,15 +516,15 @@
                             "seis_pliegues_paciente"=>$this->input->post('6pliegues'),
                             "fecha"=>$this->input->post('fecha_control'),
                             "estado"=>$estado_nutri_paciente_bd,
-                            "Paciente_rut"=>$datos_paciente->rut);
+                            "Paciente_rut"=>$datos_paciente[0]->rut);
                         $this->session->set_flashdata('css','success');
                         $this->session->set_flashdata('mensaje','se ingresó exitosamente su evaluación');
                         $this->session->set_flashdata('css_estado_nutri','warning');
                         $this->session->set_flashdata('estado_nutri','Respecto a la reciente evaluación, el estado nutricional del paciente '.$estado_nutri_paciente);
                         $this->datos_model->add_evaluacion($data);
-                        redirect(base_url()."evaluacion/listado_evaluaciones/".$datos_paciente->rut);
+                        redirect(base_url()."evaluacion/listado_evaluaciones/".$datos_paciente[0]->rut);
                     }      
-                }            
+                }
                 $this->load->view("evaluacion/planilla_evaluacion",compact('datos_paciente','porc_grasa'));
             }else{
                 redirect(base_url()."administrar/salir");
@@ -542,7 +542,6 @@
             }
         }
         public function mostrar_evaluaciones(){
-            if($this->input->post()){
                 $buscar = $this->input->post("buscar");
                 $numeropagina = $this->input->post("nropagina");
                 $cantidad = $this->input->post("cantidad");
@@ -554,7 +553,6 @@
                     "cantidad" =>$cantidad              
                 );
                 echo json_encode($data);
-            }
         }
         public function eliminar_evaluacion($id=null){
             if(!$id){redirect(base_url()."error404/");}
@@ -563,7 +561,7 @@
                 $result=$this->datos_model->delete_evaluacion($id);
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
-                redirect(base_url()."evaluacion/listado_evaluaciones/".$datos->Paciente_rut);
+                redirect(base_url()."evaluacion/listado_evaluaciones/".$datos[0]->Paciente_rut);
         }
     }
 ?>

@@ -14,7 +14,7 @@ class datos_model extends CI_Model
 				->from('sesiones')
 				->where(array("rut"=>$rut,"estado"=>"1"))
 				->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function update_sesion($id_sesion){
 		$this->db->set('estado','0');
@@ -29,6 +29,66 @@ class datos_model extends CI_Model
 			->order_by("fecha","asc")
 			->get();
 			return $query->result(); 
+	}
+	public function getTodosPaginacion_usuarios_des($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',1)
+						->limit($porpagina,$pagina)
+						->like('Nombres',$buscar,'after')
+                        ->order_by("Nombres","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',1)
+						->like('Nombres',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function getTodosPaginacion_usuarios_act($buscar="",$pagina,$porpagina,$quehago){
+        switch($quehago)
+        {
+            case 'limit':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',0)
+						->limit($porpagina,$pagina)
+						->like('Nombres',$buscar,'after')
+                        ->order_by("Nombres","asc")
+						->get();
+                return $query->result();        
+            break;
+            case 'cuantos':
+                $query=$this->db
+                        ->select("*")
+						->from("nutricionista")
+						->where('estado',0)
+						->like('Nombres',$buscar,'after')
+                        ->count_all_results();
+                return $query;
+            break;
+        }
+	}
+	public function activar_usuario($rut){
+		$this->db->set('estado',0);
+		$this->db->where('rut',$rut);
+		$this->db->update('nutricionista');
+	}
+	public function desactivar_usuario($rut){
+		$this->db->set('estado',1);
+		$this->db->where('rut',$rut);
+		$this->db->update('nutricionista');
 	}
     public function getTodosPaginacion_pat_hab($pagina,$porpagina,$quehago){
         switch($quehago)
@@ -83,17 +143,17 @@ class datos_model extends CI_Model
 		->from('nutricionista')
 		->where("rut",$rut)
 		->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function get_user_nutri($user,$clave){
 		$clave=sha1($clave);
 		$query=$this->db
 				->select("*")
 				->from("nutricionista")
-				->where(array("usuario"=>$user,"clave"=>$clave))
+				->where(array("usuario"=>$user,"clave"=>$clave,"estado"=>0))
 				->get();
 				//echo $this->db->last_query();die;
-		return $query->row();
+		return $query->result();
 	}
 	public function get_user_admin($user,$clave){
 		$clave=sha1($clave);
@@ -103,7 +163,7 @@ class datos_model extends CI_Model
 				->where(array("rut"=>$user,"clave"=>$clave))
 				->get();
 				//echo $this->db->last_query();die;
-		return $query->row();
+		return $query->result();
 	}
 	public function get_user_paciente($user,$clave){
 		//$clave=sha1($clave);
@@ -113,7 +173,7 @@ class datos_model extends CI_Model
 				->where(array("rut"=>$user,"clave"=>$clave))
 				->get();
 				//echo $this->db->last_query();die;
-		return $query->row();
+		return $query->result();
 	}
 	public function consulta_usuario($usuario){
 		$query=$this->db->select('*')
@@ -145,16 +205,29 @@ class datos_model extends CI_Model
 		$this->db->where('idMinutas',$id);
         $this->db->delete('minutas');
 	}
+	public function delete_minuta_paciente($id){
+		$this->db->where("idMinutas,$id");
+        $this->db->delete('minutas');
+	}
 	public function delete_preparaciones_minuta($id){
 		$this->db->where('minuta_idminuta',$id);
+        $this->db->delete('preparacion_minuta');
+	}
+	public function delete_preparaciones_minuta_paciente($id){
+		$this->db->where("minuta_idminuta,$id");
         $this->db->delete('preparacion_minuta');
 	}
 	public function delete_asignacion_patologia($rut){
 		$this->db->where('Paciente_rut',$rut);
 		$this->db->delete('paciente_patologia');
 	}
+	
 	public function delete_evaluacion($id){
 		$this->db->where('idevaluacion_nutricional',$id);
+        $this->db->delete('evaluacion_nutricional');
+	}
+	public function delete_evaluacion_paciente($id){
+		$this->db->where('Paciente_rut',$id);
         $this->db->delete('evaluacion_nutricional');
 	}
 	public function delete_pat_hab($id){
@@ -171,6 +244,10 @@ class datos_model extends CI_Model
 	}
 	public function delete_ficha($id){
 		$this->db->where('id',$id);
+        $this->db->delete('ficha_clinica');
+	}
+	public function delete_ficha_paciente($id){
+		$this->db->where('rut',$id);
         $this->db->delete('ficha_clinica');
 	}
 	public function delete_preparacion($id){
@@ -192,7 +269,7 @@ class datos_model extends CI_Model
                 ->where(array("idAlimento"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
-        return $query->row();
+        return $query->result();
 	}
 	public function get_ficha_id($id){
 		$query=$this->db
@@ -201,7 +278,7 @@ class datos_model extends CI_Model
                 ->where(array("id"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
-        return $query->row();
+        return $query->result();
 	}
 	public function get_preparacion_id($id){
 		$query=$this->db
@@ -210,7 +287,7 @@ class datos_model extends CI_Model
                 ->where(array("idpreparacion"=>$id))
                 ->get();
         //echo $this->db->last_query();exit;        
-        return $query->row();
+        return $query->result();
 	}
 	public function preparaciones_por_patologia_permitidas($id=array(),$estado){
 		$id=implode($id);
@@ -293,7 +370,7 @@ class datos_model extends CI_Model
 			->from('preparacion_alimento, alimento')
 			->where("idpreparacion_alimento="."'$id'"." and preparacion_alimento.alimento_idalimento=alimento.idAlimento")
 			->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function delete_alimentos_asociados($id){
 		$this->db->where("idpreparacion_alimento",$id);
@@ -313,7 +390,7 @@ class datos_model extends CI_Model
 			->from('evaluacion_nutricional')
 			->where('idevaluacion_nutricional',$id)
 			->get();
-			return $query->row();
+			return $query->result();
 	}
 	public function get_last_evaluacion($id){
 		$query=$this->db->select('estado, peso_paciente')
@@ -330,11 +407,25 @@ class datos_model extends CI_Model
 			return $query->result();
 	}
 	public function get_minuta($id){
-		$query=$this->db->select('fecha,Paciente_rut')
+		$query=$this->db->select('fecha,Paciente_rut,idMinutas')
 			->from('minutas')
 			->where('idMinutas',$id)
 			->get();
-			return $query->row();
+			return $query->result();
+	}
+	public function get_minuta_paciente($rut){
+		$query=$this->db->select('fecha,Paciente_rut')
+			->from('minutas')
+			->where('Paciente_rut',$rut)
+			->get();
+			return $query->result();
+	}
+	public function get_minuta_paciente_delete($rut){
+		$query=$this->db->select('idMinutas')
+			->from('minutas')
+			->where('Paciente_rut',$rut)
+			->get();
+			return $query->result();
 	}
 	public function add_ficha_clinica($data=array()){
 		$this->db->insert('ficha_clinica',$data);
@@ -445,21 +536,21 @@ class datos_model extends CI_Model
 				->from('paciente')
 				->where('rut',$rut)
 				->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function get_paciente_por_rut_minuta($rut){
 		$query=$this->db->select("paciente.rut as rut, paciente.nombre as nombre_paciente, paciente.apellido as apellido_paciente, nutricionista.Nombres as nombre_nutri, nutricionista.Apellidos as apellido_nutri")
 				->from('paciente,nutricionista')
 				->where("paciente.rut= '".$rut."' and paciente.Nutricionista_rut=nutricionista.rut")
 				->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function get_nutricionista_por_rut($rut){
 		$query=$this->db->select("*")
 				->from('nutricionista')
 				->where('rut',$rut)
 				->get();
-		return $query->row();
+		return $query->result();
 	}
 	public function update_paciente($data=array(),$id){
 		$this->db->where('rut',$id)
@@ -707,7 +798,7 @@ class datos_model extends CI_Model
                 ->from("patologia")
                 ->where("idPatologia=",$id)
 				->get();      
-        return $query->row();
+        return $query->result();
 	}
 
 	public function get_porc_grasa($sexo){
@@ -716,7 +807,7 @@ class datos_model extends CI_Model
 			->from ("porcen_grasa")
 			->where("sexo",$sexo)
 			->get();
-		return $query->result();
+		return $query->row();
 	}
 }
 

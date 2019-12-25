@@ -92,7 +92,7 @@
 				<div class="row">
 					<div class="col-md-3 col-xs-12">
 						<div class="input-group">
-						<h4 class="h4">Preparación: <?php echo $preparacion->nombre;?></h4>
+						<h4 class="h4">Preparación: <?php echo $preparacion[0]->nombre;?></h4>
 						</div>
 					</div>
 					<div class="col-md-6 col-xs-5">
@@ -109,7 +109,7 @@
             <div class="panel-body">
 				<div class="table-responsive">
                 <form method="post">
-                    <input type="hidden" name="idprep" value="<?php echo $preparacion->idpreparacion;?>">
+                    <input type="hidden" name="idprep" value="<?php echo $preparacion[0]->idpreparacion;?>">
   					<table class="table table-hover table-bordered">
                 <thead>
                     <tr>

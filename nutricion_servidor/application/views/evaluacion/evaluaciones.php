@@ -55,7 +55,7 @@
   				</ol>
 			</nav>  			
 			
-		</div>
+	</div>
 	<div id="page-container" class="fade">
 		<!-- begin login -->
 		<div class="login login-v2 " data-pageload-addclass="animated fadeIn ">

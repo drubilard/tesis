@@ -94,7 +94,7 @@
         public function editar_paciente($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos=$this->datos_model->get_paciente_por_rut($id);
-            if(sizeof($datos)==0){
+            if($datos==0){
                 redirect(base_url()."error404/");
             }
             if($this->session->userdata("id")){
@@ -106,6 +106,7 @@
                                 "apellido"=>$this->input->post("apellido_paciente",true),
                                 "fecha_nacimiento"=>$this->input->post("fecha_nacimiento_p",true),
                                 "sexo"=>$this->input->post("sexo",true),
+                                "correo"=>$this->input->post("correo",true),
                             );
                             $this->datos_model->update_paciente($data,$id);
                             $this->session->set_flashdata('css','success');
@@ -114,7 +115,7 @@
                         }else{
                             $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje','Fecha de nacimiento no válida');
-                            redirect(base_url()."paciente/editar_paciente/".$datos->rut);
+                            
                         }
                     }
                  }
@@ -128,10 +129,17 @@
             if(!$id){redirect(base_url()."error404/");}
                 $datos=$this->datos_model->get_paciente_por_rut($id);
                 if(sizeof($datos)==0){redirect(base_url()."error404/");}
-                //$result=$this->datos_model->delete_evaluacion($id);
-                //$result=$this->datos_model->delete_ficha($id);
+                $ids=$this->datos_model->get_minuta_paciente_delete($id);
+                foreach ($ids as $i){
+                 $result=$this->datos_model->delete_preparaciones_minuta_paciente($i->idMinutas);
+                }
+                foreach ($ids as $i){
+                    $result=$this->datos_model->delete_minuta_paciente($i->idMinutas);
+                   }
+                $result=$this->datos_model->delete_evaluacion_paciente($id);
+                $result=$this->datos_model->delete_ficha_paciente($id);
+                $result=$this->datos_model->delete_asignacion_patologia($id);
                 $result=$this->datos_model->delete_paciente($id);
-                //print_r($result);die;
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
                 redirect(base_url()."paciente/listado_pacientes");
@@ -147,7 +155,7 @@
                             $data=array(
                                 'fecha'=>$this->input->post('fecha',true),
                                 'informacion'=>$this->input->post('info',true),
-                                'rut'=>$datos->rut
+                                'rut'=>$datos[0]->rut
                             );
                             $this->datos_model->insertar_ficha($data);
                             $this->session->set_flashdata('css','success');
@@ -158,7 +166,7 @@
                     else{
                         $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje','Fecha no válida');
-                            redirect(base_url()."paciente/nueva_ficha/".$datos->rut);
+                            redirect(base_url()."paciente/nueva_ficha/".$datos[0]->rut);
                     }
                 }
                 $this->load->view("paciente/nueva_ficha",compact('datos'));
@@ -170,7 +178,7 @@
         public function ficha_clinica($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos=$this->datos_model->get_paciente_por_rut($id);
-            if(sizeof($datos)==0){redirect(base_url()."error404/");}
+            if($datos==0){redirect(base_url()."error404/");}
             if ($this->session->userdata("id")&&($rut_paciente=$this->uri->segment(3))) {
                 $this->load->view('paciente/ficha_clinica',compact('rut_paciente'));
             }else{
@@ -179,10 +187,9 @@
         }
         public function listado_fichas($id=null){
             if(!$id){redirect(base_url()."error404/");}
-            $datos=$this->datos_model->get_paciente_por_rut($id);
-            if(sizeof($datos)==0){redirect(base_url()."error404/");}
+            $datos_paciente=$this->datos_model->get_paciente_por_rut($id);
+            if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
             if ($this->session->userdata("id")&&($rut_paciente=$this->uri->segment(3))){
-                $datos_paciente=$this->datos_model->get_paciente_por_rut($rut_paciente);
                 $this->load->view('paciente/listado_fichas',compact('datos_paciente'));
             }else{
                 redirect(base_url()."administrar/salir");
@@ -206,7 +213,7 @@
         public function editar_ficha($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $ficha=$this->datos_model->get_ficha_id($id);
-            $datos=$this->datos_model->get_paciente_por_rut($ficha->rut);
+            $datos=$this->datos_model->get_paciente_por_rut($ficha[0]->rut);
             //print_r($datos);die;
             if(sizeof($ficha)==0){redirect(base_url()."error404/");}
             if($this->session->userdata("id")&&$this->uri->segment(3)){
@@ -215,19 +222,20 @@
                     if(valida_fecha($this->input->post('fecha',true))){
                         $data=array(
                             'fecha'=>$this->input->post('fecha',true),
-                            'informacion'=>$this->input->post('informacion',true)
+                            'informacion'=>$this->input->post('textarea_fichaclinica',true)
                         );
                         $this->datos_model->update_ficha($data,$id);
                         $this->session->set_flashdata('css','success');
                         $this->session->set_flashdata('mensaje','El registro ha sido modificado exitosamente');
-                        redirect(base_url()."paciente/listado_fichas/".$datos->rut);
+                        redirect(base_url()."paciente/listado_fichas/".$datos[0]->rut);
                     }
                     else{
                         $this->session->set_flashdata('css','danger');
                         $this->session->set_flashdata('mensaje','Fecha no válida');
-                        redirect(base_url()."paciente/nueva_ficha/".$datos->rut);
+                        redirect(base_url()."paciente/editar_ficha/".$ficha[0]->id);
                     }
                 }else{
+                    //print_r($datos);die;
                 $this->load->view("paciente/editar_ficha",compact('ficha','datos'));
                 }
             }else{
@@ -241,7 +249,7 @@
                 $result=$this->datos_model->delete_ficha($id);
                 $this->session->set_flashdata('css','success');
                 $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
-                redirect(base_url()."paciente/listado_fichas/".$datos->rut);
+                redirect(base_url()."paciente/listado_fichas/".$datos[0]->rut);
         }
         public function listado_pacientes(){
             if($this->session->userdata("id")){
@@ -353,5 +361,4 @@
             }
         }
     } 
-
 ?>

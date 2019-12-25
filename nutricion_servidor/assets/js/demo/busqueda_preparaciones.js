@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-  path="http://localhost/nutricion_servidor/preparacion/";
+  path="http://localhost:8000/preparacion/";
   //path="http://mard.cl/nutricion/registrar/";
   //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
@@ -40,7 +40,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad){
     success:function(response){
       filas = "";
       $.each(response.preparacion,function(key,item){
-        filas+="<tr><td><center>"+item.idpreparacion+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.tipo+"</center></td><td><center>"+item.tipo_nutri+"</center></td><<td><center><a class='btn btn-success btn-xs' href='/nutricion_servidor/preparacion/asignar_alimentos/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-cutlery' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-danger btn-xs' href='/nutricion_servidor/preparacion/quitar_alimentos/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-cutlery' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-primary btn-xs' href='/nutricion_servidor/preparacion/editar_preparacion/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"  <a class='eliminar_preparacion btn btn-danger btn-xs' href='/nutricion_servidor/preparacion/eliminar_preparacion/"+item.idpreparacion+"/')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
+        filas+="<tr><td><center>"+item.idpreparacion+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.tipo+"</center></td><td><center>"+item.tipo_nutri+"</center></td><<td><center><a class='btn btn-success btn-xs' href='/preparacion/asignar_alimentos/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-cutlery' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-danger btn-xs' href='/preparacion/quitar_alimentos/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-cutlery' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-primary btn-xs' href='/preparacion/editar_preparacion/"+item.idpreparacion+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"  <a class='eliminar_preparacion btn btn-danger btn-xs' href='/preparacion/eliminar_preparacion/"+item.idpreparacion+"/')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
       });
 
       $("#body_paginacion").html(filas);

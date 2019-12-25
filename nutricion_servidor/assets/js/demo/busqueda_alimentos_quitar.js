@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-  path="http://localhost/nutricion_servidor/preparacion/";
+  path="http://localhost:8000/preparacion/";
   //path="http://mard.cl/nutricion/registrar/";
   //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";

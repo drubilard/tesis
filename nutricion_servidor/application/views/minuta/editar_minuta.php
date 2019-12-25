@@ -51,10 +51,10 @@
   <div id="header" class="header navbar-default">
   <nav aria-label='breadcrumb'>
     <ol class='breadcrumb'>
-      <li class='breadcrumb-item'><a href='/nutricion_servidor/administrar/administrar'><strong>Administrar</strong></a></li>
-      <li class='breadcrumb-item'><a href='/nutricion_servidor/paciente/listado_pacientes'><strong>Pacientes</strong></a></li>
-      <li class='breadcrumb-item'><a href='/nutricion_servidor/minuta/gestion_minuta/<?php echo $rut?>'><strong>Gestión minutas</strong></a></li>
-      <li class='breadcrumb-item'><a href='/nutricion_servidor/minuta/listado_minutas/<?php echo $rut?>'><strong>Consultar minutas</strong></a></li>
+      <li class='breadcrumb-item'><a href='/administrar/administrar'><strong>Administrar</strong></a></li>
+      <li class='breadcrumb-item'><a href='/paciente/listado_pacientes'><strong>Pacientes</strong></a></li>
+      <li class='breadcrumb-item'><a href='/minuta/gestion_minuta/<?php echo $rut?>'><strong>Gestión minutas</strong></a></li>
+      <li class='breadcrumb-item'><a href='/minuta/listado_minutas/<?php echo $rut?>'><strong>Consultar minutas</strong></a></li>
       <li class='breadcrumb-item' aria-current='page'>Editar minuta</li>
     </ol>
   </nav>			

@@ -30,7 +30,7 @@ $("body").on("click",".paginacion li a",function(e){
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
 //path="http://192.168.50.54/nutricion/registrar/";
-path="http://localhost/nutricion/registrar/";
+path="http://localhost:8000/evaluacion/";
 //path="http://192.168.0.12/nutricion/registrar/";
 //path="http://10.145.149.41/nutricion/registrar/";
   $.ajax({
@@ -42,8 +42,8 @@ path="http://localhost/nutricion/registrar/";
     filas = "";
     $.each(response.evaluaciones,function(key,item){
       //console.log(response.paciente);
-      filas+="<tr><td><center>"+item.fecha+"</td><center><td><center>"+item.estado+"</td><center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion_servidor/evaluacion/ver_evaluacion/"+item.idevaluacion_nutricional+"'"+"><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span></a>";
-      breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/nutricion_servidor/paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
+      filas+="<tr><td><center>"+item.fecha+"</td><center><td><center>"+item.estado+"</td><center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/evaluacion/ver_evaluacion/"+item.idevaluacion_nutricional+"'"+"><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span></a>";
+      breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
 
     });
 

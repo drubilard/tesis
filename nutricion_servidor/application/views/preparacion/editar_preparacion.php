@@ -88,11 +88,11 @@
 				<?php }?>
             <p>
                 <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre_preparacion"  value="<?php echo $preparacion->nombre;?>" class="form-control" autofocus="true" />
+                <input type="text" name="nombre_preparacion"  value="<?php echo $preparacion[0]->nombre;?>" class="form-control" autofocus="true" />
             </p>
 			<p>
                 <label for="nombre">Aporte de calorías:</label>
-                <input type="text" name="kcal"  value="<?php echo $preparacion->kcal;?>" class="form-control" placeholder="eje: 1500 kcal" />
+                <input type="text" name="kcal"  value="<?php echo $preparacion[0]->kcal;?>" class="form-control" placeholder="eje: 1500 kcal" />
             </p>
             
              <p>
@@ -100,23 +100,23 @@
 				<div class="col-lg-4 col-md-6">
 					<label class="control-label" for="clave" >Tipo: <span class="text-danger">*</span></label>
 					<select name="tipo" id="tipo">
-						<option value="desayuno" <?php if ($preparacion->tipo=="desayuno"){ ?> selected <?php }?>>Desayuno</option>
-						<option value="colacion_1" <?php if ($preparacion->tipo=="colacion_1"){ ?> selected <?php }?>>Colación</option>
-						<option value="entrada" <?php if ($preparacion->tipo=="entrada"){ ?> selected <?php }?>>Entrada</option>
-						<option value="almuerzo" <?php if ($preparacion->tipo=="almuerzo"){ ?> selected <?php }?>>Almuerzo</option>
-						<option value="colacion_2" <?php if ($preparacion->tipo=="colacion_2"){ ?> selected <?php }?>>Colación media tarde</option>
-						<option value="once" <?php if ($preparacion->tipo=="once"){ ?> selected <?php }?>>Once</option>
-						<option value="cena" <?php if ($preparacion->tipo=="cena"){ ?> selected <?php }?>>Cena</option>
+						<option value="desayuno" <?php if ($preparacion[0]->tipo=="desayuno"){ ?> selected <?php }?>>Desayuno</option>
+						<option value="colacion_1" <?php if ($preparacion[0]->tipo=="colacion_1"){ ?> selected <?php }?>>Colación</option>
+						<option value="entrada" <?php if ($preparacion[0]->tipo=="entrada"){ ?> selected <?php }?>>Entrada</option>
+						<option value="almuerzo" <?php if ($preparacion[0]->tipo=="almuerzo"){ ?> selected <?php }?>>Almuerzo</option>
+						<option value="colacion_2" <?php if ($preparacion[0]->tipo=="colacion_2"){ ?> selected <?php }?>>Colación media tarde</option>
+						<option value="once" <?php if ($preparacion[0]->tipo=="once"){ ?> selected <?php }?>>Once</option>
+						<option value="cena" <?php if ($preparacion[0]->tipo=="cena"){ ?> selected <?php }?>>Cena</option>
 					</select>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<label class="control-label" for="clave" >Tipo de estado nutricional: <span class="text-danger">*</span></label>
 						<select name="tipo_nutri" id="tipo_nutri">
-							<option value="enflaquecido" <?php if ($preparacion->tipo_nutri=="enflaquecido"){?>selected <?php }?>>Enflaquecido</option>
-							<option value="adecuado" <?php if ($preparacion->tipo_nutri=="adecuado"){?>selected <?php }?>>Adecuado</option>
-							<option value="promedio" <?php if ($preparacion->tipo_nutri=="promedio"){?>selected <?php }?>>Promedio</option>
-							<option value="sobrepeso" <?php if ($preparacion->tipo_nutri=="sobrepeso"){?>selected <?php }?>>Sobrepeso</option>
-							<option value="obeso" <?php if ($preparacion->tipo_nutri=="obeso"){?>selected <?php }?>>Obeso</option>
+							<option value="enflaquecido" <?php if ($preparacion[0]->tipo_nutri=="enflaquecido"){?>selected <?php }?>>Enflaquecido</option>
+							<option value="adecuado" <?php if ($preparacion[0]->tipo_nutri=="adecuado"){?>selected <?php }?>>Adecuado</option>
+							<option value="promedio" <?php if ($preparacion[0]->tipo_nutri=="promedio"){?>selected <?php }?>>Promedio</option>
+							<option value="sobrepeso" <?php if ($preparacion[0]->tipo_nutri=="sobrepeso"){?>selected <?php }?>>Sobrepeso</option>
+							<option value="obeso" <?php if ($preparacion[0]->tipo_nutri=="obeso"){?>selected <?php }?>>Obeso</option>
 						</select>
 				</div>
 			</div>

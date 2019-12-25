@@ -107,7 +107,7 @@
             <div class="panel-body">
 				<div class="table-responsive">
                 <form method="post">
-                    <input type="hidden" name="rut" value="<?php echo $datos->rut;?>">
+                    <input type="hidden" name="rut" value="<?php echo $datos[0]->rut;?>">
   					<table class="table table-hover table-bordered">
                 <thead>
                     <tr>

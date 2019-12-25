@@ -47,7 +47,7 @@
                         Guardar imagen
                     </button>
                 </form>
-                <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
+                <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart" width="100" height="50"></canvas>
             </div>
             <div class="col-lg-6 ">
@@ -58,7 +58,8 @@
                         Guardar imagen
                     </button>
                 </form>
-                <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
+
+                <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart2" width="100" height="50"></canvas>
             </div>
         </div>
@@ -71,7 +72,7 @@
                             Guardar imagen
                         </button>
                     </form>
-                    <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
+                    <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                     <canvas id="myChart3" width="100" height="50"></canvas>
             </div>
             <div class="col-lg-6 ">
@@ -82,7 +83,7 @@
                         Guardar imagen
                     </button>
                 </form>
-                <input type="hidden" id="paciente" value="<?php echo $datos_paciente->rut?>">
+                <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart4" width="100" height="50"></canvas>
             </div>
 

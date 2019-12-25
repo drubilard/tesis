@@ -50,8 +50,8 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administración</strong></a></li>
             <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente->rut?>"><strong>Evaluaciones</strong></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/listado_evaluaciones/<?php echo $datos_paciente->rut?>"><strong>Consultar evaluaciones</strong></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente[0]->rut?>"><strong>Evaluaciones</strong></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/listado_evaluaciones/<?php echo $datos_paciente[0]->rut?>"><strong>Consultar evaluaciones</strong></a></li>
             <li class="breadcrumb-item" aria-current="page">Editar evaluación</li>
           </ol>
       </nav>      
@@ -93,7 +93,7 @@
                   <div class="form-group row">
               <label for="peso" class="col-sm-2 col-form-label"><strong>Nombre:</strong></label>
                 <div class="col-md-8">
-                    <label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente->nombre)." ".strtoupper($datos_paciente->apellido);?></label>
+                    <label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente[0]->nombre)." ".strtoupper($datos_paciente[0]->apellido);?></label>
                 </div>
             </div>
           </div>
@@ -113,7 +113,7 @@
               <div class="form-group row">
               <label for="peso" class="col-sm-2 col-form-label"><strong>Fecha Evaluación:</strong></label>
                 <div class="col-md-4">
-                    <input type="date" name="fecha_control" class="col-sm-12 col-form-label" value="<?php echo $datos_evaluacion->fecha;?>">
+                    <input type="date" name="fecha_control" class="col-sm-12 col-form-label" value="<?php echo $datos_evaluacion[0]->fecha;?>">
                 </div>
             </div>
             </div>
@@ -121,7 +121,7 @@
               <div class="form-group row">
               <label for="peso" class="col-sm-2 col-form-label"><strong>Edad:</strong></label>
                 <div class="col-md-3">
-                    <label for="peso" class="col-sm-12 col-form-label"><?php echo calculaEdad($datos_paciente->fecha_nacimiento)." "."años";?></label>
+                    <label for="peso" class="col-sm-12 col-form-label"><?php echo calculaEdad($datos_paciente[0]->fecha_nacimiento)." "."años";?></label>
                 </div>
             </div>
             </div>
@@ -139,7 +139,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Peso:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="peso" class="form-control" id="peso_id" placeholder="" value="<?php echo $datos_evaluacion->peso_paciente?>">
+                      <input type="text" name="peso" class="form-control" id="peso_id" placeholder="" value="<?php echo $datos_evaluacion[0]->peso_paciente?>">
                         <span class="input-group-addon">Kgs.</span>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Talla:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="talla" class="form-control" id="talla_id" placeholder="" value="<?php echo $datos_evaluacion->talla_paciente?>">
+                      <input type="text" name="talla" class="form-control" id="talla_id" placeholder="" value="<?php echo $datos_evaluacion[0]->talla_paciente?>">
                         <span class="input-group-addon">Mts.</span>
                   </div>
                 </div>
@@ -165,7 +165,7 @@
               <label for="peso" class="col-sm-2 col-form-label"><strong>IMC:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="imc" class="form-control" readonly id="imc_id" placeholder="" value="<?php echo $datos_evaluacion->imc_paciente?>">
+                      <input type="text" name="imc" class="form-control" readonly id="imc_id" placeholder="" value="<?php echo $datos_evaluacion[0]->imc_paciente?>">
                         <span class="input-group-addon">-</span>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Brazo relajado:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="b_relajado" class="form-control" id="b_relajado_id" placeholder="" value="<?php echo $datos_evaluacion->brazo_relajado_paciente?>">
+                      <input type="text" name="b_relajado" class="form-control" id="b_relajado_id" placeholder="" value="<?php echo $datos_evaluacion[0]->brazo_relajado_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Brazo contraido:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="b_contraido" class="form-control" id="b_contraido_id" placeholder="" value="<?php echo $datos_evaluacion->brazo_contraido_paciente?>">
+                      <input type="text" name="b_contraido" class="form-control" id="b_contraido_id" placeholder="" value="<?php echo $datos_evaluacion[0]->brazo_contraido_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -212,7 +212,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Cintura min:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="c_min" class="form-control" id="c_min_id" placeholder="" value="<?php echo $datos_evaluacion->cintura_min_paciente?>">
+                      <input type="text" name="c_min" class="form-control" id="c_min_id" placeholder="" value="<?php echo $datos_evaluacion[0]->cintura_min_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Cadera máx:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="c_max" class="form-control" id="c_max_id" placeholder="" value="<?php echo $datos_evaluacion->cadera_max_paciente?>">
+                      <input type="text" name="c_max" class="form-control" id="c_max_id" placeholder="" value="<?php echo $datos_evaluacion[0]->cadera_max_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -239,7 +239,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Muslo medio:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="m_medio" class="form-control" id="m_medio_id" placeholder="" value="<?php echo $datos_evaluacion->muslo_medio_paciente?>"> 
+                      <input type="text" name="m_medio" class="form-control" id="m_medio_id" placeholder="" value="<?php echo $datos_evaluacion[0]->muslo_medio_paciente?>"> 
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Pantorrilla:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="pantorrilla_perimetro" class="form-control" id="pantorrilla_perimetro_id" placeholder="" value="<?php echo $datos_evaluacion->pantorrilla_paciente?>">
+                      <input type="text" name="pantorrilla_perimetro" class="form-control" id="pantorrilla_perimetro_id" placeholder="" value="<?php echo $datos_evaluacion[0]->pantorrilla_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -272,7 +272,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Tricipital:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="tricipital" class="form-control" id="tricipital_id" placeholder="" value="<?php echo $datos_evaluacion->tricipital_paciente?>">
+                      <input type="text" name="tricipital" class="form-control" id="tricipital_id" placeholder="" value="<?php echo $datos_evaluacion[0]->tricipital_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Subescapular:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="subescapular" class="form-control" id="subescapular_id" placeholder="" value="<?php echo $datos_evaluacion->subescapular_paciente?>">
+                      <input type="text" name="subescapular" class="form-control" id="subescapular_id" placeholder="" value="<?php echo $datos_evaluacion[0]->subescapular_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -299,7 +299,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Bicipital:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="bicipital" class="form-control" id="bicipital_id" placeholder="" value="<?php echo $datos_evaluacion->bicipital_paciente?>">
+                      <input type="text" name="bicipital" class="form-control" id="bicipital_id" placeholder="" value="<?php echo $datos_evaluacion[0]->bicipital_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -310,7 +310,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Supracrestídeo:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="supracrestideo" class="form-control" id="supracrestideo_id" placeholder="" value="<?php echo $datos_evaluacion->supracrestideo_paciente?>">
+                      <input type="text" name="supracrestideo" class="form-control" id="supracrestideo_id" placeholder="" value="<?php echo $datos_evaluacion[0]->supracrestideo_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -326,7 +326,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Supraespinal:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="supraespinal" class="form-control" id="supraespinal_id" placeholder="" value="<?php echo $datos_evaluacion->supraespinal_paciente?>">
+                      <input type="text" name="supraespinal" class="form-control" id="supraespinal_id" placeholder="" value="<?php echo $datos_evaluacion[0]->supraespinal_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -337,7 +337,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Abdominal:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="abdomial" class="form-control" id="abdomial_id" placeholder="" value="<?php echo $datos_evaluacion->abdominal_paciente?>">
+                      <input type="text" name="abdomial" class="form-control" id="abdomial_id" placeholder="" value="<?php echo $datos_evaluacion[0]->abdominal_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -351,7 +351,7 @@
               <label for="peso" class="col-sm-2 col-form-label">Muslo:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="muslo" class="form-control" id="muslo_id" placeholder="" value="<?php echo $datos_evaluacion->muslo_paciente?>">
+                      <input type="text" name="muslo" class="form-control" id="muslo_id" placeholder="" value="<?php echo $datos_evaluacion[0]->muslo_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
               <label for="talla" class="col-sm-2 col-form-label">Pantorrilla:</label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="pantorrilla_pliegue" class="form-control" id="pantorrilla_pliegue_id" placeholder="" value="<?php echo $datos_evaluacion->pantorrilla2_paciente?>">
+                      <input type="text" name="pantorrilla_pliegue" class="form-control" id="pantorrilla_pliegue_id" placeholder="" value="<?php echo $datos_evaluacion[0]->pantorrilla2_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>
@@ -379,7 +379,7 @@
               <label for="peso" class="col-sm-3 col-form-label"><strong>Σ 4 pliegues:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="4pliegues" class="form-control" id="4pliegues_id" placeholder="" readonly value="<?php echo $datos_evaluacion->cuatro_pliegues_paciente?>">
+                      <input type="text" name="4pliegues" class="form-control" id="4pliegues_id" placeholder="" readonly value="<?php echo $datos_evaluacion[0]->cuatro_pliegues_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -390,7 +390,7 @@
               <label for="talla" class="col-sm-3 col-form-label"><strong>grasa Durnin:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="grasa_durnin" class="form-control" id="grasa_durnin_id" placeholder="" value="<?php echo $datos_evaluacion->grasa_durnin_paciente?>">
+                      <input type="text" name="grasa_durnin" class="form-control" id="grasa_durnin_id" placeholder="" value="<?php echo $datos_evaluacion[0]->grasa_durnin_paciente?>">
                         <span class="input-group-addon">%</span>
                   </div>
                 </div>
@@ -406,7 +406,7 @@
               <label for="peso" class="col-sm-3 col-form-label"><strong>Masa Adiposa:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="masa_adiposa" class="form-control" id="masa_adiposa_id" placeholder="" readonly value="<?php echo $datos_evaluacion->masa_adiposa_paciente?>">
+                      <input type="text" name="masa_adiposa" class="form-control" id="masa_adiposa_id" placeholder="" readonly value="<?php echo $datos_evaluacion[0]->masa_adiposa_paciente?>">
                         <span class="input-group-addon">kgs.</span>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
               <label for="talla" class="col-sm-3 col-form-label"><strong>Masa libre grasa:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="masa_sin_grasa" class="form-control" id="masa_sin_grasa_id" placeholder="" readonly value="<?php echo $datos_evaluacion->masa_sin_grasa_paciente?>">
+                      <input type="text" name="masa_sin_grasa" class="form-control" id="masa_sin_grasa_id" placeholder="" readonly value="<?php echo $datos_evaluacion[0]->masa_sin_grasa_paciente?>">
                         <span class="input-group-addon">Kgs.</span>
                   </div>
                 </div>
@@ -433,7 +433,7 @@
               <label for="peso" class="col-sm-3 col-form-label"><strong>Masa Muscular:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="masa_muscular" class="form-control" id="masa_muscular_id" placeholder="" readonly value="<?php echo $datos_evaluacion->masa_muscular_paciente?>">
+                      <input type="text" name="masa_muscular" class="form-control" id="masa_muscular_id" placeholder="" readonly value="<?php echo $datos_evaluacion[0]->masa_muscular_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                     </div>
                 </div>
@@ -444,7 +444,7 @@
               <label for="talla" class="col-sm-3 col-form-label"><strong>Σ 6 pliegues:</strong></label>
                 <div class="col-md-3">
                   <div class="input-group">
-                      <input type="text" name="6pliegues" class="form-control" id="6pliegues_id" placeholder="" readonly value="<?php echo $datos_evaluacion->seis_pliegues_paciente?>">
+                      <input type="text" name="6pliegues" class="form-control" id="6pliegues_id" placeholder="" readonly value="<?php echo $datos_evaluacion[0]->seis_pliegues_paciente?>">
                         <span class="input-group-addon">Cms.</span>
                   </div>
                 </div>

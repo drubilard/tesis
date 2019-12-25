@@ -88,7 +88,7 @@
         <div class="row">
           <div class="col-md-9 col-xs-12">
           <form method="post">
-        <button type="submit" class="btn btn-md btn-warning"><span class="glyphicon glyphicon-plus"></span> Asignar/Desvincular patologías a <?php echo $datos_paciente->nombre;?></button> 
+        <button type="submit" class="btn btn-md btn-warning"><span class="glyphicon glyphicon-plus"></span> Asignar/Desvincular patologías a <?php echo $datos_paciente[0]->nombre;?></button> 
           </div>
           <div class="col-md-3 col-xs-5">
             <input type="hidden" name="vacio" value="">

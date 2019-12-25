@@ -52,7 +52,7 @@
   				<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administración</strong></a></li>
 						<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente->rut?>"><strong>Evaluaciones</strong></a></li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente[0]->rut?>"><strong>Evaluaciones</strong></a></li>
 						<li class="breadcrumb-item" aria-current="page">Nueva evaluación</li>
   				</ol>
 			</nav> 			
@@ -94,7 +94,7 @@
               		<div class="form-group row">
     					<label for="peso" class="col-sm-2 col-form-label"><strong>Nombre:</strong></label>
     						<div class="col-md-8">
-      							<label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente->nombre)." ".strtoupper($datos_paciente->apellido);?></label>
+      							<label for="peso" class="col-sm-12 col-form-label"><?php echo strtoupper($datos_paciente[0]->nombre)." ".strtoupper($datos_paciente[0]->apellido);?></label>
     						</div>
   					</div>
     			</div>
@@ -102,7 +102,7 @@
   					<div class="form-group row">
     					<label for="talla" class="col-sm-2 col-form-label"><strong>Email:</strong></label>
     						<div class="col-md-3">
-      								<label for="talla" class="col-sm-2 col-form-label"><?php echo strtoupper($datos_paciente->correo);?></label>
+      								<label for="talla" class="col-sm-2 col-form-label"><?php echo strtoupper($datos_paciente[0]->correo);?></label>
     						</div>
   					</div>
   				</div>
@@ -122,7 +122,7 @@
         			<div class="form-group row">
     					<label for="peso" class="col-sm-2 col-form-label"><strong>Edad:</strong></label>
     						<div class="col-md-3">
-      							<label for="peso" class="col-sm-12 col-form-label"><?php echo calculaEdad($datos_paciente->fecha_nacimiento)." "."años";?></label>
+      							<label for="peso" class="col-sm-12 col-form-label"><?php echo calculaEdad($datos_paciente[0]->fecha_nacimiento)." "."años";?></label>
     						</div>
   					</div>
         		</div>

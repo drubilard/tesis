@@ -19,34 +19,31 @@
                     $data_user=$this->datos_model->get_user_nutri($this->input->post('user',true),$this->input->post('clave',true)); 
                     $data_user_paciente=$this->datos_model->get_user_paciente($this->input->post('user',true),$this->input->post('clave',true)); 
                     $data_admin=$this->datos_model->get_user_admin($this->input->post('user',true),$this->input->post('clave',true)); 
-                    if ((sizeof($data_user)==0) && (sizeof($data_user_paciente)==0)&&(sizeof($data_admin)==0)){                  
+                    print_r($data_user);
+                    print_r($data_user_paciente);
+                    print_r($data_admin);
+                    if ((sizeof($data_user)==0) && (sizeof($data_user_paciente)==0)&&(sizeof($data_admin)==0)){                
                             $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje_login','los datos no coinciden');
                             redirect(base_url()."administrar/login");                
                     }else{
                         if(sizeof($data_user_paciente)>0){
                             $this->session->set_userdata("datos_usuario");
-                            $this->session->set_userdata("rut",$data_user_paciente->rut);
-                            $this->session->set_userdata("nombre",$data_user_paciente->nombre);
-                            $this->session->set_userdata("sexo",$data_user_paciente->sexo); 
+                            $this->session->set_userdata("rut",$data_user_paciente[0]->rut);
+                            $this->session->set_userdata("nombre",$data_user_paciente[0]->nombre);
+                            $this->session->set_userdata("sexo",$data_user_paciente[0]->sexo); 
                         redirect(base_url()."paciente/documentos/");
                         }
                         else if (sizeof($data_user)>0){
-                        $data=$this->datos_model->get_sesiones_activas($data_user->rut);
-                        $data_insert=array(
-                            'rut'=>$data_user->rut,
-                            'estado'=>'1'
-                        );
-                        $id_sesion=$this->datos_model->insert_sesion($data_insert);
                         $this->session->set_userdata($id_sesion);
-                        $this->session->set_userdata("id",$data_user->rut);
-                        $this->session->set_userdata("nombre",$data_user->Nombres);
-                        $this->session->set_userdata("sexo",$data_user->sexo);
-                        $this->session->set_userdata("tipo",$data_user->tipo);  
+                        $this->session->set_userdata("id",$data_user[0]->rut);
+                        $this->session->set_userdata("nombre",$data_user[0]->Nombres);
+                        $this->session->set_userdata("sexo",$data_user[0]->sexo);
+                        $this->session->set_userdata("tipo",$data_user[0]->tipo);  
                         redirect(base_url()."administrar/administrar/");
                         } 
                         else{
-                            $this->session->set_userdata("admin",$data_admin->rut);
+                            $this->session->set_userdata("admin",$data_admin[0]->rut);
                             redirect(base_url()."administrador/crear_usuario/");
                         }
                     }
@@ -91,4 +88,4 @@
         
         
     }
-?> 
+?>

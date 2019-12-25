@@ -54,7 +54,7 @@
   				<ol class="breadcrumb">
     				<li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administrar</strong></a></li>
                     <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos_paciente->rut?>"><strong>Ficha clinica</strong></a></li>
+    				<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos_paciente[0]->rut?>"><strong>Ficha clinica</strong></a></li>
                     <li class="breadcrumb-item" aria-current="page">Listado de fichas</li>
 
                 </ol>
@@ -92,9 +92,9 @@
 		<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-9 col-xs-12">
-                    <h4 class="h4">Paciente: <?php echo $datos_paciente->nombre." ".$datos_paciente->apellido?></h4>
+                    <h4 class="h4">Paciente: <?php echo $datos_paciente[0]->nombre." ".$datos_paciente[0]->apellido?></h4>
                     <div class="input-group">
-      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos_paciente->rut?>">
+      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos_paciente[0]->rut?>">
 							</div>
 					</div>
 					<div class="col-md-3 col-xs-5">

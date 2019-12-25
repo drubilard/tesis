@@ -41,7 +41,7 @@
 	<div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="<?php echo base_url();?>administrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Ingreso de alimento</a>
+				<a href="<?php echo base_url();?>administrar/administrar" class="navbar-brand"><img src="<?php echo base_url();?>assets/img/logo/logo.png"> <b>NUTRICIÓN</b> Editar Ficha</a>
 			</div>
 		</div>
 		<div id="header" class="header navbar-default">
@@ -49,8 +49,8 @@
   				<ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administrar</strong></a></li>
                     <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-					<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos->rut?>"><strong>Ficha clínica</strong></a></li>
-                    <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_fichas/<?php echo $datos->rut?>"><strong>Listado fichas</strong></a></li>
+					<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/ficha_clinica/<?php echo $datos[0]->rut?>"><strong>Ficha clínica</strong></a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_fichas/<?php echo $datos[0]->rut?>"><strong>Listado fichas</strong></a></li>
                     <li class="breadcrumb-item" aria-current="page">edtiar ficha</li>
   				</ol>
 			</nav>  			
@@ -63,7 +63,7 @@
 			<!-- begin brand -->
 			<div class="login-header row animated bounceInLeft">
 				<div class="brand ">
-					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Alimento
+					<img src="<?php echo base_url();?>assets/img/logo/logo.png" style="height: 70px;"> <b>NUTRICIÓN</b> Ficha clínica
 				</div>
 
 			</div>
@@ -98,12 +98,12 @@
                             <?php }?>
                         <label for="nombre" class="control-label">Fecha:<span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<input type="date" class="form-control" autofocus="true" name="fecha" value="<?php echo $ficha->fecha;?>" />
+								<input type="date" class="form-control" autofocus="true" name="fecha" value="<?php echo $ficha[0]->fecha;?>" />
 						</div>
 						<br>
 						<label for="tipo" class="control-label">Información <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
-								<textarea cols="20" rows="10" name="textarea_fichaclinica" placeholder="Información ficha clínica" class="form-control" name="info"><?php echo ltrim( $ficha->informacion);?></textarea>	
+								<textarea cols="20" rows="10" name="textarea_fichaclinica" placeholder="Información ficha clínica" class="form-control" name="info"><?php echo ltrim( $ficha[0]->informacion);?></textarea>	
 						</div>
 						<br>
 						<br>

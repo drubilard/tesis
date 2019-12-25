@@ -54,7 +54,7 @@
 						<li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administración</strong></a></li>
 						<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
 						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/listado_evaluacione"><strong>Evaluaciones</strong></a></li>
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente->rut?>"><strong>Evaluaciones</strong></a></li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente[0]->rut?>"><strong>Evaluaciones</strong></a></li>
 						<li class="breadcrumb-item" aria-current="page">Nueva evaluación</li>
   				</ol>
 		</div>
@@ -98,9 +98,9 @@
 		<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-9 col-xs-12">
-                    <h4 class="h4">Paciente: <?php echo $datos_paciente->nombre." ".$datos_paciente->apellido?></h4>
+                    <h4 class="h4">Paciente: <?php echo $datos_paciente[0]->nombre." ".$datos_paciente[0]->apellido?></h4>
                     <div class="input-group">
-      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos_paciente->rut?>">
+      							<input type="hidden" name="rut" id="rut" value="<?php echo $datos_paciente[0]->rut?>">
 							</div>
 					</div>
 					<div class="col-md-3 col-xs-5">
@@ -143,8 +143,8 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
     <script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<?php if ($this->session->userdata("rut")){ ?><script src="<?php echo base_url();?>assets/js/demo/buscar_evaluaciones_paciente.js"></script> <?php }
-    	else { ?><script src="<?php echo base_url();?>assets/js/demo/buscar_evaluaciones.js"></script><?php } ?>
+	<?php if ($this->session->userdata("rut")){?><script src="<?php echo base_url();?>assets/js/demo/buscar_evaluaciones_paciente.js"></script> <?php }
+    	else {?><script src="<?php echo base_url();?>assets/js/demo/buscar_evaluaciones.js"></script><?php } ?>
 
 	<!--<script src="<?php echo base_url();?>assets/js/demo/busqueda_paciente.js"></script>-->
 	<!-- ================== END BASE JS ================== -->

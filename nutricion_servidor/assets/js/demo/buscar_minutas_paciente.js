@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
-  path="http://localhost/nutricion_servidor/minuta/";
+  path="http://localhost:8000/minuta/";
   //path="http://mard.cl/nutricion/registrar/";
   //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
@@ -42,9 +42,9 @@ function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
       filas = "";
       $.each(response.minutas,function(key,item){
         //console.log(response.paciente);
-        filas+="<tr><td><center>"+item.fecha+"</center></td><td><center><a class='btn btn-danger tabla btn-xs' href='/nutricion_servidor/minuta/pdf/"+rut+"/"+item.idMinutas+"'"+"><span class='glyphicon glyphicon-download' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center>"+item.fecha+"</center></td><td><center><a class='btn btn-danger tabla btn-xs' href='/minuta/pdf/"+rut+"/"+item.idMinutas+"'"+"><span class='glyphicon glyphicon-download' aria-hidden='true'></span></a></center></td></tr>";
       });
-      breadcrumb= "<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/nutricion_servidor/paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de minutas</li></ol></nav> "; 
+      breadcrumb= "<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de minutas</li></ol></nav> "; 
       $("#body_minutas").html(filas);
       $("#breadcrumb").html(breadcrumb);
       linkseleccionado = Number(pagina);
