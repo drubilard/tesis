@@ -1,9 +1,9 @@
 $(document).ready(function(){
-    mostrarDatos("",1,"5",$("input[name=rut]").val());
+    mostrarDatos("",1,"7",$("input[name=rut]").val());
     $("input[name=busqueda]").keyup(function(){
         textobuscar = $(this).val();
         if(textobuscar==""){
-            mostrarDatos(textobuscar,1,"5",$("input[name=rut]").val());
+            mostrarDatos(textobuscar,1,"7",$("input[name=rut]").val());
         }else{
             mostrarDatos(textobuscar,1,"10",$("input[name=rut]").val());
         }
@@ -13,7 +13,7 @@ $(document).ready(function(){
     e.preventDefault();
     valorhref = $(this).attr("href");
     valorBuscar = $("input[name=busqueda]").val();
-    mostrarDatos(valorBuscar,valorhref,"5",$("input[name=rut]").val());
+    mostrarDatos(valorBuscar,valorhref,"7",$("input[name=rut]").val());
     });
     $("#body_pacientes").on("click",".eliminar_paciente",function(e){
         e.preventDefault();
@@ -28,7 +28,9 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad,rut){
-  path="http://192.168.0.12/nutricion/registrar/";
+  //path="http://localhost:8000/paciente/";
+  path="http://mard.cl/nutricion/registrar/";
+  //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
     $.ajax({
     url : path+"mostrar_pacientes",
@@ -39,7 +41,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad,rut){
       filas = "";
       $.each(response.paciente,function(key,item){
         //console.log(response.paciente);
-        filas+="<tr><td><center>"+item.nombre+" "+item.apellido+"</td><td><center><a class='btn btn-warning btn-xs' href='/nutricion/registrar/ficha_clinica/"+item.rut+"'><span class='glyphicon glyphicon-list-alt' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-danger btn-xs' href='/nutricion/registrar/asociar_patologia/"+item.rut+"'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true'></span></a></center></td><td><center><a href='/nutricion/registrar/evaluaciones/"+item.rut+"' class='btn btn-info tabla btn-xs'> <span class='glyphicon glyphicon-scale' aria-hidden='true'></span> Evaluación </a></center></a></td><td><center><a class='btn btn-warning  btn-xs' href='/nutricion/registrar/informe/"+item.rut+"/'"+"><span class='glyphicon glyphicon-paperclip' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-success btn-xs' href='/nutricion/registrar/gestion_minuta/"+item.rut+"/'"+"><span class='glyphicon glyphicon-apple' aria-hidden='true'></span></center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion/registrar/editar_paciente/"+item.rut+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"   <a class='eliminar_paciente btn btn-danger tabla btn-xs' href='/nutricion/registrar/eliminar_paciente/"+item.rut+"/')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center><img src='http://localhost:8000/uploads/"+item.rut+".png' alt='Avatar' class='avatar'></td><td><center>"+item.nombre+" "+item.apellido+"</td><td><center><a class='btn btn-warning btn-xs' href='/paciente/ficha_clinica/"+item.rut+"'><span class='glyphicon glyphicon-list-alt' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-danger btn-xs' href='/patologia/asociar_patologia/"+item.rut+"'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true'></span></a> "+" <a class='btn btn-danger btn-xs' href='/alimento/restringir_alimentos/"+item.rut+"'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></center></td><td><center><a href='/evaluacion/evaluaciones/"+item.rut+"' class='btn btn-info tabla btn-xs'> <span class='glyphicon glyphicon-scale' aria-hidden='true'></span> Evaluación </a></center></a></td><td><center><a class='btn btn-warning  btn-xs' href='/reporte/informe/"+item.rut+"/'"+"><span class='glyphicon glyphicon-paperclip' aria-hidden='true'></span></a></center></td><td><center><a class='btn btn-success btn-xs' href='/minuta/gestion_minuta/"+item.rut+"/'"+"><span class='glyphicon glyphicon-apple' aria-hidden='true'></span></center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/paciente/editar_paciente/"+item.rut+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>  "+"   <a class='eliminar_paciente btn btn-danger tabla btn-xs' href='/paciente/eliminar_paciente/"+item.rut+"/')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></center></td></tr>";
       });
       $("#body_pacientes").html(filas);
       linkseleccionado = Number(pagina);

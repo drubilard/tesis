@@ -1,0 +1,10 @@
+[04-Mar-2019 20:36:31 UTC] PHP Parse error:  syntax error, unexpected 'id' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 266
+[04-Mar-2019 20:37:45 UTC] PHP Parse error:  syntax error, unexpected 'id' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 266
+[04-Mar-2019 20:37:54 UTC] PHP Parse error:  syntax error, unexpected 'id' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 266
+[04-Mar-2019 20:39:48 UTC] PHP Parse error:  syntax error, unexpected 'id' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 266
+[04-Mar-2019 20:40:26 UTC] PHP Parse error:  syntax error, unexpected 'alimento_info' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 272
+[04-Mar-2019 20:45:37 UTC] PHP Parse error:  syntax error, unexpected 'id' (T_STRING) in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 266
+[04-Mar-2019 21:51:16 UTC] PHP Fatal error:  Call to a member function consulta_correo() on null in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 19
+[04-Mar-2019 21:59:50 UTC] PHP Fatal error:  Call to a member function setDisplayMode() on null in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 754
+[05-Mar-2019 15:01:01 America/Santiago] PHP Fatal error:  Function name must be a string in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 616
+[23-Jun-2019 02:20:50 UTC] PHP Fatal error:  Call to undefined method Registrar::base_url() in /home/mard/public_html/nutricion/application/controllers/Registrar.php on line 207

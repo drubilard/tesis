@@ -287,6 +287,8 @@
             if(($this->session->userdata("id")) && ($rut_paciente=$this->uri->segment(3))){
                 //print_r($datos_paciente[0]->sexo);exit;
                 $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente[0]->sexo);
+
+                //print_r($datos_paciente[0]->sexo);die();
                 if($this->input->post()){
                     if ($this->form_validation->run('add_evaluacion')){
                         //echo $this->input->post('imc');exit;

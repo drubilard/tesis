@@ -22,7 +22,9 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad){
-  path="http://192.168.0.12/nutricion/registrar/";
+  //path="http://localhost:8000/patologia/";
+  path="http://mard.cl/nutricion/registrar/";
+  //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
     $.ajax({
     url : path+"mostrar_patologias",
@@ -33,7 +35,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad){
       filas = "";
       $.each(response.patologia,function(key,item){
         console.log(response.paciente);
-        filas+="<tr><td><center>"+item.idPatologia+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.Grupo_patologico+"</center></td><td><center><a class='btn btn-primary brn-xs' href='/nutricion/registrar/editar_patologia/"+item.idPatologia+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center>"+item.idPatologia+"</center></td><td><center>"+item.nombre+"</center></td><td><center>"+item.Grupo_patologico+"</center></td><td><center><a class='btn btn-primary brn-xs' href='/patologia/editar_patologia/"+item.idPatologia+"/'"+"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></center></td></tr>";
       });
 
       $("#body_patologias").html(filas);

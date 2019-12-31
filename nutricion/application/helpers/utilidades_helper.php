@@ -3,7 +3,7 @@ if(!function_exists("saludo"))
 {
     function saludo()
     {
-        return "hola #manosenelcódigo";
+        return "Bienvenido";
     }
 }
 /**
@@ -206,12 +206,12 @@ if(!function_exists("saludo"))
           return false;
       }
       function valida_fecha($fecha){
-  $año=explode('-', $fecha, 3);
-  if((int)$año[0]>1900) {
-    return true;
-    }
-  return false;
-}
+        $año=explode('-', $fecha, 3);
+        if((int)$año[0]>1900 && $fecha <= date('Y-m-d')) {
+          return true;
+          }
+        return false;
+      }
 }
  
  

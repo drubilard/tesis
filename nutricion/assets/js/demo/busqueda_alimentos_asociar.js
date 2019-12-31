@@ -28,7 +28,9 @@ $(document).ready(function(){
 
 
 function mostrarDatos(valorBuscar,pagina,cantidad,porcion){
-  path="http://192.168.0.12/nutricion/registrar/";
+  //path="http://localhost:8000/preparacion/";
+  path="http://mard.cl/nutricion/registrar/";
+  //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
     $.ajax({
     url : path+"mostrar_alimentos_asociar/"+id_prep,
@@ -38,7 +40,7 @@ function mostrarDatos(valorBuscar,pagina,cantidad,porcion){
     success:function(response){
       filas = "";
       $.each(response.alimento,function(key,item){
-        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.tipo_alimento+"<center></td><td><center><a href='"+path+"asignar_alimentos/"+id_prep+"/"+item.idAlimento+"/"+porcion+"' class='btn btn-success tabla btn-xs'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span></a></center></td></tr>";
+        filas+="<tr><td><center>"+item.idAlimento+"<center></td><td><center>"+item.nombre+"<center></td><td><center>"+item.tipo+"<center></td><td><center><a href='"+path+"asignar_alimentos/"+id_prep+"/"+item.idAlimento+"/"+porcion+"' class='btn btn-success tabla btn-xs'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span></a></center></td></tr>";
       });
       $("#body_alimentos").html(filas);
       linkseleccionado = Number(pagina);

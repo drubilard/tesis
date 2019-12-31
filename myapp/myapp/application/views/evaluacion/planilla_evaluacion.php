@@ -492,6 +492,7 @@
 							</thead>
 							<tbody>
 								<?php foreach($porc_grasa as $valor){?>
+								
 								<tr>
 									<td><?php echo $valor->mm;?></td>
 									<td><?php echo $valor->edad1729;?></td>

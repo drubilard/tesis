@@ -27,17 +27,6 @@
                                 //print_r($this->input->post('fecha_nacimiento_p'));
                                 //print_r(date('Y-m-d'));die;
                                 if (valida_fecha($this->input->post('fecha_nacimiento_p'))) {  
-                                    $data=array(
-                                    'rut'=>trim($this->input->post('rut',true)),
-                                    'nombre'=>trim($this->input->post('nombre_paciente',true)),
-                                    'apellido'=>trim($this->input->post('apellido_paciente',true)),
-                                    'sexo'=>$this->input->post('sexo',true),
-                                    'fecha_nacimiento'=>$this->input->post('fecha_nacimiento_p',true),
-                                    'correo'=>$this->input->post('correo',true),
-                                    'Nutricionista_rut'=>$this->session->userdata("id"),
-                                    'clave'=>$six_digit_random_number
-                                );
-                                $this->datos_model->insertar_paciente($data);
                                 $mi_archivo = 'mi_archivo';
                                 $config['upload_path'] = "uploads/";
                                 $config['file_name'] = $this->input->post('rut');
@@ -45,30 +34,40 @@
                                 $config['max_size'] = "50000";
                                 $config['max_width'] = "2000";
                                 $config['max_height'] = "2000";
-
-                                $this->load->library('upload', $config);
-                                
+                                $this->load->library('upload', $config);  
+                                $avatar=trim($this->input->post('rut',true));                            
                                 if (!$this->upload->do_upload($mi_archivo)) {
                                     //*** ocurrio un error
-                                    $data['uploadError'] = $this->upload->display_errors();
-                                    echo $this->upload->display_errors();
-                                    die;
+                                    //$data['uploadError'] = $this->upload->display_errors();
+                                    //echo $this->upload->display_errors();
+                                    $avatar="default";
                                 }
                                 $data['uploadSuccess'] = $this->upload->data();
-                                $this->session->set_flashdata('css','success');
-                                $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
+                                $data_usr=array(
+                                    'rut'=>trim($this->input->post('rut',true)),
+                                    'nombre'=>trim($this->input->post('nombre_paciente',true)),
+                                    'apellido'=>trim($this->input->post('apellido_paciente',true)),
+                                    'sexo'=>$this->input->post('sexo',true),
+                                    'fecha_nacimiento'=>$this->input->post('fecha_nacimiento_p',true),
+                                    'correo'=>$this->input->post('correo',true),
+                                    'Nutricionista_rut'=>$this->session->userdata("id"),
+                                    'clave'=>$six_digit_random_number,
+                                    "avatar"=>$avatar
+                                );
+                                $this->datos_model->insertar_paciente($data_usr);
                                 //$rut_paciente=trim($this->input->post('rut_paciente',true));
                                 $this->email->from("noreplay@nutricion.com",'Sistema de Nutrición');
                                 $this->email->to($this->input->post('correo',true));
-                                $this->email->subject("test email");
-                                $this->email->message("Su clave para acceder a sus documentos de nutrición es <strong>".$six_digit_random_number."</strong>");
+                                $this->email->subject("Clave paciente para Sistema De Nutrición");
+                                $this->email->message("Hola ".$this->input->post('nombre_paciente')."! Su clave para acceder a sus documentos útiles de nutrición es ".$six_digit_random_number);
                                 if($this->email->send()){
-                                    echo("enviado..");
+                                    $this->session->set_flashdata('css','success');
+                                    $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
                                 }else{
 
-                                    echo("error");
+                                    $this->session->set_flashdata('css','warning');
+                                    $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente, sin embargo hubo problemas en el envío del correo electrónico');
                                 }
-                                //$this->load->view("paciente/planilla_evaluacion",compact('ultimo'));
                                 redirect(base_url()."paciente/listado_pacientes/");
                                 }else{
                                     $this->session->set_flashdata('css','danger');

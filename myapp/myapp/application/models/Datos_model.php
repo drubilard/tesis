@@ -807,7 +807,7 @@ class datos_model extends CI_Model
 			->from ("porcen_grasa")
 			->where("sexo",$sexo)
 			->get();
-		return $query->row();
+		return $query->result();
 	}
 }
 

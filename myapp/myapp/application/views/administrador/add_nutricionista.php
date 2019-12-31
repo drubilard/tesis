@@ -3,8 +3,8 @@
 <!--[if !IE]><!-->
 <html lang="en">
 <!--<![endif]-->
-<head>
-	<meta charset="utf-8" />
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
 	<title>NUTRICIÓN</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
@@ -116,6 +116,12 @@
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
 								<input type="text" class="form-control" name="usuario" placeholder="Usuario" value="<?php echo set_value_input(array(),'usuario','usuario')?>" />
+							</div>
+                        </div>
+                        <label for="correo" class="control-label">Correo:<span class="text-danger">*</span></label>
+						<div class="row row-space-10">
+							<div class="col-md-6 m-b-15">
+								<input type="text" class="form-control" name="correo" placeholder="Correo" value="<?php echo set_value_input(array(),'correo','correo')?>" />
 							</div>
                         </div>
                         <label for="contraseña" class="control-label">Contraseña:<span class="text-danger">*</span></label>

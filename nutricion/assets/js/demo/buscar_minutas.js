@@ -29,7 +29,9 @@ $(document).ready(function(){
 
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
-  path="http://192.168.0.12/nutricion/registrar/";
+  //path="http://localhost:8000/minuta/";
+  path="http://mard.cl/nutricion/registrar/";
+  //path="http://192.168.0.12/nutricion/registrar/";
   //path="http://10.145.149.41/nutricion/registrar/";
     $.ajax({
     url : path+"mostrar_minutas",
@@ -40,9 +42,11 @@ function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
       filas = "";
       $.each(response.minutas,function(key,item){
         //console.log(response.paciente);
-        filas+="<tr><td><center>"+item.fecha+"</td><ter></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion/registrar/editar_minuta/"+item.idMinutas+"/"+rut+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>    "+"    <a class='eliminar_minuta btn btn-danger tabla btn-xs' href='/nutricion/registrar/eliminar_minuta/"+item.idMinutas+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
-      });
+        filas+="<tr><td><center>"+item.fecha+"</td><ter></td><td><center><a class='btn btn-primary tabla btn-xs' href='/minuta/editar_minuta/"+item.idMinutas+"/"+rut+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>    "+"    <a class='eliminar_minuta btn btn-danger tabla btn-xs' href='/minuta/eliminar_minuta/"+item.idMinutas+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
+        breadcrumb= "<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/administrar/administrar'><strong>Administrar</strong></a></li><li class='breadcrumb-item'><a href='/paciente/listado_pacientes'><strong>Pacientes</strong></a></li><li class='breadcrumb-item'><a href='/minuta/gestion_minuta/"+rut+"'><strong>Gestión minutas</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de minutas</li></ol></nav> "; 
 
+      });
+      $("#breadcrumb").html(breadcrumb);
       $("#body_minutas").html(filas);
       linkseleccionado = Number(pagina);
       //total registros

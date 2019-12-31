@@ -6,7 +6,17 @@ $config=array(
 			array('field' => 'nombre_paciente', 'label' => 'Nombre','rules' => 'required|is_string|max_length[20]|min_length[3]'),
 			array('field' => 'apellido_paciente', 'label' => 'Apellido','rules' => 'required|is_string|max_length[20]|min_length[3]'),
 			array('field' => 'sexo', 'label' => 'sexo','rules' => 'required'),
-			array('field' => 'fecha_nacimiento_p', 'label' => 'Fecha de nacimiento','rules' => 'required')
+			array('field' => 'fecha_nacimiento_p', 'label' => 'Fecha de nacimiento','rules' => 'required'),
+			array('field' => 'correo', 'label' => 'Correo','rules' => 'required|valid_email')
+
+		),
+		'editar_paciente'
+	=> array(
+			array('field' => 'nombre_paciente', 'label' => 'Nombre','rules' => 'required|is_string|max_length[20]|min_length[3]'),
+			array('field' => 'apellido_paciente', 'label' => 'Apellido','rules' => 'required|is_string|max_length[20]|min_length[3]'),
+			array('field' => 'sexo', 'label' => 'sexo','rules' => 'required'),
+			array('field' => 'fecha_nacimiento_p', 'label' => 'Fecha de nacimiento','rules' => 'required'),
+			array('field' => 'correo', 'label' => 'Correo','rules' => 'required|valid_email')
 
 		),
 	'nueva_ficha'
@@ -27,7 +37,7 @@ $config=array(
 				array('field' => 'nombre', 'label' => 'Nombre','rules' => 'required'),
 				array('field' => 'apellido', 'label' => 'Apellido','rules' => 'required'),
 				array('field' => 'sexo', 'label' => 'Sexo','rules' => 'required'),
-				array('field' => 'usuario', 'label' => 'Usuario','rules' => 'required|max_length[20]'),
+				array('field' => 'usuario', 'label' => 'Usuario','rules' => 'required|min_length[4]|max_length[20]'),
 				array('field' => 'contrasena', 'label' => 'Contraseña','rules' => 'required|min_length[6]'),
 				array('field' => 'contrasena_2', 'label' => 'Repetir contraseña','rules' => 'required|min_length[6]')
 	
@@ -48,6 +58,12 @@ $config=array(
 	=> array(
 			array('field' => 'nombre','label' => 'Nombre', 'rules' =>'required'),
 			array('field' =>'tipo','label' => 'Tipo','rules' =>'required')
+		),
+		'edit_preparacion'
+	=> array(
+			array('field' => 'nombre_preparacion','label' => 'Nombre', 'rules' =>'required'),
+			array('field' =>'tipo','label' => 'Tipo','rules' =>'required'),
+			array('field' =>'tipo_nutri','label' => 'Tipo','rules' =>'required')
 		),
 	'add_evaluacion'
 	=> array(

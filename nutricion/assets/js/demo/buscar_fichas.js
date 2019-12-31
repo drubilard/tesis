@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     rut=$("input[name=rut]").val();
     mostrarDatos(rut,"",1,"5");
@@ -29,7 +28,9 @@ $(document).ready(function(){
 
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
-  path="http://192.168.0.12/nutricion/registrar/"
+  //path="http://localhost:8000/paciente/";
+  path="http://mard.cl/nutricion/registrar/";
+  //path="http://192.168.0.12/nutricion/registrar/"
   //path="http://10.145.149.41/nutricion/registrar/"
     $.ajax({
     url : path+"mostrar_fichas",
@@ -40,7 +41,7 @@ function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
       filas = "";
       $.each(response.fichas,function(key,item){
         //console.log(response.paciente);
-        filas+="<tr><td><center>"+item.fecha+"</td><ter></td><td><center><a class='btn btn-primary tabla btn-xs' href='/nutricion/registrar/editar_ficha/"+item.id+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>    "+"    <a class='eliminar_ficha btn btn-danger tabla btn-xs' href='/nutricion/registrar/eliminar_ficha/"+item.id+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
+        filas+="<tr><td><center>"+item.fecha+"</td><ter></td><td><center><a class='btn btn-primary tabla btn-xs' href='/paciente/editar_ficha/"+item.id+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>    "+"    <a class='eliminar_ficha btn btn-danger tabla btn-xs' href='/paciente/eliminar_ficha/"+item.id+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
       });
 
       $("#body_fichas").html(filas);
