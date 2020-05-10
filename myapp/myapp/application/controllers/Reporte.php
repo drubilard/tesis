@@ -26,58 +26,19 @@ class Reporte extends CI_Controller
             if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
             if ($this->session->userdata("id")) {
                 if($this->input->post("base64_1")){
-                    $img = $this->input->post('base64_1');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    //print_r(dirname(__FILE__));die;
+                    $this->load->library('zip');
                     $this->load->helper('download');
-                    force_download($fileName, $fileData);
+                    for ($i=1; $i<=4 ; $i++) {
+                        $base64="base64_".$i;
+                        $img = $this->input->post($base64);
+                        $img = str_replace('data:image/octet-stream;base64,', '', $img);
+                        $fileData = base64_decode($img);
+                        $fileName = uniqid().'.png';
+                        $this->zip->add_data($fileName, $fileData);
+                    }
+                    $this->zip->download('Graficos_'.$datos_paciente[0]->rut);
                     //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
                     //print_r($fileData);die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }else
-                if($this->input->post("base64_2")){
-                    $img = $this->input->post('base64_2');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }else
-                if($this->input->post("base64_3")){
-                    $img = $this->input->post('base64_3');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }
-                else
-                if($this->input->post("base64_4")){
-                    $img = $this->input->post('base64_4');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
                     //file_put_contents($ruta, $fileData);
                     $this->session->set_flashdata('css','success');
                     $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');

@@ -126,42 +126,32 @@
                 $preparaciones=$this->datos_model->get_all_preparaciones();
                 $patologias=$this->datos_model->get_patologia_rut($rut);
                 $patologias_id=array();
-                $i=0;
-                foreach ($patologias as $pat) {
-                    $patologias_id[$i]=$pat->idPatologia;
-                    $patologias_id[$i+1]=",";
-                    $i+=2;
+                foreach ($patologias as $pat=>$val) {
+                    array_push($patologias_id,$val->idPatologia,",");
                 }
-                $estado_nutri=$this->datos_model->get_last_evaluacion($rut);
                 array_splice($patologias_id, sizeof($patologias_id)-1, 1);
+                $estado_nutri=$this->datos_model->get_last_evaluacion($rut);
                 //print_r($estado_nutri);die;
                 $preparaciones_permitidas=$this->datos_model->preparaciones_por_patologia_permitidas($patologias_id,$estado_nutri->estado);
                 $preparaciones_restringidas=$this->datos_model->preparaciones_por_patologia_restringidas($patologias_id,$estado_nutri->estado);
                 $preparaciones_descartadas=$this->datos_model->preparaciones_por_gustos_restringidas($rut);
-                //echo "test";
-                //print_r($preparaciones_permitidas);die;
-                $i=0;
-                foreach($preparaciones_permitidas as $prep){
-                    foreach($preparaciones_restringidas as $prep2){
-                        if ($prep2->id == $prep->id) {
-                            array_splice($preparaciones_permitidas, $i, 1);
-                            $i-=1;
+                //print_r($preparaciones_permitidas);
+                foreach($preparaciones_permitidas as $prep=>$val1){
+                    foreach($preparaciones_restringidas as $prep2=>$val2){
+                        if ($val1->id == $val2->id) {
+                            unset( $preparaciones_permitidas[$prep] );
                         }
                     }
-                    $i+=1;
                 }
-                //print_r($preparaciones_permitidas);die;
-                $i=0;
-                foreach($preparaciones_permitidas as $prep){
-                    foreach($preparaciones_descartadas as $prep2){
-                        if ($prep2->id == $prep->id) {
-                            array_splice($preparaciones_permitidas, $i, 1);
-                            $i-=1;
+                //print_r($preparaciones_permitidas);
+                foreach($preparaciones_permitidas as $prep=>$val1){
+                    foreach($preparaciones_descartadas as $prep2=>$val2){
+                        if ($val1->id == $val2->id) {
+                            unset( $preparaciones_permitidas[$prep]);
                         }
                     }
-                    $i+=1;
                 }
-                //print_r($preparaciones_permitidas);die;
+                //print_r($preparaciones_permitidas);die();
                 if($this->input->post()){
                     if($this->input->post('preparaciones_minuta_des')&&$this->input->post('preparaciones_minuta_col')&&$this->input->post('preparaciones_minuta_ent')&&$this->input->post('preparaciones_minuta_alm')&&$this->input->post('preparaciones_minuta_col_2')&&$this->input->post('preparaciones_minuta_on')&&$this->input->post('preparaciones_minuta_cen')){
                         $data=array('Paciente_rut'=>$datos_paciente[0]->rut,
@@ -226,7 +216,7 @@
             if(!$id_minuta){redirect(base_url()."error404/");}
             $minuta_preparaciones=$this->datos_model->get_preparaciones_minuta($id_minuta);
             $minuta=$this->datos_model->get_minuta($id_minuta);
-            $fecha=$minuta->fecha;
+            $fecha=$minuta[0]->fecha;
             if(sizeof($minuta_preparaciones)==0){redirect(base_url()."error404/");}
             if(($this->session->userdata("id"))){
                 $preparaciones=$this->datos_model->get_all_preparaciones();
@@ -281,7 +271,6 @@
                                 );
                                     $this->datos_model->asociar_minuta_preparaciones($data);
                             }
-                        redirect(base_url()."minuta/pdf/".$rut."/".$id_minuta);
                         redirect(base_url()."minuta/pdf/".$rut."/".$id_minuta);
                         }
                 }

@@ -113,11 +113,11 @@
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-                            <input type="radio" name="sexo" <?php if($datos[0]->sexo=="1") { ?> checked="checked" <?php } ?> value="1">
+								<input type="radio" name="sexo" <?php if($datos[0]->sexo=="1"){?>checked="checked"<?php }?> value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino
-  									<input type="radio" name="correo"<?php if($datos[0]->sexo=="2"){ ?> checked="checked" <?php } ?> value="2">
+								<input type="radio" name="sexo" <?php if($datos[0]->sexo=="2"){?>checked="checked"<?php }?> value="2">
   									<span class="checkmark"></span>
 								</label>
 							</div>

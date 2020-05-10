@@ -8,6 +8,7 @@
 	<link href="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?php echo base_url();?>assets/plugins/animate/animate.min.css" rel="stylesheet" />
+    <link href="<?php echo base_url();?>assets/plugins/bootstrap/4.1.3/css/glyphicons.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url();?>assets/css/theme/default.css" rel="stylesheet" id="theme" />
@@ -43,50 +44,36 @@
                 <form method="POST" name="form" id="form1">
                     <input type="hidden" name="base64_1" id="base64_1"/>
                     <br>
-                    <button type="submit" class="btn btn-primary">
-                        Guardar imagen
+                    <button type="submit" class="btn btn-primary" ><span class=" glyphicon glyphicon-download"></span>
+                        Descargar Gráficos
                     </button>
-                </form>
+
                 <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart" width="100" height="50"></canvas>
             </div>
             <div class="col-lg-6 ">
-                <form method="POST" name="form" id="form2">
                     <input type="hidden" name="base64_2" id="base64_2"/>
                     <br>
-                    <button type="submit" class="btn btn-danger">
-                        Guardar imagen
-                    </button>
-                </form>
-
+                    <br>
+                    <br>
                 <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart2" width="100" height="50"></canvas>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 ">
-                    <form method="POST" name="form" id="form3">
                         <input type="hidden" name="base64_3" id="base64_3"/>
                         <br>
-                        <button type="submit" class="btn btn-warning">
-                            Guardar imagen
-                        </button>
-                    </form>
                     <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                     <canvas id="myChart3" width="100" height="50"></canvas>
             </div>
             <div class="col-lg-6 ">
-                <form method="POST" name="form" id="form4">
                     <input type="hidden" name="base64_4" id="base64_4"/>
                     <br>
-                    <button type="submit" class="btn btn-success">
-                        Guardar imagen
-                    </button>
-                </form>
                 <input type="hidden" id="paciente" value="<?php echo $datos_paciente[0]->rut?>">
                 <canvas id="myChart4" width="100" height="50"></canvas>
             </div>
-
+            </form>
         </div>  
     </div>
 <script src="<?php echo base_url();?>assets/js/demo/despliegue_informe.js"></script>

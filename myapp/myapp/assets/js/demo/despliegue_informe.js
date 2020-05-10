@@ -1,4 +1,4 @@
-    $(document).ready(function(){
+$(document).ready(function(){
     var fechas_evaluaciones=[];
     var peso=[];
     var porc_grasa=[];
@@ -138,27 +138,16 @@
         });
         document.getElementById('form1').addEventListener("submit",function(){
             var image = ctx[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var image2 = ctx2[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var image3 = ctx3[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var image4 = ctx4[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
             //var image = dataURL; // data:image/png....
             //image = image.replace("image/png","image/octet-stream");
             document.getElementById('base64_1').value = image;
+            document.getElementById('base64_2').value = image2;
+            document.getElementById('base64_3').value = image3;
+            document.getElementById('base64_4').value = image4;
          },false);
-         document.getElementById('form2').addEventListener("submit",function(){
-            var image = ctx2[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
-            //var image = dataURL; // data:image/png....
-            //image = image.replace("image/png","image/octet-stream");
-            document.getElementById('base64_2').value = image;
-         },false);
-         document.getElementById('form3').addEventListener("submit",function(){
-            var image = ctx3[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
-            //var image = dataURL; // data:image/png....
-            //image = image.replace("image/png","image/octet-stream");
-            document.getElementById('base64_3').value = image;
-         },false);
-         document.getElementById('form4').addEventListener("submit",function(){
-            var image = ctx4[0].toDataURL("image/png").replace("image/png", "image/octet-stream");
-            //var image = dataURL; // data:image/png....
-            //image = image.replace("image/png","image/octet-stream");
-            document.getElementById('base64_4').value = image;
-         },false);
+
 
 });

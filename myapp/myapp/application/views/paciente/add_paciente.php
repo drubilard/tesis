@@ -118,7 +118,7 @@
 						<div class="row m-b-15">
 							<div class="col-md-12">
 								<label class="container">Masculino
-  									<input type="radio" checked="" name="sexo" value="1">
+  									<input type="radio" name="sexo" value="1">
  									 <span class="checkmark"></span>
 								</label>
 								<label class="container">Femenino

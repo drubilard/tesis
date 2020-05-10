@@ -307,7 +307,7 @@ class datos_model extends CI_Model
                 ->select("DISTINCT(preparacion.nombre),preparacion.idpreparacion as id, preparacion.tipo as tipo")
                 ->from("alimento, tipo, preparacion_alimento, hechos_bc_restringido, preparacion")
                 ->where("hechos_bc_restringido.id_patologia in($id) and hechos_bc_restringido.id_tipo_alimento=tipo.idtipo and tipo.idtipo=alimento.tipo_alimento and alimento.idAlimento=preparacion_alimento.alimento_idalimento and preparacion_alimento.preparacion_idpreparacion=preparacion.idpreparacion and preparacion.tipo_nutri='".$estado."'")
-				->order_by("preparacion.nombre","desc")
+				->order_by("preparacion.nombre","des")
 				->get();      
         return $query->result();
 	}
@@ -810,4 +810,3 @@ class datos_model extends CI_Model
 		return $query->result();
 	}
 }
-
