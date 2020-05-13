@@ -50,13 +50,6 @@
 				</div>
 	</div>
 		<div id="breadcrumb" class="header navbar-default"> 			
-		<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>administrar/administrar"><strong>Administración</strong></a></li>
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>paciente/listado_pacientes"><strong>Pacientes</strong></a></li>
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/listado_evaluacione"><strong>Evaluaciones</strong></a></li>
-						<li class="breadcrumb-item"><a href="<?php echo base_url();?>evaluacion/evaluaciones/<?php echo $datos_paciente[0]->rut?>"><strong>Evaluaciones</strong></a></li>
-						<li class="breadcrumb-item" aria-current="page">Nueva evaluación</li>
-  				</ol>
 		</div>
 
 	<div id="page-container" class="fade">

@@ -9,8 +9,8 @@
             parent::__construct();
         }
         public function editar_evaluacion($id){
-            if(!$id){redirect(base_url()."error404/");}
             if($this->session->userdata("id")&&$this->uri->segment(3)){
+                if(!$id){redirect(base_url()."error404/");}
                 $datos_evaluacion=$this->datos_model->get_evaluacion($id);
                 $datos_paciente=$this->datos_model->get_paciente_por_rut($datos_evaluacion[0]->Paciente_rut);
                 $porc_grasa=$this->datos_model->get_porc_grasa($datos_paciente[0]->sexo);
@@ -271,14 +271,14 @@
         
         }
         public function evaluaciones($id=null){
-            if(!$id){redirect(base_url()."error404/");}
-            $datos=$this->datos_model->get_paciente_por_rut($id);
-            if(sizeof($datos)==0){redirect(base_url()."error404/");}
             if ($this->session->userdata("id")&&($rut_paciente=$this->uri->segment(3))) {
+                if(!$id){redirect(base_url()."error404/");}
+                $datos=$this->datos_model->get_paciente_por_rut($id);
+                if(sizeof($datos)==0){redirect(base_url()."error404/");}
                 $this->load->view('evaluacion/evaluaciones',compact('rut_paciente'));
-            }else{
-                redirect(base_url()."administrar/salir");
-            }
+                }else{
+                    redirect(base_url()."administrar/salir");
+                }
         }
         public function planilla_evaluacion($id=null){
             if(!$id){redirect(base_url()."error404/");}
@@ -533,17 +533,17 @@
             }
         }
         public function listado_evaluaciones($id=null){
-            if(!$id){redirect(base_url()."error404/");}
-            $datos=$this->datos_model->get_paciente_por_rut($id);
-            if(sizeof($datos)==0){redirect(base_url()."error404/");}
-            if (($this->session->userdata("id")||$this->session->userdata("rut")) &&($rut_paciente=$this->uri->segment(3))){
-                $datos_paciente=$this->datos_model->get_paciente_por_rut($rut_paciente);
+            if ($this->session->userdata("id")||$this->session->userdata("rut")){
+                if(!$id){redirect(base_url()."error404/");}
+                $datos_paciente=$this->datos_model->get_paciente_por_rut($id);
+                if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
                 $this->load->view('evaluacion/listado_evaluaciones',compact('datos_paciente'));
             }else{
                 redirect(base_url()."administrar/salir");
             }
         }
         public function mostrar_evaluaciones(){
+            if ($this->session->userdata("id")||$this->session->userdata("rut")){
                 $buscar = $this->input->post("buscar");
                 $numeropagina = $this->input->post("nropagina");
                 $cantidad = $this->input->post("cantidad");
@@ -555,15 +555,22 @@
                     "cantidad" =>$cantidad              
                 );
                 echo json_encode($data);
+            }else{
+                redirect(base_url()."administrar/salir");
+            }
         }
         public function eliminar_evaluacion($id=null){
-            if(!$id){redirect(base_url()."error404/");}
-                $datos=$this->datos_model->get_evaluacion($id);
-                if(sizeof($datos)==0){redirect(base_url()."error404/");}
-                $result=$this->datos_model->delete_evaluacion($id);
-                $this->session->set_flashdata('css','success');
-                $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
-                redirect(base_url()."evaluacion/listado_evaluaciones/".$datos[0]->Paciente_rut);
+            if ($this->session->userdata("id")){
+                if(!$id){redirect(base_url()."error404/");}
+                    $datos=$this->datos_model->get_evaluacion($id);
+                    if(sizeof($datos)==0){redirect(base_url()."error404/");}
+                    $result=$this->datos_model->delete_evaluacion($id);
+                    $this->session->set_flashdata('css','success');
+                    $this->session->set_flashdata('mensaje','El registro se ha eliminado exitosamente');
+                    redirect(base_url()."evaluacion/listado_evaluaciones/".$datos[0]->Paciente_rut);
+            }else{
+                redirect(base_url()."administrar/salir");        
+            }
         }
     }
 ?>

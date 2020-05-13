@@ -39,11 +39,11 @@ path="http://localhost:8000/evaluacion/";
   data: {rut:rut_paciente,buscar:valorBuscar,nropagina:pagina,cantidad:cantidad},
   dataType:"json",
   success:function(response){
+    breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/administrar/administrar'><strong>Administrar</strong></a></li><li class='breadcrumb-item'><a href='/paciente/listado_pacientes'><strong>Pacientes</strong></a></li><li class='breadcrumb-item'><a href='/evaluacion/evaluaciones/"+rut+"'><strong>Evaluaciones</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
     filas = "";
     $.each(response.evaluaciones,function(key,item){
       //console.log(response.paciente);
       filas+="<tr><td><center>"+item.fecha+"</td><center><td><center>"+item.estado+"</td><center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/evaluacion/editar_evaluacion/"+item.idevaluacion_nutricional+"'"+"><span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>    "+"    <a class='eliminar_evaluacion btn btn-danger tabla btn-xs' href='/evaluacion/eliminar_evaluacion/"+item.idevaluacion_nutricional+"')'"+"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></center></a></td></tr>";
-      breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/administrar/administrar'><strong>Administrar</strong></a></li><li class='breadcrumb-item'><a href='/paciente/listado_pacientes'><strong>Pacientes</strong></a></li><li class='breadcrumb-item'><a href='/evaluacion/evaluaciones/"+rut+"'><strong>Evaluaciones</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
     });
 
     $("#body_evaluacion").html(filas);

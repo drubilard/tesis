@@ -9,22 +9,21 @@ class Reporte extends CI_Controller
         parent::__construct();
     }
     public function datos_informe($id=null){
-        if(!$id){redirect(base_url()."error404/");}
-        $datos=$this->datos_model->get_paciente_por_rut($id);
-        if(sizeof($datos)==0){redirect(base_url()."error404/");}
         if ($this->session->userdata("id")||$this->session->userdata("rut")) {
-            $datos_informe=$this->datos_model->get_datos_informe($id);
-            echo json_encode($datos_informe);
+            if(!$id){redirect(base_url()."error404/");}
+            $datos=$this->datos_model->get_paciente_por_rut($id);
+            if(sizeof($datos)==0){redirect(base_url()."error404/");}
+                $datos_informe=$this->datos_model->get_datos_informe($id);
+                echo json_encode($datos_informe);
         }else{
             redirect(base_url()."administrar/salir");
         }
     }
     public function informe($id=null){
-            $rut=$this->session->userdata('id');
+        if ($this->session->userdata("id")) {
             if(!$id){redirect(base_url()."error404/");}
             $datos_paciente=$this->datos_model->get_paciente_por_rut($id);
             if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
-            if ($this->session->userdata("id")) {
                 if($this->input->post("base64_1")){
                     $this->load->library('zip');
                     $this->load->helper('download');

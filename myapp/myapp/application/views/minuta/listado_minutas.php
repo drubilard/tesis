@@ -137,8 +137,8 @@
 	<script src="<?php echo base_url();?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="<?php echo base_url();?>assets/plugins/js-cookie/js.cookie.js"></script>
     <script src="<?php echo base_url();?>assets/js/apps.min.js"></script>
-	<?php if ($this->session->userdata("rut")){ ?><script src="<?php echo base_url();?>assets/js/demo/buscar_minutas_paciente.js"></script> <?php }
-	else { ?><script src="<?php echo base_url();?>assets/js/demo/buscar_minutas.js"></script><?php } ?>
+	<?php if ($this->session->userdata("id")){ ?><script src="<?php echo base_url();?>assets/js/demo/buscar_minutas.js"></script> <?php }
+	else { ?><script src="<?php echo base_url();?>assets/js/demo/buscar_minutas_paciente.js"></script><?php } ?>
     
 	<!--<script src="<?php echo base_url();?>assets/js/demo/busqueda_paciente.js"></script>-->
 	<!-- ================== END BASE JS ================== -->

@@ -65,11 +65,11 @@
                                   <body style="background-color: #f5f5f5;">
                                    <table cellspacing="0" cellpadding="0" align="center">
                                            <tr>
-                                              <td bgcolor="#f59c1a"  style="height: 39px;width: 102px;">
+                                              <td bgcolor="#F8B21D"  style="height: 39px;width: 102px;">
                                                   <img src="'.base_url().'assets/img/logo/logo.png" style="top: 100px;height: 100px;width: 100px;margin: 14px;left: 151px;right: 41px;">
                                            
                                               </td>
-                                              <td bgcolor="#f59c1a"  style="height: 70px;left: 0px;width: 523px;">
+                                              <td bgcolor="#F8B21D"  style="height: 70px;left: 0px;width: 523px;">
                                                 <p style="top: 82px;height: 30px;width: 400px;margin: 0;left: 135px;font-family: Arial, Helvetica, Arial, serif;font-weight: 600;font-style: normal;font-size: 25.0px;color: #ffffff;text-align: center;line-height: 35.0px;"> Sistema De Nutrición</p>
                                            
                                               </td>
@@ -313,6 +313,7 @@
         }
         public function listado_pacientes(){
             if($this->session->userdata("id")){
+                //print_r($this->session->userdata("id"));die;
                 $this->load->view("paciente/listado_pacientes");
             }else{
             redirect(base_url()."administrar/salir");
@@ -332,73 +333,34 @@
             echo json_encode($data);
         }
         public function informe_paciente(){
-            if ($this->session->userdata("rut")){
-                $datos_paciente=$this->datos_model->get_paciente_por_rut($this->session->userdata("rut"));
-            if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
-                if($this->input->post("base64_1")){
-                    $img = $this->input->post('base64_1');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    //print_r(dirname(__FILE__));die;
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //print_r($fileData);die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }else
-                if($this->input->post("base64_2")){
-                    $img = $this->input->post('base64_2');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }else
-                if($this->input->post("base64_3")){
-                    $img = $this->input->post('base64_3');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
+            if ($id=$this->session->userdata("rut")) {
+                $datos_paciente=$this->datos_model->get_paciente_por_rut($id);
+                if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
+                    if($this->input->post("base64_1")){
+                        $this->load->library('zip');
+                        $this->load->helper('download');
+                        for ($i=1; $i<=4 ; $i++) {
+                            $base64="base64_".$i;
+                            $img = $this->input->post($base64);
+                            $img = str_replace('data:image/octet-stream;base64,', '', $img);
+                            $fileData = base64_decode($img);
+                            $fileName = uniqid().'.png';
+                            $this->zip->add_data($fileName, $fileData);
+                        }
+                        $this->zip->download('Graficos_'.$datos_paciente[0]->rut);
+                        //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
+                        //print_r($fileData);die;
+                        //file_put_contents($ruta, $fileData);
+                        $this->session->set_flashdata('css','success');
+                        $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
+                        redirect(base_url()."paciente/documentos");
+                    }
+                    else {
+                        $this->load->view('reporte/informe_paciente',compact('datos_paciente'));
+                    }
+                }else{
+                    redirect(base_url()."administrar/salir");
                 }
-                else
-                if($this->input->post("base64_4")){
-                    $img = $this->input->post('base64_4');
-                    $img = str_replace('data:image/octet-stream;base64,', '', $img);
-                    $fileData = base64_decode($img);
-                    $fileName = uniqid().'.png';
-                    $this->load->helper('download');
-                    force_download($fileName, $fileData);
-                    //$ruta= '/Applications/XAMPP/xamppfiles/htdocs/nutricion/graficos'.'/'.$fileName;
-                    //echo $ruta;die;
-                    //file_put_contents($ruta, $fileData);
-                    $this->session->set_flashdata('css','success');
-                    $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                    redirect(base_url()."reporte/listado_pacientes");
-                }
-                else {
-                    $this->load->view('reporte/informe_paciente',compact('datos_paciente'));
-                }
-            }else{
-                redirect(base_url()."administrar/salir");
-            }
         }
 
         public function listado_minutas(){

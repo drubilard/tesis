@@ -19,9 +19,9 @@
                     $data_user=$this->datos_model->get_user_nutri($this->input->post('user',true),$this->input->post('clave',true)); 
                     $data_user_paciente=$this->datos_model->get_user_paciente($this->input->post('user',true),$this->input->post('clave',true)); 
                     $data_admin=$this->datos_model->get_user_admin($this->input->post('user',true),$this->input->post('clave',true)); 
-                    print_r($data_user);
-                    print_r($data_user_paciente);
-                    print_r($data_admin);
+                    //print_r($data_user);
+                    //print_r($data_user_paciente);
+                    //print_r($data_admin);
                     if ((sizeof($data_user)==0) && (sizeof($data_user_paciente)==0)&&(sizeof($data_admin)==0)){                
                             $this->session->set_flashdata('css','danger');
                             $this->session->set_flashdata('mensaje_login','los datos no coinciden');
