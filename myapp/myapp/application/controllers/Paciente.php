@@ -42,7 +42,6 @@
                                     //echo $this->upload->display_errors();
                                     $avatar="default";
                                 }
-                                //print_r($this->input->post('sexo',true));die();
                                 $data['uploadSuccess'] = $this->upload->data();
                                 $data_usr=array(
                                     'rut'=>trim($this->input->post('rut',true)),
@@ -60,66 +59,7 @@
                                 $this->email->from("noreplay@nutricion.com",'Sistema de Nutrición');
                                 $this->email->to($this->input->post('correo',true));
                                 $this->email->subject("Clave paciente para Sistema De Nutrición");
-                                $this->email->message('<!DOCTYPE html>
-                                <html>
-                                  <body style="background-color: #f5f5f5;">
-                                   <table cellspacing="0" cellpadding="0" align="center">
-                                           <tr>
-                                              <td bgcolor="#F8B21D"  style="height: 39px;width: 102px;">
-                                                  <img src="'.base_url().'assets/img/logo/logo.png" style="top: 100px;height: 100px;width: 100px;margin: 14px;left: 151px;right: 41px;">
-                                           
-                                              </td>
-                                              <td bgcolor="#F8B21D"  style="height: 70px;left: 0px;width: 523px;">
-                                                <p style="top: 82px;height: 30px;width: 400px;margin: 0;left: 135px;font-family: Arial, Helvetica, Arial, serif;font-weight: 600;font-style: normal;font-size: 25.0px;color: #ffffff;text-align: center;line-height: 35.0px;"> Sistema De Nutrición</p>
-                                           
-                                              </td>
-                                            </tr>
-                                        </table> 
-                                        <table cellspacing="0" cellpadding="0" align="center">
-                                           <tr>
-                                              <td bgcolor="#D07C04"  style="height: 39px;width: 51px;">
-                                
-                                           
-                                              </td>
-                                              <td bgcolor="##28a745"  style="height: 70px;left: 0px;width: 548px;">
-                                                <p style="top: 82px;height: auto;width: auto;margin: 0;left: 75px;font-family: Arial, Helvetica, Arial, serif;font-weight: 600;font-style: normal;font-size: 14.0px;color: #ffffff;text-align: center;line-height: 21.0px;"> <img src="'.base_url().'assets/img/logo/check.jpeg" style="top: 69px;height: 23px;width: 24px;margin: -4px;left: 151px;right: 41px;">&nbsp;&nbsp;&nbsp;&nbsp;Su cuenta como paciente para el sistema de nutrición se ha creado exitosamente.</p>
-                                           
-                                              </td>
-                                              <td bgcolor="#D07C04" style="height: 39px;width: 52px;">
-                                                  <p></p>
-                                            
-                                              </td>
-                                            </tr>
-                                        </table>
-                                        <table cellspacing="0" align="center" style="background-color: #ffffff;height: 53px;width: 651px;left: 0px;padding-top: 14px;">
-                                            <tr>  
-                                                <td style="margin: 16px;font-family: Arial, Helvetica, Arial, serif;font-weight: 300;font-style: normal;font-size: 12.0px;color: #444444;text-align: left;line-height: 14.0px;">
-                                                      <span>
-                                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Estimado(a) <strong>'.$this->input->post('nombre_paciente').'</strong> Su cuenta en el sistema de nutrición fue creada exitosamente, sus credenciales son: <br/>
-                                                      </span>    
-                                
-                                                </td>
-                                            </tr>
-                                        
-                                            <tr cellspacing="0" align="center" style="background-color: #ffffff;height: 53px;width: 651px;left: 0px;padding-top: 14px;">    
-                                                  <td>
-                                                    <span style="margin: 27px;background-color: #f5f5f5;padding: -33px;line-height: 54px;color: #444444;margin-top: 21px;margin-bottom: 18px;display: inline-block;width: 487px;text-align: center;font-family: Arial, Helvetica, Arial, serif;font-weight: 600;font-style: normal;font-size: 16px;height: 110px; ">Usuario: '.$this->input->post('rut').'<br> Clave: '.$six_digit_random_number.'</span>
-                                                      
-                                                  </td>
-                                            </tr>
-                                            <tr cellspacing="0" align="center" style="background-color: #ffffff;height: 53px;width: 651px;left: 0px;padding-top: 14px;">
-                                                <td align="center" colspan="2" style="height: 100px ">  
-                                                  <span align="center" style="font-family: Arial, Helvetica, Arial, serif;background-color: #ffffff;top: 25px;height: auto;margin: 0;left: 87px;font-weight: 400;font-style: normal;font-size: 11.0px;color: #898989;border-style: solid;border-width: 3px;border-color: #969696;padding-top: 13px;padding-right: 20px;padding-left: 30px;padding-bottom: 20px;">
-                                 
-                                                     
-                                                        Para ingresar al sistema haga click en el siguiente enlace: <a href="http://mard.cl/nutricion">http://mard.cl/nutricion </a> </span>
-                                                  </td>
-                                            </tr> 
-                                            
-                                        </table>
-                                        <br/><br/><br/><br/>
-                                    </body>
-                                    </html>');
+                                $this->email->message("Hola ".$this->input->post('nombre_paciente')."! Su clave para acceder a sus documentos útiles de nutrición es ".$six_digit_random_number);
                                 if($this->email->send()){
                                     $this->session->set_flashdata('css','success');
                                     $this->session->set_flashdata('mensaje','el registro se ha ingresado exitosamente');
@@ -153,8 +93,7 @@
         public function editar_paciente($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos=$this->datos_model->get_paciente_por_rut($id);
-            //print_R($datos);die;
-            if($datos==0){
+            if(sizeof($datos)==0){
                 redirect(base_url()."error404/");
             }
             if($this->session->userdata("id")){
@@ -238,7 +177,7 @@
         public function ficha_clinica($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos=$this->datos_model->get_paciente_por_rut($id);
-            if($datos==0){redirect(base_url()."error404/");}
+            if(sizeof($datos)==0){redirect(base_url()."error404/");}
             if ($this->session->userdata("id")&&($rut_paciente=$this->uri->segment(3))) {
                 $this->load->view('paciente/ficha_clinica',compact('rut_paciente'));
             }else{
@@ -313,7 +252,6 @@
         }
         public function listado_pacientes(){
             if($this->session->userdata("id")){
-                //print_r($this->session->userdata("id"));die;
                 $this->load->view("paciente/listado_pacientes");
             }else{
             redirect(base_url()."administrar/salir");
@@ -353,7 +291,7 @@
                         //file_put_contents($ruta, $fileData);
                         $this->session->set_flashdata('css','success');
                         $this->session->set_flashdata('mensaje','Gráfico almacenado correctamente');
-                        redirect(base_url()."paciente/documentos");
+                        redirect(base_url()."reporte/listado_pacientes");
                     }
                     else {
                         $this->load->view('reporte/informe_paciente',compact('datos_paciente'));

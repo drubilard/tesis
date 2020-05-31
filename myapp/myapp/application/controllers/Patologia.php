@@ -51,7 +51,7 @@
         public function asociar_patologia($id=null){
             if(!$id){redirect(base_url()."error404/");}
             $datos_paciente=$this->datos_model->get_paciente_por_rut($this->uri->segment(3));
-            if($datos_paciente==0){redirect(base_url()."error404/");}
+            if(sizeof($datos_paciente)==0){redirect(base_url()."error404/");}
             $patologias=$this->datos_model->all_patologias();
             $patologias_asociadas=$this->datos_model->patologias_asociadas($id);
             if($this->session->userdata("id")){

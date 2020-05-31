@@ -125,7 +125,7 @@
                 redirect(base_url()."administrar/salir");
             }
         }
-        public function recomendar_minuta($rut){
+        public function recomendar_minuta($rut=null){
             if($this->session->userdata("id")){
                 if(!$rut){redirect(base_url()."error404/");}
                 $datos_paciente=$this->datos_model->get_paciente_por_rut($rut);
