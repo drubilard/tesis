@@ -29,23 +29,19 @@ $("body").on("click",".paginacion li a",function(e){
 
 
 function mostrarDatos(rut_paciente,valorBuscar,pagina,cantidad){
-  path="http://mard.cl/nutricion/registrar/";
-//path="http://192.168.50.54/nutricion/registrar/";
+path="http://mard.cl/nutricion/";
 //path="http://localhost:8000/evaluacion/";
-//path="http://192.168.0.12/nutricion/registrar/";
-//path="http://10.145.149.41/nutricion/registrar/";
   $.ajax({
-  url : path+"mostrar_evaluaciones",
+  url : path+"evaluacion/mostrar_evaluaciones",
   type: 'POST',
   data: {rut:rut_paciente,buscar:valorBuscar,nropagina:pagina,cantidad:cantidad},
   dataType:"json",
   success:function(response){
+    breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='"+path+"paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
     filas = "";
     $.each(response.evaluaciones,function(key,item){
       //console.log(response.paciente);
-      filas+="<tr><td><center>"+item.fecha+"</td><center><td><center>"+item.estado+"</td><center></td><td><center><a class='btn btn-primary tabla btn-xs' href='/evaluacion/ver_evaluacion/"+item.idevaluacion_nutricional+"'"+"><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span></a>";
-      breadcrumb="<nav aria-label='breadcrumb'><ol class='breadcrumb'><li class='breadcrumb-item'><a href='/paciente/documentos'><strong>Documentos</strong></a></li><li class='breadcrumb-item' aria-current='page'>Consulta de evaluaciones</li></ol></nav> ";
-
+      filas+="<tr><td><center>"+item.fecha+"</td><center><td><center>"+item.estado+"</td><center></td><td><center><a class='btn btn-primary tabla btn-xs' href='"+path+"evaluacion/ver_evaluacion/"+item.idevaluacion_nutricional+"'"+"><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span></a>";
     });
 
     $("#body_evaluacion").html(filas);
